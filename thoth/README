@@ -1,0 +1,24 @@
+To Compile:
+==========
+edit 'env_setup' and configure CCNX_DIR and PROJ_DIR as needed.
+run 'make'
+
+Note: ant, make, javac need to be installed.
+
+
+Instructions:
+============
+Note: env_setup handles the env vars needed to get things working, better to just use the run* scripts directly.
+
+0) Make sure that ccnd is running on default (9695) port!
+1) Create a test file
+$ dd if=/dev/urandom of=testfile bs=512 count=1
+2) In one window, run the receiver node:
+ ./runReceiver ccnx:/test/1 outfile
+3) In another window, run the sender node:
+./runSender ccnx:/test/1 testfile
+
+Result:
+------
+outfile will get generated and be identical to testfile. 
+

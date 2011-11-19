@@ -1,0 +1,4 @@
+2011-11-19
+- Consolidate the sender/receiver code into a sender node file running multiple threads.
+- Allow nodes to store more than 1 file.
+- Introduce delays/disruption in the network to test protocol resilience.
