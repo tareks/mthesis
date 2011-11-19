@@ -113,8 +113,6 @@ public class DTSender {
 	Log.warning("We can serve: " + _connection.getContentName()
 		    + " based on " + file.getPath());
 
-
-
 	while (! stopListening) {
 	    numRetries++;
 

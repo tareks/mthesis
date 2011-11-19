@@ -97,7 +97,8 @@ public final class CCNComms {
 	try {
 	    // Versioned write to outStream (includes metadata)
 	    inStream = new CCNFileInputStream(_contentName, _connection);
-	    
+	    inStream.setTimeout(NETWORK_TIMEOUT);
+
 	    // Send an interest and write any results back to file
 	    while ((readLen = inStream.read(buffer)) != -1){
 		bytesRead +=readLen;
@@ -136,6 +137,8 @@ public final class CCNComms {
 	try {
 	    // Versioned write to outStream (includes metadata)
 	    outStream = new CCNFileOutputStream(_contentName, _connection);
+	    outStream.setTimeout(NETWORK_TIMEOUT);
+
 	    while ((readLen = inStream.read(buffer, 0, blksz)) != -1) {
 		outStream.write(buffer, 0, readLen);
 		bytesWritten+=readLen;
@@ -224,4 +227,5 @@ public final class CCNComms {
     
     // Contants
     private static int BLOCK_SIZE = 512;
+    private static int NETWORK_TIMEOUT = 10000; //ms
 }
