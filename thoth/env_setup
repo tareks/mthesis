@@ -1,5 +1,7 @@
-CCNX_DIR=/home/tarek/work/thesis/ccnx-0.4.1
-PROJ_DIR=/home/tarek/work/thesis/thoth
+#CCNX_DIR=/home/tarek/work/thesis/ccnx-0.4.1
+#PROJ_DIR=/home/tarek/work/thesis/thoth
+CCNX_DIR=$PWD
+PROJ_DIR=$PWD
 
 CCNX_CP=$CCNX_DIR/lib/*.jar
 CCNX_CP=`echo $CCNX_CP | sed 's/ /:/g'`
