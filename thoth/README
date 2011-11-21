@@ -1,6 +1,6 @@
 To Compile:
 ==========
-edit 'env_setup' and configure CCNX_DIR and PROJ_DIR as needed.
+edit 'env_setup' and configure CCNX_DIR and PROJ_DIR if needed to specify where CCNx libs live.
 run 'make'
 
 Note: ant, make, javac need to be installed.
@@ -14,9 +14,9 @@ Note: env_setup handles the env vars needed to get things working, better to jus
 1) Create a test file
 $ dd if=/dev/urandom of=testfile bs=512 count=1
 2) In one window, run the receiver node:
- ./runReceiver ccnx:/test/1 outfile
+ ./runReceiver.sh ccnx:/test/1 outfile
 3) In another window, run the sender node:
-./runSender ccnx:/test/1 testfile
+./runSender.sh ccnx:/test/1 testfile
 
 Result:
 ------
