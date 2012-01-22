@@ -17,18 +17,25 @@ import java.io.OutputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 
+import org.ccnx.ccn.CCNFilterListener;
+import org.ccnx.ccn.CCNInterestListener;
 import org.ccnx.ccn.CCNHandle;
 import org.ccnx.ccn.config.ConfigurationException;
 import org.ccnx.ccn.impl.support.Log;
 import org.ccnx.ccn.impl.CCNNetworkManager;
 import org.ccnx.ccn.protocol.ContentName;
 import org.ccnx.ccn.protocol.KeyLocator;
+import org.ccnx.ccn.protocol.ContentObject;
+import org.ccnx.ccn.protocol.Exclude;
+import org.ccnx.ccn.protocol.ExcludeComponent;
+import org.ccnx.ccn.protocol.Interest;
 import org.ccnx.ccn.protocol.MalformedContentNameStringException;
 import org.ccnx.ccn.protocol.PublisherPublicKeyDigest;
 import org.ccnx.ccn.io.CCNFileOutputStream;
 import org.ccnx.ccn.io.CCNFileInputStream;
 import org.ccnx.ccn.io.CCNOutputStream;
 import org.ccnx.ccn.io.CCNInputStream;
+
 
 /*
  * HOWTO:
@@ -44,10 +51,45 @@ import org.ccnx.ccn.io.CCNInputStream;
  */
 public final class CCNComms {
 
+    /* 
+     * This class provides the callback for the receiver waiting for 
+     * responses to Interest packets.
+     */
+    class ReceiverListener implements CCNInterestListener {
+
+	public Interest handleContent(ContentObject co,
+				      Interest interest) {
+
+	    Log.warning("Received response for our Interest: " + interest.toString());
+	    // call _connection.get() on co?
+	    return null;
+	}
+    }
+
+    /* 
+     * This class provides the callback for the sender waiting for 
+     * Interest packets.
+     */
+    class SenderListener implements CCNFilterListener {
+
+	public boolean handleInterest(Interest interest) {
+	 
+	    Log.warning("Sender got an interest: " + interest.toString());
+	    // Send a response!! - ie. requested data if available
+	    // Construct a CO and call _connection.put() 
+	    return true;
+	}
+
+    }
+
     // Constructors 
     public CCNComms(String resourceURI) throws MalformedContentNameStringException {
 	//_rsURI = uri; // unnecessary?
 	_contentName = ContentName.fromURI(resourceURI);
+	
+	// Don't use CCN*streams by default
+	nodeNetMode = NodeNetworkMode.NODE_USES_MANUAL_REQUESTS;
+	//nodeNetMode = NodeNetworkMode.NODE_USES_CCNX_STREAMS;
     }
     
     // Public Methods
@@ -76,6 +118,60 @@ public final class CCNComms {
 	Log.warning("Disconnected."); 
     }
 
+    /* 
+     * Creates and sends one interest packet on behalf of a receiver node.
+     *
+     */
+    public void sendInterest() {
+	
+	Interest i = new Interest(_contentName);
+	ReceiverListener receiverCallback = new ReceiverListener();
+	
+	try {
+	    if (! i.validate()) {
+		Log.warning("Error with Interest generation!");
+		throw new Exception();
+	    }
+	     
+	     Log.warning("Interest text: " + i.toString());
+
+	     _connection.expressInterest(i, receiverCallback);
+	     //	     _connection.cancelInterest(i, receiverCallback);
+		     
+	}
+	
+	catch (Exception e) {
+	    // Something went wrong
+	    Log.warning("Exception: "+ e.getMessage());
+	}
+	
+    }
+
+    /* 
+     * Register a listener for interests and handle them if we get any.
+     */
+    public void handleInterests() {
+	Interest i = new Interest(_contentName);
+	SenderListener senderCallback = new SenderListener();
+	
+	try {
+	    _networkManager.setInterestFilter(this, _contentName, senderCallback);	}
+	
+	catch (Exception e) {
+	    // Something went wrong
+	    Log.warning("Exception: "+ e.getMessage());
+	}
+
+    }
+
+    
+    public NodeNetworkMode getNetworkMode() {
+	return nodeNetMode;
+    }
+    
+    public void setNetworkMode(NodeNetworkMode mode) {
+	nodeNetMode = mode;
+    }
 
     /* 
      * Attempts to read requested data from the CCN network and write
@@ -224,8 +320,15 @@ public final class CCNComms {
     private final ContentName _contentName;
     private CCNHandle _connection;
     private CCNNetworkManager _networkManager;
-    
+    private NodeNetworkMode nodeNetMode;
+
     // Contants
     private static int BLOCK_SIZE = 512;
-    private static int NETWORK_TIMEOUT = 10000; //ms
+    private static int NETWORK_TIMEOUT = 10000; //ms OR SystemConfiguration.getDefaultTimeout(); ?
+
+    public enum NodeNetworkMode { 
+	NODE_USES_CCNX_STREAMS, // Use CCN*Streams
+	NODE_USES_MANUAL_REQUESTS; // Manual Interest and Content handling
+    }
+    
 }

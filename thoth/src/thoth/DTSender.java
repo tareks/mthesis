@@ -22,6 +22,7 @@ import org.ccnx.ccn.protocol.MalformedContentNameStringException;
 import org.ccnx.ccn.impl.support.Log;
 
 import thoth.CCNComms;
+import thoth.CCNComms.NodeNetworkMode;
 
 public class DTSender {
 
@@ -91,7 +92,14 @@ public class DTSender {
 	 * the data out if we can satisfy it.
 	 *
 	 */
-	listen(inFile);
+	if (_connection.getNetworkMode() == NodeNetworkMode.NODE_USES_CCNX_STREAMS) {
+	    Log.warning("Network Mode set to use ++ CCNX STREAMS ++");
+	    listenWithStreams(inFile);
+	}
+	else {
+	    Log.warning("Network Mode set to ++ MANUAL ++");
+	    listen(inFile);
+	}
 	
 	_connection.closeConnection();
     }
@@ -105,7 +113,7 @@ public class DTSender {
      * while !EOF, use _channel to publish the data over CCN
      * close file
      */
-    private void listen(File file) throws IOException, InterruptedException {
+    private void listenWithStreams(File file) throws IOException, InterruptedException {
 	boolean stopListening = false;
 
 	long bytesSent=0;
@@ -150,12 +158,58 @@ public class DTSender {
 	
     }
 
-    /* Sends raw data (not necessarily a whole file) onto the CCN network 
-     * Have to synchronize data on both sender/receiver manually then.
+    /* 
+     * 
+     * Manual listening for Interests and handling.
+     *
      */
-    //private void sendData() throws IOException {
-    //}
- 
+    private void listen(File file) throws IOException, InterruptedException {
+	boolean stopListening = false;
+
+	long bytesSent = -1;
+
+	Log.warning("We can serve: " + _connection.getContentName()
+		    + " based on " + file.getPath());
+
+	inStream = new FileInputStream(file);
+
+	while (! stopListening) {
+	    numRetries++;
+
+	    Log.warning("Listening for requests.. | Attempt #: " + numRetries); 
+
+	    // Should this be blocking?
+	    _connection.handleInterests();
+	    //bytesSent = getRequestedData();
+	    
+	    if (bytesSent < 0) {
+		Log.warning("Timed out - No requests received.");
+	    } else {
+		Log.warning("File (" + file.getPath() + ") sent successfully! "
+			    + bytesSent + " bytes sent.");
+		break;
+	    }
+	    
+
+	    // We retry here because CCNx stack will timeout and we can't 
+	    // overwrite that without implementing our own FlowController?
+	    // Otherwise, we just listen indefintely until the Interest
+	    // we are waiting for is received.
+	    if (numRetries >= MAX_SEND_RETRIES) {
+		Log.warning("Exhausted attempts to send, giving up.");
+		break;
+	    }
+	    
+	    Log.warning("Retrying in "  + (retryInterval / MSEC_PER_SEC) 
+			+ " seconds..");
+
+	    // Wait before retrying
+	    Thread.sleep(retryInterval);	    
+	}
+
+	inStream.close();
+    }
+
     // Internal Variables
     private final CCNComms _connection;
     private int numRetries = 0;

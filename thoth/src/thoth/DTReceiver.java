@@ -21,6 +21,7 @@ import org.ccnx.ccn.protocol.MalformedContentNameStringException;
 import org.ccnx.ccn.impl.support.Log;
 
 import thoth.CCNComms;
+import thoth.CCNComms.NodeNetworkMode;
 
 public class DTReceiver {
 
@@ -31,7 +32,6 @@ public class DTReceiver {
     }
     
     // Public Methods
-    
     public static void main(String[] args) {
 	if (args.length != 2) {
 	    usage();
@@ -84,9 +84,18 @@ public class DTReceiver {
 	Log.warning("Requesting: " + _connection.getContentName());
 
 	/* 
-	 * Request file from the network until we get it.
+	 * Request file from the network.
+	 * If operation mode is set to use Streams, CCNX does all the work.
+	 * Otherwise, we do things manually.
 	 */
-	requestFile(outFile);
+	if (_connection.getNetworkMode() == NodeNetworkMode.NODE_USES_CCNX_STREAMS) {
+	    Log.warning("Network Mode set to use ++ CCNX STREAMS ++");
+	    requestFileWithStreams(outFile);
+	}
+	else {
+	    Log.warning("Network Mode set to ++ MANUAL ++");
+	    requestFile(outFile);
+	}
 	
 	_connection.closeConnection();
     }
@@ -95,13 +104,11 @@ public class DTReceiver {
     /* 
      * Continously triggers Interest requests to get a specific file.
      *
-     *
+     * This method uses CCN*Streams.
      */
-    private void requestFile(File file) throws IOException, InterruptedException {
+    private void requestFileWithStreams(File file) throws IOException, InterruptedException {
 	boolean receivedFile = false;
 	long bytesReceived = 0;
-
-
 
 	while (! receivedFile) {
 	    numRetries++;
@@ -135,8 +142,56 @@ public class DTReceiver {
 	    // Wait before retrying
 	    Thread.sleep(retryInterval);	    
 	}
-	
+    }
 
+    /* 
+     * Continously triggers Interest requests to get a specific file.
+     *
+     * This method does not use CCN*Streams. The following steps are taken:
+     * 1. Create an Interest based on the ContentName. 
+     * 2. Enumerate? 
+     * 3. Send Interest over the network
+     * 4. Handle Response?
+     * 5. Request Data (in segments?)
+     * 6. Verify Data? 
+     */
+    private void requestFile(File file) throws IOException, InterruptedException {
+	boolean receivedFile = false;
+	long bytesReceived = -1;
+
+	outStream = new FileOutputStream(file);
+	
+	while (! receivedFile) {
+	    numRetries++;
+
+	    Log.warning("Requesting " + _connection.getContentName()  
+			+ " | Attempt #: " + numRetries); 
+
+	    _connection.sendInterest(); // create and send interest
+	    //bytesReceived = _connection.getData();
+	    
+	    if (bytesReceived < 0) {
+		Log.warning("File was NOT received.");
+	    } else {
+		Log.warning("File (" + file.getPath() 
+			    + ") received successfully! " + bytesReceived 
+			    + " bytes received.");
+		break;
+	    }
+
+	    if (numRetries >= MAX_RECEIVE_RETRIES) {
+		Log.warning("Exhausted attempts to get file, giving up.");
+		break;
+	    }
+	    
+	    Log.warning("Retrying in "  + (retryInterval / MSEC_PER_SEC) 
+			+ " seconds..");
+
+	    // Wait before retrying
+	    Thread.sleep(retryInterval);	    
+	}
+	
+	outStream.close();
     }
 
     // Internal Variables
@@ -146,7 +201,6 @@ public class DTReceiver {
     private File outFile;
     private OutputStream outStream;
 
-	    
     private static final short MSEC_PER_SEC = 1000;
-    private static final short MAX_RECEIVE_RETRIES = 5;
+    private static final short MAX_RECEIVE_RETRIES = 1;
 }
