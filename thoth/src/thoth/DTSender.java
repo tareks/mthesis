@@ -84,8 +84,8 @@ public class DTSender {
 	
 	_connection.createConnection();
 	
-	Log.warning("Our public key is: " + _connection.getMyPublicKey());
-	Log.warning("Our public key fingerprint is: " + _connection.getMyPublicKeyShort());
+	Log.warning("Our public key is: " + _connection.getMyPublicKeyString());
+	Log.warning("Our public key fingerprint is: " + _connection.getMyPublicKeyShortString());
 
 	/* 
 	 * All we do is listen for Interest packets on our face(s) and send
@@ -149,11 +149,11 @@ public class DTSender {
 		break;
 	    }
 	    
-	    Log.warning("Retrying in "  + (retryInterval / MSEC_PER_SEC) 
+	    Log.warning("Retrying in "  + (retryTimeout / MSEC_PER_SEC) 
 			+ " seconds..");
 
 	    // Wait before retrying
-	    Thread.sleep(retryInterval);	    
+	    Thread.sleep(retryTimeout);	    
 	}
 	
     }
@@ -200,11 +200,11 @@ public class DTSender {
 		break;
 	    }
 	    
-	    Log.warning("Retrying in "  + (retryInterval / MSEC_PER_SEC) 
+	    Log.warning("Retrying in "  + (retryTimeout / MSEC_PER_SEC) 
 			+ " seconds..");
 
 	    // Wait before retrying
-	    Thread.sleep(retryInterval);	    
+	    Thread.sleep(retryTimeout);	    
 	}
 
 	inStream.close();
@@ -213,7 +213,7 @@ public class DTSender {
     // Internal Variables
     private final CCNComms _connection;
     private int numRetries = 0;
-    private final short retryInterval = 5000; // 5 seconds (in msec)?
+    private final short retryTimeout = 5000; // 5 seconds (in msec)?
     private File inFile;
     private InputStream inStream;
 

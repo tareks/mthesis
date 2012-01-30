@@ -15,7 +15,10 @@ package thoth;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
 
 import org.ccnx.ccn.CCNFilterListener;
 import org.ccnx.ccn.CCNInterestListener;
@@ -35,7 +38,6 @@ import org.ccnx.ccn.io.CCNFileOutputStream;
 import org.ccnx.ccn.io.CCNFileInputStream;
 import org.ccnx.ccn.io.CCNOutputStream;
 import org.ccnx.ccn.io.CCNInputStream;
-
 
 /*
  * HOWTO:
@@ -59,9 +61,11 @@ public final class CCNComms {
 
 	public Interest handleContent(ContentObject co,
 				      Interest interest) {
-
-	    Log.warning("Received response for our Interest: " + interest.toString());
-	    // call _connection.get() on co?
+	    Log.warning("Received data response for Interest: " + interest.toString());
+	    _receiverGotData = true;
+	    contentData = co;
+	    filterSema.release();
+	    
 	    return null;
 	}
     }
@@ -71,41 +75,47 @@ public final class CCNComms {
      * Interest packets.
      */
     class SenderListener implements CCNFilterListener {
-
+	
 	public boolean handleInterest(Interest interest) {
-	 
-	    Log.warning("Sender got an interest: " + interest.toString());
-	    // Send a response!! - ie. requested data if available
-	    // Construct a CO and call _connection.put() 
+	    
+	    Log.warning("Received an interest: " + interest.toString());
+	    
+	    _senderGotInterest = true;
+	    filterSema.release();
+
 	    return true;
 	}
-
+	
     }
-
+    
     // Constructors 
     public CCNComms(String resourceURI) throws MalformedContentNameStringException {
-	//_rsURI = uri; // unnecessary?
+	_ccnURI = resourceURI;
 	_contentName = ContentName.fromURI(resourceURI);
 	
 	// Don't use CCN*streams by default
 	nodeNetMode = NodeNetworkMode.NODE_USES_MANUAL_REQUESTS;
 	//nodeNetMode = NodeNetworkMode.NODE_USES_CCNX_STREAMS;
+
+	_rcvrListener = new ReceiverListener();
+	_sndrListener = new SenderListener();
+
+	filterSema = new Semaphore(0);
+
+	_dataObjects = new ArrayList<ContentObject>();
     }
     
-    // Public Methods
-    // TODO: can probably overload this to specify URI
     public void createConnection() throws ConfigurationException, IOException {
 	Log.warning("Connecting to CCN network..."); 
-
+	
 	_connection = CCNHandle.open();
-	// get CCNNetworkManager reference
 	_networkManager = _connection.getNetworkManager();
 	
 	Log.warning("Connected to " + getCCNDPublicKey() + " over " + getIPProto() + "."); 
 	
     }
     
-    public void closeConnection() { // throws something?
+    public void closeConnection() { 
 	Log.warning("Killing network connection ..."); 
 	try {
 	    _networkManager.shutdown();
@@ -120,24 +130,26 @@ public final class CCNComms {
 
     /* 
      * Creates and sends one interest packet on behalf of a receiver node.
-     *
      */
-    public void sendInterest() {
-	
+    public ContentObject sendRequest() {
 	Interest i = new Interest(_contentName);
-	ReceiverListener receiverCallback = new ReceiverListener();
-	
+
+	_receiverGotData = false;
 	try {
 	    if (! i.validate()) {
-		Log.warning("Error with Interest generation!");
+		Log.warning("Error in Interest creation!");
 		throw new Exception();
 	    }
-	     
 	     Log.warning("Interest text: " + i.toString());
 
-	     _connection.expressInterest(i, receiverCallback);
-	     //	     _connection.cancelInterest(i, receiverCallback);
-		     
+	     _connection.expressInterest(i, _rcvrListener);
+	     filterSema.tryAcquire(SEMA_TIMEOUT, TimeUnit.MILLISECONDS);
+
+	     // cancel before 2000ms so that we  control re-expression
+	     _connection.cancelInterest(i, _rcvrListener);
+	     if (_receiverGotData) {
+		 return contentData;
+	     } 
 	}
 	
 	catch (Exception e) {
@@ -145,18 +157,37 @@ public final class CCNComms {
 	    Log.warning("Exception: "+ e.getMessage());
 	}
 	
+	return null;
     }
+
 
     /* 
      * Register a listener for interests and handle them if we get any.
      */
     public void handleInterests() {
 	Interest i = new Interest(_contentName);
-	SenderListener senderCallback = new SenderListener();
 	
+	_senderGotInterest = false;
 	try {
-	    _networkManager.setInterestFilter(this, _contentName, senderCallback);	}
-	
+	    _networkManager.setInterestFilter(this, _contentName, _sndrListener);
+
+	    // Keep waiting for an interest 
+	    while (! _senderGotInterest) {
+		Log.warning("Listening for interests..");
+		filterSema.tryAcquire(SEMA_TIMEOUT, TimeUnit.MILLISECONDS);
+	    }
+	    
+	    _networkManager.cancelInterestFilter(this, _contentName, _sndrListener);
+	    Log.warning("Checking if we have a CO to match this interest..");
+	    for (ContentObject co : _dataObjects) {
+		if (i.matches(co)) {
+		    Log.warning("Found match! Writing CO to network..");
+		    _networkManager.put(co);
+		} else
+		    Log.warning("Found no match. Ignoring interest.");
+	    }
+	}
+
 	catch (Exception e) {
 	    // Something went wrong
 	    Log.warning("Exception: "+ e.getMessage());
@@ -164,7 +195,6 @@ public final class CCNComms {
 
     }
 
-    
     public NodeNetworkMode getNetworkMode() {
 	return nodeNetMode;
     }
@@ -251,6 +281,10 @@ public final class CCNComms {
 	
 	return bytesWritten;
     }
+
+    public void registerObjects(ArrayList<ContentObject> dataObjects) {
+	_dataObjects = dataObjects;
+    }
     
     /* getHandle() doesn't really return existing handle - exception should take care of this? 
     public boolean isConnected() {
@@ -268,7 +302,13 @@ public final class CCNComms {
 	return _contentName.toString();
     }
 
-    public String getMyPublicKey() {
+    public PublisherPublicKeyDigest getMyPublicKey() {
+	PublisherPublicKeyDigest keyDigest = _connection.getDefaultPublisher();
+	
+	return keyDigest;
+    }
+
+    public String getMyPublicKeyString() {
 	PublisherPublicKeyDigest keyDigest = _connection.getDefaultPublisher();
 	
 	if ( keyDigest.validate() ) 
@@ -277,7 +317,7 @@ public final class CCNComms {
 	    return ""; // FIXME
     }
 
-    public String getMyPublicKeyShort() {
+    public String getMyPublicKeyShortString() {
 	PublisherPublicKeyDigest keyDigest = _connection.getDefaultPublisher();
 	
 	if ( keyDigest.validate() ) 
@@ -316,19 +356,32 @@ public final class CCNComms {
 
 
     // Variables
-    //private String _rsURI;
+    private String _ccnURI;
     private final ContentName _contentName;
+    private ContentObject contentData;
     private CCNHandle _connection;
     private CCNNetworkManager _networkManager;
     private NodeNetworkMode nodeNetMode;
+    	    
+    private boolean _senderGotInterest = false;
+    private boolean _receiverGotData = false;
+
+    private SenderListener _sndrListener;
+    private ReceiverListener _rcvrListener;
+
+    private Semaphore filterSema;
+
+    private ArrayList<ContentObject> _dataObjects = null;
 
     // Contants
     private static int BLOCK_SIZE = 512;
     private static int NETWORK_TIMEOUT = 10000; //ms OR SystemConfiguration.getDefaultTimeout(); ?
-
+    private static int LISTEN_TIMEOUT = 5000; //ms OR SystemConfiguration.getDefaultTimeout(); ?
+    protected static final int SEMA_TIMEOUT = 2000; // if this is too big, ccnd will resend interests before they expire - expressInterest() will re-express Interests every 2000ms until cancelled.
+    
     public enum NodeNetworkMode { 
 	NODE_USES_CCNX_STREAMS, // Use CCN*Streams
 	NODE_USES_MANUAL_REQUESTS; // Manual Interest and Content handling
     }
-    
+
 }

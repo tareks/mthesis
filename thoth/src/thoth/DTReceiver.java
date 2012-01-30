@@ -79,8 +79,8 @@ public class DTReceiver {
 	
 	_connection.createConnection();
 	
-	Log.warning("Our public key is: " + _connection.getMyPublicKey());
-	Log.warning("Our public key fingerprint is: " + _connection.getMyPublicKeyShort());
+	Log.warning("Our public key is: " + _connection.getMyPublicKeyString());
+	Log.warning("Our public key fingerprint is: " + _connection.getMyPublicKeyShortString());
 	Log.warning("Requesting: " + _connection.getContentName());
 
 	/* 
@@ -167,7 +167,7 @@ public class DTReceiver {
 	    Log.warning("Requesting " + _connection.getContentName()  
 			+ " | Attempt #: " + numRetries); 
 
-	    _connection.sendInterest(); // create and send interest
+	    _connection.sendRequest(); // create and send interest
 	    //bytesReceived = _connection.getData();
 	    
 	    if (bytesReceived < 0) {
