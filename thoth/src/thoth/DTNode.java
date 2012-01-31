@@ -83,9 +83,9 @@ public class DTNode {
 
     protected void handleRequests() {
 	Interest i = null;
-
-	i = _connection.handleInterests();
-	
+	while (true) {
+	    i = _connection.handleInterests();
+	    
 	if (i != null) {
 	    Log.warning("Checking if we have a CO to match this interest..");
 	    
@@ -97,26 +97,35 @@ public class DTNode {
 		    Log.warning("Found no match. Ignoring interest.");
 	    }
 	}
+	}
     }
 
-    private void createContentObject() {
+    private void createContentObjects() {
 	ContentName name, baseName; 
 	ContentObject co;
-	byte[] data = new byte[512];
 	
 	try {
 	    baseName = ContentName.fromURI(_ccnURI);// + (new CCNTime()).toShortString());
 	    name = SegmentationProfile.segmentName(VersioningProfile.addVersion(baseName, new CCNTime()), 0);
 	    Log.warning("Creating CO with name: " + name);
-	    inStream = new FileInputStream(_file);
-	    inStream.read(data);
+
+	    long length = _file.length();
+
+	    if (length > Integer.MAX_VALUE) {
+		Log.warning("File is too big, skipping..");
+		return;
+	    }
 	    
+	    inStream = new FileInputStream(_file);
+	    byte[] data = new byte[(int) length];
+	    inStream.read(data);
+	    inStream.close();
+
 	    co = ContentObject.buildContentObject(name, data);
 	    //, new SignedInfo(_connection.getMyPublicKey(), new KeyLocator(name)), data, (int) _file.length());
 	    
 	    _dataObjects.add(co);
 
-	    inStream.close();
 	    Log.warning("Created CO: " + co.toString());
 	}
 
