@@ -22,6 +22,7 @@ import org.ccnx.ccn.profiles.SegmentationProfile;
 import org.ccnx.ccn.profiles.VersioningProfile;
 import org.ccnx.ccn.protocol.ContentName;
 import org.ccnx.ccn.protocol.ContentObject;
+import org.ccnx.ccn.protocol.Interest;
 import org.ccnx.ccn.protocol.CCNTime;
 import org.ccnx.ccn.protocol.MalformedContentNameStringException;
 import org.ccnx.ccn.protocol.KeyLocator;
@@ -35,7 +36,7 @@ public class DTNode {
     
     protected DTNode() {
 	_debug = false;
-	dataObjects = new ArrayList<ContentObject>();
+	_dataObjects = new ArrayList<ContentObject>();
     }
     
     /*  
@@ -81,12 +82,21 @@ public class DTNode {
     }
 
     protected void handleRequests() {
+	Interest i = null;
 
-	_connection.handleInterests();
-
-	// Send a response!! - ie. requested data if available
-	// Construct a CO asnd call _connection.put() 
-	//	_connection.writeFileToNetwork();
+	i = _connection.handleInterests();
+	
+	if (i != null) {
+	    Log.warning("Checking if we have a CO to match this interest..");
+	    
+	    for (ContentObject co : _dataObjects) {
+		if (i.matches(co)) {
+		    Log.warning("Found match! Writing CO to network..");
+		    _connection.sendObject(co);
+		} else
+		    Log.warning("Found no match. Ignoring interest.");
+	    }
+	}
     }
 
     private void createContentObject() {
@@ -100,11 +110,11 @@ public class DTNode {
 	    Log.warning("Creating CO with name: " + name);
 	    inStream = new FileInputStream(_file);
 	    inStream.read(data);
-    
+	    
 	    co = ContentObject.buildContentObject(name, data);
 	    //, new SignedInfo(_connection.getMyPublicKey(), new KeyLocator(name)), data, (int) _file.length());
 	    
-	    dataObjects.add(co);
+	    _dataObjects.add(co);
 
 	    inStream.close();
 	    Log.warning("Created CO: " + co.toString());
@@ -137,8 +147,7 @@ public class DTNode {
 	switch (_mode) {
 	case Sender:
 	    Log.warning("NODE is in SENDER MODE");
-	    createContentObject();
-	    _connection.registerObjects(dataObjects);
+	    createContentObjects();
 	    handleRequests();
 	    break;
 	case Receiver:
@@ -238,7 +247,7 @@ public class DTNode {
     private NodeMode _mode;
     private boolean _debug;
     
-    private ArrayList<ContentObject> dataObjects = null;
+    private ArrayList<ContentObject> _dataObjects = null;
 
     // Constants
     private static final short MSEC_PER_SEC = 1000;

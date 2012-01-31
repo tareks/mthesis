@@ -4,10 +4,6 @@
  *     This file provides the CCN communication support for opportunistic 
  *     nodes in a delay tolerant environment/network.
  *
- * 
- *
- *
- *
  */
 
 package thoth;
@@ -15,7 +11,6 @@ package thoth;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
@@ -102,7 +97,6 @@ public final class CCNComms {
 
 	filterSema = new Semaphore(0);
 
-	_dataObjects = new ArrayList<ContentObject>();
     }
     
     public void createConnection() throws ConfigurationException, IOException {
@@ -164,7 +158,7 @@ public final class CCNComms {
     /* 
      * Register a listener for interests and handle them if we get any.
      */
-    public void handleInterests() {
+    public Interest handleInterests() {
 	Interest i = new Interest(_contentName);
 	
 	_senderGotInterest = false;
@@ -178,21 +172,26 @@ public final class CCNComms {
 	    }
 	    
 	    _networkManager.cancelInterestFilter(this, _contentName, _sndrListener);
-	    Log.warning("Checking if we have a CO to match this interest..");
-	    for (ContentObject co : _dataObjects) {
-		if (i.matches(co)) {
-		    Log.warning("Found match! Writing CO to network..");
-		    _networkManager.put(co);
-		} else
-		    Log.warning("Found no match. Ignoring interest.");
-	    }
+	    return i;
 	}
-
+	
 	catch (Exception e) {
 	    // Something went wrong
 	    Log.warning("Exception: "+ e.getMessage());
 	}
 
+	return null;
+    }
+    
+    public void sendObject(ContentObject co) {
+	
+	try {
+	    _networkManager.put(co);
+	}
+
+	catch (Exception e) {
+	    Log.warning("Error sending ContentObject.");
+	}
     }
 
     public NodeNetworkMode getNetworkMode() {
@@ -282,10 +281,6 @@ public final class CCNComms {
 	return bytesWritten;
     }
 
-    public void registerObjects(ArrayList<ContentObject> dataObjects) {
-	_dataObjects = dataObjects;
-    }
-    
     /* getHandle() doesn't really return existing handle - exception should take care of this? 
     public boolean isConnected() {
 	if (_connection == _connection.getHandle()) {
@@ -370,8 +365,6 @@ public final class CCNComms {
     private ReceiverListener _rcvrListener;
 
     private Semaphore filterSema;
-
-    private ArrayList<ContentObject> _dataObjects = null;
 
     // Contants
     private static int BLOCK_SIZE = 512;
