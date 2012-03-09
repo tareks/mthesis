@@ -1,0 +1,92 @@
+2011/11/12
+
+Based on ccnChat (ccnChatNet.java),
+
+1) Create a CCNHandle with CCNHandle.getHandle(), then open with CCNHandle.open()
+2) Create a CCNStringObject() using the ccnx namespace/uri 
+3) use the CCNStringObject to get the public key digest of the publisher - obj.getContentPublisher(). 
+4) Can use KeyProfile.keyName(namespace, publickey) to generate a SHA-256 digest of the namespace + public key digest in format /something/digest-of-public-key
+
+
+When reading data off the network:
+1) look at contentPublisher() for the public key digest
+2) create a content name using namespace + key digest
+
+every username/node has a local keystore (in ~/.ccnx/.ccnx_keystore) for private and public keys which are used for checks during get and put operations.
+
+next:
+- write 2 apps which will a) put/send a file b) get/receive a file - apps don't quit until file is retrieved (ie. go into a sleep loop after timeout and retry)
+- generalize node code so that they can both send and receive - ie. communicate? be a generic node with 2 threads listening and requesting data
+- introduce a "relay" node that will create a channel for communication between the 2 disconnected nodes
+- introduce some delay/disruption between nodes and fix interval sync
+
+20111114:
+
+Started working on the 2 apps to send and receive file.
+Description:
+The communication channel is going to be a CCN, so it is the responsibility of the end nodes to ensure that the file has been received successfully.
+
+Assumptions:
+- A small file that we can assume can be published as a whole, received in 1 go without interruption, and can be cached by the relay. Disconnections or incomplete transfers will require a full re-transmission of the file.
+- DTReceiver knows the ccn URI.
+- There is no synchronization between the nodes. ie. not necessary to receive the data within 1 timeout period
+
+Design:
+DTSender listens on the network for Interests under a certain ccnx URI. DTReceiver requests the ccnx URI to receive that file. Sender will respond to Interest requests accordingly and send the file. Since CCN is receiver driven, receiver is responsbile for continously requesting until the file is received.
+Receiver will maintain constant retryInterval and timeout periods
+Sender will listen continously and respond to valid Interests that can be satisfied.
+
+Questions:
+- Will it be necessary to perform checksums on receiver end to make sure that the entire file was received?
+- Can a large file be sent as 1 chunk of data? What if it cant? Is there a resume capability inherent in CCN? If not, how do we handle it?
+- When does the sender stop sending? Does the receiver need to send some ACK? If one transmission is successful, sender can assume that the data has been cached, but are there any guarantees for this? Is there a backchannel for communication between a requester of the data if it is not cached? 
++ No, sender only reacts to interests. If data is not cached, interest will propagate through the network and eventually the sender will receive and publish it.
+- Is caching a mechanism to ensure that the data is available even though the sender might not be "connected" or is it just to speed up Interest fulfillment throughout a larger network?
+- Should we be using CCNFlowControl, CCNNetworkManager or directly using CCNHandle to issues and handle interests?
+- What is versioning for CCNOutputStream? 
+- How do we know when to stop sending the file? or when do we send the file at all? Do we need to wait for an interest first or keep publishing as much as we can? Maybe handle both? Will CCNFlowControl already do this for us?
++ Protocol states that if we receive a valid Interest that we can satisfy, we send - otherwise listen.
+- How can receiver that the data received is valid - what was requested?
++ Assume unique addressing scheme (out of scope) and check signatures that are signed through some trusted CA?
+
+2012-01-19
+Upon app/client registration, 
+-- ACCEPT CLIENT ID 10 --
+** CCND receives interest from client **
+1) interest_from 10 ccnx:/%C1.M.S.localhost/%C1.M.SRV/ccnd/KEY (51 bytes,scope=1)
+version: 20090701, prefix_comps: 4, min_suffix_comps: 0, max_suffix_comps: 32767, orderpref: 0, answerfrom: 3, scope: 1, lifetime: 4.0000, excl: 0 bytes, etc: 0 bytes
+
+** Propagate interest to face 0 **
+interest_to 0 ccnx:/%C1.M.S.localhost/%C1.M.SRV/ccnd/KEY (67 bytes,scope=1) EA06FF-0A5A-0006-6F94-3111C9
+
+** CCND receives interest from client **
+2) interest_from 10 ccnx:/%C1.M.S.localhost/%C1.M.SRV/ccnd/KEY/%C1.M.K%00%EA%06%FF%82-%27%9A9R%97Y%CA%A8%2B%1C%0D%06%AE%8Fja%E7%E82%C6%28%5CI%E4%88%0Cs/%FD%04%F1%85%8B%D7y (108 bytes)
+version: 20090701, prefix_comps: 6, min_suffix_comps: 1, max_suffix_comps: 3, orderpref: 0, answerfrom: 3, scope: -1, lifetime: 4.0000, excl: 0 bytes, etc: 0 bytes
+
+** CCND receives interest from client **
+3) interest_from 10 ccnx:/ccnx/%EA%06%FF%82-%27%9A9R%97Y%CA%A8%2B%1C%0D%06%AE%8Fja%E7%E82%C6%28%5CI%E4%88%0Cs/selfreg/%04%82%02%AA%03%B2%08%85%1B%FFn%BB%B2%22%20%8E%9F%C3Z%2F%BC%B9%1B%CB%F9F%1F%F5Zy%C8%07%2F%F4%C9X%3ExB%12%BDi%C6%B2%91%00%85%EC%B6%C7%E2.7%2A%9B%0F%06%E9%C7D0%07%F1tNv%B6%0E%BAu%A9%09%C1%A2%17%1ChqP%3D-%98%EC%BD%A2%C9%7F%C1%7C%88%94%28%C9%D4%98W%D2%01.%ACUg%E9%84%BD%DE3%D3%AA%CD%07%A9%B2%826%D0%03%FC%A16%3E%FFk%06%A6%3C%2C%85%EAG5%25%93%26%87%B1%00%00%F2%00%01%A2%03%E2%02%85%E8%98%9E%9E%118%F4%02on%B1%BE%1Dk%07%D0H%21%DF%13%E5%8B%2C%BAI0%D7%0A%BBus%A9%00%02%BA%B5%04%F1%85%9D%9B%89%00%01%E2%01%DA%0A%950%81%9F0%0D%06%09%2A%86H%86%F7%0D%01%01%01%05%00%03%81%8D%000%81%89%02%81%81%00%CF%F5%3B%DF%E99s%A8%81%F7S%C0%24%BCw%0D%92%82l%89ZZ9%EB%8Dk%A7t%5C%D8%E6%CE%A9%D8%FFJ%8B%FB%CA%EB%A8%1D%3C%C8%92%F3%11%21%A2%5CBL%FBv%FF%D7%C3%E0%D8%1Bkj.%F9u%DB%A7%8FR%BA%E6%8D%E3%FA%C4%16%EEi%14%25%CB%E9%BCqb%F0%178%3E%F5wu%91%01%D6%C6%27%CE%12%82%AF%3F%A0%C5%AF%9E%DA%E4~%81%C3%23%BDi%7D%8E%F7%B9%00B%C1%C1%3D%D7%B8s1%1D%02%03%01%00%01%00%00%00%01%9A%09%F5%05%8A%04%CA%BEselfreg%00%F2%FA%C5ccnx.org%00%FA%ADUsers%00%FA%ADtarek%00%FA%A5Keys%00%FA%02%B5%C1.M.K%00%E8%98%9E%9E%118%F4%02on%B1%BE%1Dk%07%D0H%21%DF%13%E5%8B%2C%BAI0%D7%0A%BBus%A9%00%FA%BD%FD%04%EBPi%20%00%00%00%03%E2%02%85%EA%06%FF%82-%27%9A9R%97Y%CA%A8%2B%1C%0D%06%AE%8Fja%E7%E82%C6%28%5CI%E4%88%0Cs%00%04%FA%8E3%00%03%D2%D62147483647%00%00%00%00 (591 bytes,scope=1)
+version: 20090701, prefix_comps: 4, min_suffix_comps: 0, max_suffix_comps: 32767, orderpref: 0, answerfrom: 3, scope: 1, lifetime: 4.0000, excl: 0 bytes, etc: 0 bytes
+
+**Propagate interest to face 0(everyone?)**
+4) interest_to 0 ccnx:/ccnx/%EA%06%FF%82-%27%9A9R%97Y%CA%A8%2B%1C%0D%06%AE%8Fja%E7%E82%C6%28%5CI%E4%88%0Cs/selfreg/%04%82%02%AA%03%B2%08%85%1B%FFn%BB%B2%22%20%8E%9F%C3Z%2F%BC%B9%1B%CB%F9F%1F%F5Zy%C8%07%2F%F4%C9X%3ExB%12%BDi%C6%B2%91%00%85%EC%B6%C7%E2.7%2A%9B%0F%06%E9%C7D0%07%F1tNv%B6%0E%BAu%A9%09%C1%A2%17%1ChqP%3D-%98%EC%BD%A2%C9%7F%C1%7C%88%94%28%C9%D4%98W%D2%01.%ACUg%E9%84%BD%DE3%D3%AA%CD%07%A9%B2%826%D0%03%FC%A16%3E%FFk%06%A6%3C%2C%85%EAG5%25%93%26%87%B1%00%00%F2%00%01%A2%03%E2%02%85%E8%98%9E%9E%118%F4%02on%B1%BE%1Dk%07%D0H%21%DF%13%E5%8B%2C%BAI0%D7%0A%BBus%A9%00%02%BA%B5%04%F1%85%9D%9B%89%00%01%E2%01%DA%0A%950%81%9F0%0D%06%09%2A%86H%86%F7%0D%01%01%01%05%00%03%81%8D%000%81%89%02%81%81%00%CF%F5%3B%DF%E99s%A8%81%F7S%C0%24%BCw%0D%92%82l%89ZZ9%EB%8Dk%A7t%5C%D8%E6%CE%A9%D8%FFJ%8B%FB%CA%EB%A8%1D%3C%C8%92%F3%11%21%A2%5CBL%FBv%FF%D7%C3%E0%D8%1Bkj.%F9u%DB%A7%8FR%BA%E6%8D%E3%FA%C4%16%EEi%14%25%CB%E9%BCqb%F0%178%3E%F5wu%91%01%D6%C6%27%CE%12%82%AF%3F%A0%C5%AF%9E%DA%E4~%81%C3%23%BDi%7D%8E%F7%B9%00B%C1%C1%3D%D7%B8s1%1D%02%03%01%00%01%00%00%00%01%9A%09%F5%05%8A%04%CA%BEselfreg%00%F2%FA%C5ccnx.org%00%FA%ADUsers%00%FA%ADtarek%00%FA%A5Keys%00%FA%02%B5%C1.M.K%00%E8%98%9E%9E%118%F4%02on%B1%BE%1Dk%07%D0H%21%DF%13%E5%8B%2C%BAI0%D7%0A%BBus%A9%00%FA%BD%FD%04%EBPi%20%00%00%00%03%E2%02%85%EA%06%FF%82-%27%9A9R%97Y%CA%A8%2B%1C%0D%06%AE%8Fja%E7%E82%C6%28%5CI%E4%88%0Cs%00%04%FA%8E3%00%03%D2%D62147483647%00%00%00%00 (607 bytes,scope=1) EA06FF-084A-000A-D98A-5478F0
+
+-- ACCEPT NEW CLIENT 11 -- 
+** CCND receives interest from new client **
+5) interest_from 11 ccnx:/%C1.M.S.localhost/%C1.M.SRV/ccnd/KEY (51 bytes,scope=1)
+version: 20090701, prefix_comps: 4, min_suffix_comps: 0, max_suffix_comps: 32767, orderpref: 0, answerfrom: 3, scope: 1, lifetime: 4.0000, excl: 0 bytes, etc: 0 bytes
+
+** CCND receives APPLICATION/USER interest from new client **
+interest_from 7 ccnx:/test (12 bytes)
+version: 20090701, prefix_comps: 1, min_suffix_comps: 0, max_suffix_comps: 32767, orderpref: 0, answerfrom: 3, scope: -1, lifetime: 4.0000, excl: 0 bytes, etc: 0 bytes
+
+-- CLOSE NEW CLIENT 11 --
+
+-- CLOSE CLIENT 10 --
+
+** USER interest expires **
+interest_expiry 7 ccnx:/test (70 bytes) EA06FF-69C4-0007-DA7F-D2012C
+
+Summary:
+4 interests sent, 2 propagated (for Publisher Key and registeration on ccnd)
+1 interest sent (ours), expires after 4 seconds
+( CCNX STREAMS sends 3 before it gives up)
