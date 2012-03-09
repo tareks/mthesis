@@ -1,0 +1,32 @@
+General:
+-------
+- Security and naming not a concern.
+Security, use clear text - no data encryption.
+Naming, use standard naming convention for addressing in the format: .... 
+
+
+Log:
+---
+12/12/2011
+- write a simple experiment:
+scenarios with 3 nodes, and links going down at different points in time
+how does ccnd react, how to interests timeout, what about data not fully transmitted?
+which data to look at?
+- test haggle
+- how DTN concepts map to NDN?
+- how interest retransmissions work
+ccnd logs with high debugs from 7-63
+
+
+General questions to answer:
+- identify the numbers necessary to maintain data retention throughout the network at all times.
+- how long should the relay node cache data? if its getting stale too quick, it may never get relayed to B. How much storage is required per node based on this?
+
+
+1/1/2012
+- Based on the Bruno thesis proposal, there is a lot of old research into overlay network based caching. In-network caching efficiency may be a topic of focus on its own. Seems it's best to focus on CCNx based caching as an example and use aging and size to experiment.
+- Need to focus the paper more on NDN (and CCNx in particuarl) as opposed to ICN to limit scope?
+
+
+
+

@@ -1,0 +1,35 @@
+2012-02-03
+
+Followup Items:
+- Complete the Interest/CO code and pushed to github. (done)
+- Send initial report outline for feedback on contents. (done)
+- Document setup and how ccnd handles interest and data responses plus
+any other observations (to decide what to expect from scenarios and if
+need to redesign).
+- Document scenarios to be used in the experiment.
+- Find out when would the thesis defense be. What to do if I can't
+make it by June? Is there another 'batch' following that?
+
+Discussion:
+- report outline changes.
+- code changes and access to github.
+- investigation results so far.
+-- number of interest and content packets.
+-- timing and frequency.
+- scenario modification and documentation.
+- using haggle to test scenarios. 
+- Frederik uses CCND_DEBUG=63 for everything.
+
+
+Action Items:
+- Possible to specify Interest lifetime during creation through API?
+- put docs up on github as well
+- finish working on interest/CO and scenario documentation
+-- specifics to include?
+- start haggle tests
+- investigate if javasrc is completely separate?
+- how to find out how data packets are sent over the network?
+- Create log files for later analysis
+-- try getting data object that doesnt exist.
+--- when interests arrive from application and when sent out?
+--- when ccnd expects interests?

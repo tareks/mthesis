@@ -1,0 +1,50 @@
+evaluate NDN in DTN/ON
+goal: does NDN work in such an environment
+if not, what doesnt? what needs to be fixed?
+
+simple scenario:
+
+x ---------- z (moving) -------------- y
+
+ppl "claim" that it should work, but noone tried it?
+
+NDN followup on CCNx
+
+use CCNx prototype to implement on a testbed that fredrik designed for early haggle phases?
+-- java implementation
+30-40 nodes, performance problems?
+
+
+what are problems? with integration? design? operation?
+what other experiments to run? what params to use?
+
+
+1) read papers on background
+2) NDN intro, testbed, learn tools
+3) write weekly 
+4) keep log of experiments 
+-- settings
+-- expected
+-- actual
+-- catalog results/logs
+
+
+review every 2 weeks?
+
+
+Action plan:
+
+- read papers
+- setup wiki
+-- 
+- get latest ccnx code and get something running
+- setup meeting for haggle
+
+
+Time Plan:
+
+
+
+
+
+next meeting: 

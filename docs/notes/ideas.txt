@@ -1,0 +1,51 @@
+selfish node behavior in ON
+
+CN
+info from 
+
+
+1) haggle to transport sensor data to the sitemanager
+2) replace haggle with pure NDN
+3) comms between 2 nodes using "bundle protocol" in ON
+
+
+frederik:
+- how to evaluate implementing haggle on testbed?
+- NDN over DTN, routing, naming, showcase using haggle on testbed?
+
+
+Forward (SICS) ?
+NDN in telephone conferencing
+
+addressing hosts not important in ON/DTN
+- current stack limitation
+- 
+
+
+avoid publishing about tools such as the testbed - no results there?
+evaluate something using the testbed
+
+
+misc:
+- improving tcp performance on asynchrons links (ADSL)
+- offloading cell tower traffic onto p2p communication
+-- allow off grid routing in events when network is overloaded
+- optimizing network traffic over adhoc networks (or DTN?) off grid to allow for text, comms? voice? making use of high density populated areas with nodes 
+- improve bandwidth to remote locations (multi band?)
+- optimizing data transfer (video streaming?) for high latency connections
+-- not necessary low bandwidth, just high latency, across globe or satellite
+
+- overlay network/protocol that allows for dynamic/adhoc nodes
+--   built on a web of trust with no super nodes. There may be nodes with more "social links".
+-- trust chains?
+-- increase link strength based on how often you see that node, decrease over time with aging
+-- Ant Colony Optimization for routing problems?
+
+- Can dynamic addressing help avoid DoS in an adhoc wireless network? need some other authentication factor to identify self? maybe using some crypto key? changing addresses will break connections? what about protocol hopping? or multi-addressing?
+
+- Using GAs to generate music similar to how GP works.
+- browser addon to expand pages to take up full screen especially  on wide res.
+- web app that simulates browsers and generates images as output
+
+ML:
+- Is it possible to use NNs to do error correction for audio or video?

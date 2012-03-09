@@ -1,0 +1,120 @@
+Experiment 2
+============
+
+Description
+-----------
+This is a setup to simulate a DTN with:
+Node A: Node requesting data. (Receiver)
+Node B: Node relaying/caching data. (Relay)
+Node C: Node storing data and responding to data requests. (Sender)
+
+A <----> B <-----> C
+     ^        ^
+   Link 1    Link 2
+
+Assumptions:
+- Each node runs on a separate ccnd instance.
+- It is the responsiblity of the requester to ensure data is received.
+- Not using CCN*Streams.
+- Assume different data files sizes that allow for interruptions during transmission/receipt.
+
+Parameters:
+- Number of nodes: 3
+- Number of relay nodes: 1
+- Number of links: 2
+- Number of trials per scenario: 5
+- Number of Interest requests sent per trial: 5
+- Interest timeout period: 2 seconds
+- Interval between Interest retries: 5 seconds
+- Sender/Receiver data buffer size: unspecified (no segmentation, 1-to-1 interest/data mapping)
+- File size: 512 bytes
+
+The experiment will test the following scenarios:
+a) There are no connectivity or latency problems between all 3 nodes.
+- Timeline:
+Link1 up at: 0s
+Link2 up at: 0s
+
+- Purpose:
+Test relaying and caching.
+
+- Expected results:
+No transmission problems. All Interest requests are satistified with 100% success rate.
+
+b) Link 1 is down before the request from A is sent.
+- Timeline:
+Link1 down at: 0s
+Link2 up at 0s
+Link1 up at: 1s
+
+- Purpose:
+Test Interest retransmission by A.
+
+- Expected results:
+First Interest packet in each trial is lost. The next packet is satisfied. (80% success rate)
+
+c) Link 2 is down before data is received by A (after Interest is fulfilled by C).
+- Timeline:
+Link1 up at: 0s
+Link2 up at: 0s
+Link1 down at: 0.1s (before data is received by A)
+Link2 down at: 0.1s (simulate node C being down, data cached at B)
+Link1 up at: 1s
+
+- Purpose:
+Test Interest retransmission by A. 
+
+- Expected results:
+First Interest packet in each trial is lost. The next packet is satisfied. (80% success rate)
+Second Interest packet sent should be fulfilled by node B as it is cached.
+
+d) Link 2 is broken while data is being received by C.
+- Timeline:
+Link1 up at: 0s
+Link2 up at: 0s
+Link1 down at: 1s (before data is received by A - using 1MB file size)
+Link1 up at: 3s
+
+- Purpose:
+Test data integrity/transaction completion and Interest retransmission.
+
+- Expected results:
+As data is not completely received, A will resend Interest which will be satisfied by node B (cached).
+
+Steps
+-----
+1. Generate random data and sha1sum for it:
+$ dd if=/dev/random of=testfile.512 bs=512 count=1
+
+2. Start first CCND instance (Node A)
+$ CCN_LOCAL_PORT=6001 CCND_DEBUG=2 ./ccndstart
+
+3. Start second CCND instance (Node B)
+$ CCN_LOCAL_PORT=6002 CCND_DEBUG=2 ./ccndstart
+
+$ CCN_LOCAL_PORT=6001 ./ccndc add ccnx:/test tcp localhost 6002
+
+4. Start third CCND instance (Node C)
+$ CCN_LOCAL_PORT=6003 CCND_DEBUG=2 ./ccndstart
+
+$ CCN_LOCAL_PORT=6002 ./ccndc add ccnx:/test tcp localhost 6003
+
+5. Run application in Sender mode: (Listen for requests)
+$ java -cp $CLASSPATH:thoth.jar -Dccn.agent.port=6003 thoth.DTSender ccnx:/test/test1 testfile.512
+
+6. Run application in Receiver mode: (Send data requests)
+$ java -cp $CLASSPATH:thoth.jar -Dccn.agent.port=6001 thoth.DTReceiver ccnx:/test/1 rcvdfile.512
+
+7. Monitor output:
+
+
+Results and Observations:
+------------------------
+- How many times was the requested data received?
+- How many times was the data received correctly?
+- How long did it take to receive the data (from the time Interest was sent)?
+note: assume no data segmentation (future work?) - this allow to match Interest to Data received without worrying about segment complexity at the moment.
+- What is the success rate per Interest? ( # times data received correctly / # of Interests sent) based on fixed number of interests sent per scenario
+note: can plot success rate over number of trials?
+
+

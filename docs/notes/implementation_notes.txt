@@ -1,0 +1,3 @@
+- Security and naming not a concern.
+Security, use clear text - no data encryption.
+Naming, use standard naming convention for addressing in the format: .... 

@@ -1,0 +1,48 @@
+9/23/2011
+
+look through proposal draft and make sure it covers all
+
+
+scenarios assume no definite path from end to end:
+- simplest 
+- complexity dictated not by size only but my routing/mobility patterns (find out based on the simplest)
+
+consumer --       relay -------- source ( /foo )
+	  t1 (link)         t2 (link)
+
+all are normal ccnx  nodes
+consumer sends interest in /foo.
+
+
+t1 and t2 arent always available.
+
+assume CCNx over UDP
+simple 1K data packet
+
+
+how long are the links available? how long of a disconnection we can afford? where it starts? how can it be avoided?
+- kill physical interface (physical link) - not as important as others
+- iptables to simulate the ports go down for a certain period (CCNx face goes down, trigger a strategy change)
+
+
+
+
+focus on forwarding, tweaking the strategy layer?  
+not so much routing
+
+
+do we need some sort of ACK that the Interest was propagated or not? it may affect decisions on re-expressing Interest or changing strategy?
+
+
+logging problems? how to log output?
+
+
+** Use java code for now?
+
+ccnd to run
+then ccnput
+and ccnget
+
+9695 http for data.
+
+check chat application

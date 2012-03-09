@@ -1,0 +1,57 @@
+http://www.ccnx.org/software-download-information-request/download-releases/ - CCN Implementation with C/Java/Android support
+
+http://conferences.sigcomm.org/sigcomm/2011/workshops/ICN/ - First con on ICN
+
+http://www.named-data.net/ - NDN
+
+
+
+================
+
+45 credit - 30 weeks, plan carefully
+
+audience:
+strong computing background + research process
+not a strong focus in research area
+
+
+1. Motivation 
+2. Background for problem or system
+3. Overview of relevant r&d used to specify the problem and evaluate solutions
+4. methods and techniques used/required
+-- start on above after first couple of weeks ?? --
+
+5. implementation and formulation of solution
+6. data collection and analysis or testing
+- need to show critical evaluation skills, limitations of results, potential for future
+7. conclusions and future enhancements or work to refine system
+
+
+keep diary, document design decisions
+
+===============
+
+First, CCN then NDN 
+- replace IP with Data 
+
+Issues:
+- what if you want to address a specific machine/node on the internet? are all applications information based? IP allows an overlay such as NDN, does NDN provide a similar peering model if needed? if not, only good for data retrieval/distribution then? 
+-- according to NDN paper, its possible to run IP over NDN. How easy is this? any problems/shortcomings as a result?
+- security model is too dependent on hashing algorithms, what if they get cracked like MD5?
+- how much data is actually stored in the Content Store? With media on the internet these days, this caching would be rather straining on routers especially if it is to be stored in some kind of RAM. Assuming that this cache should be retained for enough time to keep it useful (24 hours maybe or time data based on how long trends are current)
+
+- in push content scenario, how is identity guaranteed (spoofing issues)? how does the client know the server really is the right server - was the key shared symmetrically somehow or using CAs?
+
+
+- what if you have naming conflicts? do applications determine the naming conventions (how to generate and interpret)? if multiple applications are offering the same data, will it be duplicated on the network under different names?
+
+- IP namespace problem now replaced with data packet naming problem? how long are those names? how to make them unique? if everyone on the internet was using NDN, would it cause clashes?
+
+- Is this broadcast scheme the best? What about flooding the network with legit interest packets for which there is no reachable data? bottlenecks on all links instead of one main router going down? what about malware spreading?
+Why not "selective" intelligent flooding based on where content (likely) is ? 
+
+
+Research areas:
+- scalable routing and forwarding engines
+- applications on top of NDN
+- demonstrate/validate the security foundations

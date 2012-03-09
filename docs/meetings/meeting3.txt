@@ -1,0 +1,31 @@
+2011-09-15
+
+-no structure in BOND (smart flooding?)
+-instead, consider something more structure
+-- communities?
+-- some regular order moving between nodes, some order of guarantee
+
+
+
+assume that /parc , /att is unique and enforced somehow.
+some sort of security chain or root CA that everyone trusts?
+
+storage is cheap
+- DTN has different ideas of importance of data
+
+
+next meeting
+-tuesday 13.00
+
+
+
+
+look at code, compile and see what can be run
+
+focus on:
+1. how to propagate, forward data for interests and data packets
+2. caching
+3. routing protocols for DTNs. start with assuming disruption in connectivity (then look at large of delays, performance, mobility) 
+
+- no naming, namespace structure focus
+- no focus on security for now

@@ -1,0 +1,13 @@
+Data to collect from each scenario:
+- How many times was the requested data received?
+- How many times was the data received correctly?
+- How long did it take to receive the data (from the time Interest was sent)?
+note: assume no data segmentation (future work?) - this allow to match Interest to Data received without worrying about segment complexity at the moment.
+- What is the success rate per Interest? ( # times data received correctly / # of Interests sent) based on fixed number of interests sent per scenario
+note: can plot success rate over number of trials?
+
+Others to consider:
+- Does the success rate increase as the Interest timeout is increased? ( Interests should be cached longer, is this possible without changing core ccnd?)
+- Does the success rate increase as the retry timeout is increased? (could give more time for relay nodes to come into proximity or links to come back up)
+- How many interests were sent before the data was received? (fixed for now, but could keep it open instead))
+

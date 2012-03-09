@@ -1,0 +1,30 @@
+Skype (13 Jan 2012)
+
+Current status
+-- Reading
+--- Latest was phd proposal. Focus is on caching/forwarding, is this something we should look at?
+--- What about other 
+-- Investigation
+--- Interest packets: relative to how NDN works. Depend on NetworkManager/Streams? Or create our own?
+--- Experiment design. What variables to change? What to look for? 
+--- Are we just focusing on NDN capabilities for opporunistic networking or other ICN archs?
+-- Code
+--- What should each node be able to do? Should it just use NetworkManager/Streams or our own manager?
+-- Working on paper
+--- how much detail should go into related work such as in the phd thesis?
+
+
+
+================
+Stop using streams and send interest manually
+
+github? svn?
+
+use ndn in opportunistic scenario, what breaks? what makes it useful or non-usable?
+related work (other architectures) - 3 paragraphs
+
+
+check what ccnd does - keep application very simple
+
+sender - 
+receiver - 

@@ -1,0 +1,9 @@
+2012-01-27
+
+Last week's action Items:
+- Publish code on Google Code. (done)
+- Send initial outline for feedback on contents. (sent initial copy)
+- Complete the Response code. 
+- Document setup and how ccnd handles interest and data responses plus any other observations (to decide what to expect from scenarios and if need to redesign).
+- Document scenarios to be used in the experiment.
+- Find out when would the thesis defense be. What to do if I can't make it by June? Is there another 'batch' following that?

@@ -1,0 +1,61 @@
+testbed@130.238.8.184:2222 / hagglenet - for experimentation
+
+/testbed/run_create_testbed.sh (need scripts and testbed dirs)
+
+to start node:
+- start_node.sh
+
+to login:
+ssh user@node-1 OR xm console
+
+can run up to 80 vms @ 128MB each no problems.
+
+
+/usr/local/haggle/ccnx mounted on all vms.
+
+
+
+---  SCripting node connectivity ---
+create a dir with:
+- trace file:
+-- col1: node 1
+-- col2: node 2
+-- col3: time link should go up (experiment starts at time 0)
+-- col4: time link should go down
+
+- scenario.xml
+Architecture - Path or name (/usr/local/haggle/ccnx/bin/ccnd) 
+Warmup - waiting for sync
+
+
+Application - this is where my app will run and connects to ccnd (like ccnget cnnput)
+** will run app + daemon on each node
+
+
+
+Logging:
+log file for daemon and another for app
+
+
+tar -cf | gzip - and copy to ~/queue/ (dir should have the same name as archive)
+
+nohup ./queue_executor.sh &
+
+
+how to synchronize log files between host interface status and the application logs?
+
+
+
+Think of the node connectivity as a window of opportunity between nodes (say 10 sec window every 10 minutes).
+
+use defaults to start with and tweak the disruptions around that number.
+
+
+can also edit scenariorunner_small.java, logging going to nohup.out in same dir
+
+Questions:
+identify the numbers necessary to maintain data retention throughout the network at all times.
+how long should the relay node cache data? if its getting stale too quick, it may never get relayed to B.
+
+
+

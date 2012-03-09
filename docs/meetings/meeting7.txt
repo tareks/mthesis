@@ -1,0 +1,20 @@
+2012-01-20
+
+Minutes:
+
+- Interests are now sent manually. 
+- Data response still not coded.
+- Tested a 3 node setup with a (sender), b (relay), and c (receiver). Single interest packet propagated from A to C as expected.
+- Using CCND_DEBUG=2 to track interest (to and from) messages 
+- Identified other interests during registration/key publishing which we may need to disregard.
+- Focus on ccnd Interest/data packet behavior for now.
+- Once code is complete, use Haggle to simulate link breaks.
+
+
+Action Items:
+- Complete the Response code.
+- Publish code on Google Code.
+- Document setup and how ccnd handles interest and data responses plus any other observations (to decide what to expect from scenarios and if need to redesign).
+- Document scenarios to be used in the experiment.
+- Send initial report outline for feedback on contents.
+- Find out when would the thesis defense be. What to do if I can't make it by June? Is there another 'batch' following that?

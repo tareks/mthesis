@@ -1,0 +1,83 @@
+Total: 30-60 pages, double spaced
+
+I. Abstract
+
+II. Introduction 
+ 
+
+III. Problem definition 
+- What makes NDN useful in an ON? Is it a promising/rewarding alternative to conventional approaches? 
+- What are the problems that face NDN in such a scenario/network configuration?
+- Do the advantages outweight the shortcomings?
+- What can be done to address these shortcomings?
+ 
+- Additional issues (might move some to future/related work) 
+-- identify issues related to device mobility in a ON 
+-- sharing of information where connectivity is intermittent or not guaranteed
+-- how caching (how much and for how long)can help optimize the retrieval and sharing process
+-- routing optimization in an ON
+
+- Thesis does not investigate:
+-- Security (assume clear text, some overhead missing from calculations?)
+-- Naming (assume basic naming scheme proposed/discussed in NDN paper; ie. ccnx:/org/data/file)
+
+- What framework, methods and testbed are used in the investigation?
+-- ccnx (as a ndn implementation), ON specific scenarios of varying complexities, Haggle
+
+IV. Challenged Networks
+- What they and why they are important to study?
+-- These networks attempt to resolve problems that are not easily addressed with other widely deployed network architectures.
+- Opportunistic Networks (used for this investigation)
+- Delay Tolerant Networks
+- Disruption Tolerant Networks
+- Challenges and issues assosciated with such networks (move to dedicated section?)
+
+V. Information Centric Networking
+- How this model differs from the conventional approach.
+-- A potential Paradigm shift. The location of the data is unimportant. Users interested in data, not its location. Information/data centric, not location centric.
+-- Focuses on better content distribution, disruption and "flash-crowd" handling. 
+-- Claimed advantages/strengths (scalable, cost efficient, persistent naming, object/data security, mobility, disruption tolerance, in-network caching)
+- Prominent ICN based projects in EU/US
+-- Publish/Subscribe models (PSIRP)
+-- NetInf, Sail
+-- DONA
+-- CCN (Connect)
+-- NDN (CCNx used as an implementation for this investigation)
+{ One sentence to describe each, and reference original paper - not too long }
+
+VI. Challanges of Information Centric Networking on Challenged Networks
+- Issues that need to be investigated/considered
+-- Naming  { not relevant }
+-- Name resolution (separate from naming?) { not relevant }
+-- Routing
+-- Caching
+-- Scalability (Forwarding speed)
+-- Error Control, Flow Control, and Congestion Management { not relevant }
+-- Transport
+-- Security (Encryption / trust, content protection) 
+-- Privacy  { not relevant }
+-- Disruption tolerance
+-- Network heterogeneity
+-- Cost effectiveness / Compatibility
+-- Performance
+- What the thesis intends to experiment with { good enough for thesis }
+-- Disruption tolerance/robustness { most important, rest only if time available }
+-- Performance?
+-- Scalability
+-- Caching
+
+VII. Investigation/Experimentation
+- Brief CCNx description as NDN implementation (any assumptions that deviate from NDN design)
+- Brief Haggle testbed description and why/how it's used.
+- Outline experiments from simple to complex.
+- Detailed description of scenarios
+- Results - including measurements, graphs, calculations 
+- Comparison with other solutions or conventional networks?
+
+VIII.Discussion
+- Were the results expected?
+- Explain Why the results are the way they are.
+- Proposals for improvement and their results.
+- Proposals for future research/work.
+
+IX. Conclusion

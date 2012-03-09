@@ -1,0 +1,9 @@
+General:
+- How does an Interest get sent?
+- How is an Interest stored/cached by ccnd?
+- How is data sent back to the requester?
+- What happens when Interest packets do not reach node B? Where is the break/data loss? 
+- What happens when data is not transmitted successfully the first time? How much of the data is received?
+
+- What timeout / retry timers are involved in the process of Interest requests? - How does ccnd cache/store interest requests? What about data replies? How long is it stored?
+
