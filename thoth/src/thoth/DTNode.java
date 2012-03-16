@@ -35,7 +35,6 @@ import thoth.CCNComms.NodeNetworkMode;
 public class DTNode {
     
     protected DTNode() {
-	_debug = false;
 	_dataObjects = new ArrayList<ContentObject>();
     }
     
@@ -46,12 +45,27 @@ public class DTNode {
      */
     protected void sendRequests(int numRequests, int interval) {
 	ContentObject co = null;
+
+	// reset for every set of requests
+	requestFulfilledTime = -1;
+	numRequestFulfilled = -1;
+	totalTimeToFulfillRequest = -1;
 	
 	try {
-	    for (int i=0; i < numRequests; i++) {
+	    long totalRequestStartTime = System.currentTimeMillis();
+
+	    for (int i=1; i <= numRequests; i++) {
+		// start requestFulfillmentTimer
+		long requestStartTime = System.currentTimeMillis();
 		co = _connection.sendRequest();
-		if (co != null)
+		if (co != null) {
+		    // got data
+		    requestFulfilledTime = System.currentTimeMillis() - requestStartTime;
+		    totalTimeToFulfillRequest = System.currentTimeMillis() - totalRequestStartTime;
+		    numRequestFulfilled = i;
+
 		    break;
+		}
 		Thread.sleep(interval);
 	    }
 	}
@@ -60,11 +74,11 @@ public class DTNode {
 	}
 
 	if (co == null) {
-	    Log.warning("No data received, giving up.");
+	    Log.info("No data received, giving up.");
 	}
 	else {
-	    Log.warning("Got CO: " + co.toString());
-	    Log.warning("Writing ContentObject to file...");
+	    Log.info("Got CO: " + co.toString());
+	    Log.info("Writing ContentObject to file...");
 	    
 	    try {
 		// write co to file
@@ -72,11 +86,11 @@ public class DTNode {
 		outStream.write(co.content());
 		
 		outStream.close();
-		Log.warning("Write complete to " + _filename);
+		Log.info("Write complete to " + _filename);
 	    }
 
 	    catch (IOException e) {
-		Log.warning("Error writing data to file.");
+		Log.info("Error writing data to file.");
 	    }
 	}
     }
@@ -87,14 +101,14 @@ public class DTNode {
 	    i = _connection.handleInterests();
 	    
 	if (i != null) {
-	    Log.warning("Checking if we have a CO to match this interest..");
+	    Log.info("Checking if we have a CO to match this interest..");
 	    
 	    for (ContentObject co : _dataObjects) {
 		if (i.matches(co)) {
-		    Log.warning("Found match! Writing CO to network..");
+		    Log.info("Found match! Writing CO to network..");
 		    _connection.sendObject(co);
 		} else
-		    Log.warning("Found no match. Ignoring interest.");
+		    Log.info("Found no match. Ignoring interest.");
 	    }
 	}
 	}
@@ -107,12 +121,12 @@ public class DTNode {
 	try {
 	    baseName = ContentName.fromURI(_ccnURI);// + (new CCNTime()).toShortString());
 	    name = SegmentationProfile.segmentName(VersioningProfile.addVersion(baseName, new CCNTime()), 0);
-	    Log.warning("Creating CO with name: " + name);
+	    Log.info("Creating CO with name: " + name);
 
 	    long length = _file.length();
 
 	    if (length > Integer.MAX_VALUE) {
-		Log.warning("File is too big, skipping..");
+		Log.info("File is too big, skipping..");
 		return;
 	    }
 	    
@@ -126,15 +140,15 @@ public class DTNode {
 	    
 	    _dataObjects.add(co);
 
-	    Log.warning("Created CO: " + co.toString());
+	    Log.info("Created CO: " + co.toString());
 	}
 
 	catch (IOException e) {
-	    Log.warning("IOException: " + e.getMessage());
+	    Log.info("IOException: " + e.getMessage());
 	}
 
 	catch (MalformedContentNameStringException e) {
-	    Log.warning("MalformedContentNameStringException: " + e.getMessage());
+	    Log.info("MalformedContentNameStringException: " + e.getMessage());
 	}
 
     }
@@ -150,18 +164,18 @@ public class DTNode {
 	_connection = new CCNComms(_ccnURI);
 	_connection.createConnection();
 	
-	Log.warning("Our public key is: " + _connection.getMyPublicKeyString());
-	Log.warning("Our public key fingerprint is: " + _connection.getMyPublicKeyShortString());
+	Log.info("Our public key is: " + _connection.getMyPublicKeyString());
+	Log.info("Our public key fingerprint is: " + _connection.getMyPublicKeyShortString());
 
 	switch (_mode) {
 	case Sender:
-	    Log.warning("NODE is in SENDER MODE");
+	    Log.info("NODE is in SENDER MODE");
 	    createContentObjects();
 	    handleRequests();
 	    break;
 	case Receiver:
-	    Log.warning("NODE is in RECEIVER MODE");
-	    sendRequests(1, 5000);
+	    Log.info("NODE is in RECEIVER MODE");
+	    sendRequests(numRetries, retryTimeout);
 	    break;
 	default:
 	    // should never happen
@@ -169,6 +183,12 @@ public class DTNode {
 	}
 	    
 	_connection.closeConnection();
+
+	if (numRequestFulfilled > 0) {
+	    System.out.println("Number of Interests to fulfill request: " + numRequestFulfilled);
+	    System.out.println("Time to fulfill request for successful Interest: " + requestFulfilledTime + " milliseconds.");
+	    System.out.println("Time to fulfill request from first Interest: " + totalTimeToFulfillRequest + " milliseconds.");
+	}
 	
     }
     
@@ -212,6 +232,15 @@ public class DTNode {
     }
     
     public static void main(String[] args) {
+
+	// TODO - add -debug flag and switch to Level.info or define new?
+	boolean _debug = false;
+
+	if (_debug == true)
+	    Log.setLevel(Log.FAC_ALL, Level.INFO);
+	else 
+	    Log.setLevel(Log.FAC_ALL, Level.OFF);
+
 	DTNode node = new DTNode();
 	
 	if (! node.parseArgs(args) ) {
@@ -219,8 +248,8 @@ public class DTNode {
 	    System.exit(-1);
 	}
 	
-	// TODO - add -debug flag and switch to Level.info or define new?
-	Log.setLevel(Log.FAC_ALL, Level.WARNING);
+
+
 	
 	try {
 	    node.PowerOn(); 
@@ -239,24 +268,26 @@ public class DTNode {
 	    e.printStackTrace();
 	}
 	
-	Log.warning("Exiting..");
+	Log.info("Exiting..");
 	System.exit(1);
     }
 
     // Variables
     private CCNComms _connection;
-    private int numRetries = 0;
+    private int numRetries = 3;
     private final short retryTimeout = 5000; // 5 seconds (in msec)?
     private File _file;
     private InputStream inStream;
     private OutputStream outStream;
+    private long requestFulfilledTime; // time to fulfill Interest in milliseconds
+    private long totalTimeToFulfillRequest; // time to fulfill from first Interest
+    private int numRequestFulfilled; // which request got fulfilled
     
     private String _filename;
     private String _ccnURI;
     private NodeMode _mode;
-    private boolean _debug;
     
-    private ArrayList<ContentObject> _dataObjects = null;
+    ArrayList<ContentObject> _dataObjects = null;
 
     // Constants
     private static final short MSEC_PER_SEC = 1000;

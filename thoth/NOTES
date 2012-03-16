@@ -1,5 +1,5 @@
 Description:
 Simple sender/receiver node pair that allow sending and receiving of (versioned/with metadata) files over CCNx.
 
-Receiver will run for a number of times (currently hardcoded) with a timeout of 10 seconds for each network operation. 
-The sender node will listen for incoming Interest requests and if any are detected, will write the file to the network. Sender uses the same timeout values for simplicity.
+Receiver will run for a number of times (currently hardcoded) with a timeout of for each network operation. 
+The sender node will listen for incoming Interest requests and if any are detected, will write the file to the network. 

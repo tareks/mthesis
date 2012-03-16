@@ -15,7 +15,7 @@ Assumptions:
 - Each node runs on a separate ccnd instance.
 - It is the responsiblity of the requester to ensure data is received.
 - Not using CCN*Streams. 
-- Assume different data files sizes that allow for interruptions during transmission/receipt. 
+- Some scenarios require large files sizes that allow for interruptions during transmission/receipt. 
 
 Parameters:
 - Number of nodes: 2
@@ -26,7 +26,7 @@ Parameters:
 - Interest timeout period: 2 seconds
 - Interval between Interest retries: 5 seconds
 - Sender/Receiver data buffer size: unspecified (no segmentation, 1-to-1 interest/data mapping)
-- File size: 512 bytes
+- File size: 512 bytes unless otherwise specified.
 
 The experiment will test the following scenarios:
 a) There are no connectivity or latency problems between the 2 nodes.
@@ -66,13 +66,13 @@ d) Link 1 is broken while data is being received by A.
 - Timeline:
 Link1 up at: 0s
 Link1 up down at: 1s (Have to use a 1MB file size for this?)
-Link1 up at: 3s
+Link1 up at: 5s
 
 - Purpose:
 Verify data is received correctly after an Interest retransmission.
 
 - Expected results:
-Another Interest should be reset to get the data if the transfer fails.
+First Interest should be reset to get the data if the transfer fails. Second Interest is lost because link is down. Third interest should be satisifed.
 
 Steps
 -----

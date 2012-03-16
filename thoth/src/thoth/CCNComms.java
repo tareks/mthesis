@@ -56,7 +56,7 @@ public final class CCNComms {
 
 	public Interest handleContent(ContentObject co,
 				      Interest interest) {
-	    Log.warning("Received data response for Interest: " + interest.toString());
+	    Log.info("Received data response for Interest: " + interest.toString());
 	    _receiverGotData = true;
 	    contentData = co;
 	    filterSema.release();
@@ -73,7 +73,7 @@ public final class CCNComms {
 	
 	public boolean handleInterest(Interest interest) {
 	    
-	    Log.warning("Received an interest: " + interest.toString());
+	    Log.info("Received an interest: " + interest.toString());
 	    
 	    _senderGotInterest = true;
 	    filterSema.release();
@@ -100,17 +100,17 @@ public final class CCNComms {
     }
     
     public void createConnection() throws ConfigurationException, IOException {
-	Log.warning("Connecting to CCN network..."); 
+	Log.info("Connecting to CCN network..."); 
 	
 	_connection = CCNHandle.open();
 	_networkManager = _connection.getNetworkManager();
 	
-	Log.warning("Connected to " + getCCNDPublicKey() + " over " + getIPProto() + "."); 
+	Log.info("Connected to " + getCCNDPublicKey() + " over " + getIPProto() + "."); 
 	
     }
     
     public void closeConnection() { 
-	Log.warning("Killing network connection ..."); 
+	Log.info("Killing network connection ..."); 
 	try {
 	    _networkManager.shutdown();
 	    _connection.close();
@@ -119,7 +119,7 @@ public final class CCNComms {
 	catch (Exception e) {
 	    // ignore errors here 
 	}
-	Log.warning("Disconnected."); 
+	Log.info("Disconnected."); 
     }
 
     /* 
@@ -131,10 +131,10 @@ public final class CCNComms {
 	_receiverGotData = false;
 	try {
 	    if (! i.validate()) {
-		Log.warning("Error in Interest creation!");
+		Log.info("Error in Interest creation!");
 		throw new Exception();
 	    }
-	     Log.warning("Interest text: " + i.toString());
+	     Log.info("Interest text: " + i.toString());
 
 	     _connection.expressInterest(i, _rcvrListener);
 	     filterSema.tryAcquire(SEMA_TIMEOUT, TimeUnit.MILLISECONDS);
@@ -148,7 +148,7 @@ public final class CCNComms {
 	
 	catch (Exception e) {
 	    // Something went wrong
-	    Log.warning("Exception: "+ e.getMessage());
+	    Log.info("Exception: "+ e.getMessage());
 	}
 	
 	return null;
@@ -167,7 +167,7 @@ public final class CCNComms {
 
 	    // Keep waiting for an interest 
 	    while (! _senderGotInterest) {
-		Log.warning("Listening for interests..");
+		Log.info("Listening for interests..");
 		filterSema.tryAcquire(SEMA_TIMEOUT, TimeUnit.MILLISECONDS);
 	    }
 	    
@@ -177,7 +177,7 @@ public final class CCNComms {
 	
 	catch (Exception e) {
 	    // Something went wrong
-	    Log.warning("Exception: "+ e.getMessage());
+	    Log.info("Exception: "+ e.getMessage());
 	}
 
 	return null;
@@ -190,7 +190,7 @@ public final class CCNComms {
 	}
 
 	catch (Exception e) {
-	    Log.warning("Error sending ContentObject.");
+	    Log.info("Error sending ContentObject.");
 	}
     }
 
@@ -236,7 +236,7 @@ public final class CCNComms {
 
 	catch (IOException e) {
 	    // Timeout or error 
-	    Log.warning("IOException: "+ e.getMessage());
+	    Log.info("IOException: "+ e.getMessage());
 	    bytesRead = -1;
 	}
 	
@@ -274,7 +274,7 @@ public final class CCNComms {
 	
 	catch (IOException e) {
 	    // assume we timed out or error occurred while writing
-	    Log.warning("IOException: "+ e.getMessage());
+	    Log.info("IOException: "+ e.getMessage());
 	    bytesWritten = -1;
 	}
 	
