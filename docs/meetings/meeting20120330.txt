@@ -1,0 +1,5 @@
+- Specify lifetime of Interest?
+- TCP for client to ccnd okay?
+
+
+for trace file, all node numbers have to appear in 1st column

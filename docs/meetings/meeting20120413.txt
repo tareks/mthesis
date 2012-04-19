@@ -1,0 +1,3 @@
+-have nodes blocking indefinitely when initialized
+- dom0 waits for 10? seconds (for apps to start) - then send beacon on broadcast ip
+- nodes get beacon and start sending/receiving

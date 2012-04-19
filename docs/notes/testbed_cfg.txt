@@ -1,0 +1,25 @@
+Changes required to Haggle Testbed:
+- scenario.xml - Remove Configuration and add NodeData to specify files (node;localfile;remotepath;remotefilename)
+
+
+
+Order of execution:
+- Start nodes and wait for them to start (check_nodes.sh)
+- Cleanup nodes in ~ and ~/.ccnx (clean_nodes.sh)
+- Bring up links to allow ccnd to create routes (flush_filter.sh)
+- Upload all data files specified by <NodeData> (upload_file_to_node.sh)
+- Start ccnd on node (./start_program_on_node.sh)
+- Wait for ccnd to come up (sleep for 30 seconds)
+- Cleanup nodes in ~ and ~/.ccnx (clean_nodes.sh)
+- Bring all links back down (initfilter.sh)
+- Run applications on nodes (./start_program_on_node.sh)
+- Warmup time (1 second?)
+- Start scenario based on trace file
+- Sleep 15 seconds
+- Shutdown architecturea (./stop_program_on_node.sh)
+- Wwait for arch to stop (./wait_for_app_to_stop.sh)
+- Collect logs (./collect_logs.sh)
+- Cleanup nodes in ~ and ~/.ccnx (clean_nodes.sh)
+- Shutdown all nodes (./shutdown_nodes.sh)
+
+

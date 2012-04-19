@@ -1,0 +1,40 @@
+Agenda:
+- haggle questions:
+Application tag - does the app have to be exactly the same on each node? ie. will need to run 2 threads on each node to send/receive (ie. cant have separate get/put clients)
+Warmup - 5 seconds?
+Logging - where does that go? System.out.println okay?
+How long do things run? until end of timeline or program exit?
+
+Discussion:
+warmup - not needed
+15 seconds + 15 seconds then warmap then app starts
+frederik will change application to specify which program each node uses
+- when to do the routing ccndc stuff? - there's a config file? we can distribute that config file on a per node basis
+http://www.ccnx.org/releases/latest/csrc/libexec/ccnd.conf.sample
+-- use UDP for ccnx communication
+to terminate scenario, all links must be down
+- by default all inks are down, links are only up between intervals
+- time is in seconds, can we change trace file to use ms?
+
+logging: write to files under /home/.Haggle
+also ccnd output in config file or redirect
+
+parse logs for final output from ccnd logs
+
+# of experiments to run should 15 times or 20 instead of 5.
+
+Action Items:
+- Possible to specify Interest lifetime during creation through API?
+- finish working on interest/CO and scenario documentation
+-- specifics to include?
+- investigate if javasrc is completely separate?
+- how to find out how data packets are sent over the network?
+- Create log files for later analysis
+-- try getting data object that doesnt exist.
+--- when interests arrive from application and when sent out?
+--- when ccnd expects interests?
+
+send frederik info about:
+- config file location and syntax
+- command line for each application
+- can we modify times to ms?

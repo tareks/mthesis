@@ -16,6 +16,7 @@ Assumptions:
 - It is the responsiblity of the requester to ensure data is received.
 - Not using CCN*Streams. 
 - Some scenarios require large files sizes that allow for interruptions during transmission/receipt. 
+- UDP is used for underlying packet transmission.
 
 Parameters:
 - Number of nodes: 2
@@ -31,24 +32,24 @@ Parameters:
 The experiment will test the following scenarios:
 a) There are no connectivity or latency problems between the 2 nodes.
 - Timeline:
-Link1 up at: 0s
+Link1 up at: 0s for 30 seconds.
 
 - Purpose: 
 Test relaying and caching.
 
 - Expected results:
-No transmission problems. All Interest requests are satistified with 100% success rate.
+No transmission problems. First Interest is satisified.
 
 b) Link 1 is down before the request from A is sent.  
 - Timeline:
 Link1 down at: 0s
-Link1 up at:  4s
+Link1 up at:  4s for 30 seconds.
 
 - Purpose:
 Test Interest packet retransmission by A.
 
 - Expected results:
-First Interest packet in each trial is lost. The next packet is satisfied. (80% success rate)
+First Interest packet in each trial is lost. The second Interest is satisfied. 
 
 c) Link 1 is down before data is received by A (after Interest is received by C).
 - Timeline:
@@ -58,14 +59,14 @@ Link1 up at: 1s
 
 - Purpose:
 Test Interest retransmission by A. 
-First Interest packet in each trial is not satisfied. The next packet is satisfied. (80% success rate)
+First Interest packet in each trial is not satisfied. 
 
 - Expected results:
 
 d) Link 1 is broken while data is being received by A.
 - Timeline:
 Link1 up at: 0s
-Link1 up down at: 1s (Have to use a 1MB file size for this?)
+Link1 up down at: 1s (Have to use a 10MB file size for this?)
 Link1 up at: 5s
 
 - Purpose:
@@ -79,19 +80,20 @@ Steps
 1. Generate random data and sha1sum for it:
 $ dd if=/dev/random of=testfile.512 bs=512 count=1
 
-2. Start first CCND instance
+2. Start first CCND instance on node-1
 $ CCN_LOCAL_PORT=6001 CCND_DEBUG=2 ./ccndstart
 
-3. Start second CCND instance
-$ CCN_LOCAL_PORT=6002 CCND_DEBUG=2 ./ccndstart
+3. Start second CCND instance on node-2
+$ CCN_LOCAL_PORT=6001 CCND_DEBUG=2 ./ccndstart
 
-$ CCN_LOCAL_PORT=6001 ./ccndc add ccnx:/test tcp localhost 6002
+Configure node-2 to route through node-1 using UDP
+$ CCN_LOCAL_PORT=6001 ./ccndc add ccnx:/test UDP node-1 6001
 
 4. Run application in Sender mode: (Listen for requests)
-$ java -cp $CLASSPATH:thoth.jar -Dccn.agent.port=6002 thoth.DTSender ccnx:/test/test1 testfile.512
+$ java -cp $CLASSPATH:thoth.jar -Dccn.agent.port=6001 thoth.DTNode -S ccnx:/test/test1 testfile.512
 
 5. Run application in Receiver mode: (Send data requests)
-$ java -cp $CLASSPATH:thoth.jar -Dccn.agent.port=6001 thoth.DTReceiver ccnx:/test/1 rcvdfile.512
+$ java -cp $CLASSPATH:thoth.jar -Dccn.agent.port=6001 thoth.DTNode -R ccnx:/test/1 rcvdfile.512
 
 6. Monitor output:
 

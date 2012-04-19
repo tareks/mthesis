@@ -185,9 +185,9 @@ public class DTNode {
 	_connection.closeConnection();
 
 	if (numRequestFulfilled > 0) {
-	    System.out.println("Number of Interests to fulfill request: " + numRequestFulfilled);
-	    System.out.println("Time to fulfill request for successful Interest: " + requestFulfilledTime + " milliseconds.");
-	    System.out.println("Time to fulfill request from first Interest: " + totalTimeToFulfillRequest + " milliseconds.");
+	    Log.info("Number of Interests to fulfill request: " + numRequestFulfilled);
+	    Log.info("Time to fulfill request for successful Interest: " + requestFulfilledTime + " milliseconds.");
+	    Log.info("Time to fulfill request from first Interest: " + totalTimeToFulfillRequest + " milliseconds.");
 	}
 	
     }
@@ -234,7 +234,7 @@ public class DTNode {
     public static void main(String[] args) {
 
 	// TODO - add -debug flag and switch to Level.info or define new?
-	boolean _debug = false;
+	boolean _debug = true;
 
 	if (_debug == true)
 	    Log.setLevel(Log.FAC_ALL, Level.INFO);

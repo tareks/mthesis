@@ -1,0 +1,3 @@
+Discussed with Fredrik haggle issues. 
+
+Only concern might be the timing between when application is started and links come up. Might need to redesign things if the timings are off.
