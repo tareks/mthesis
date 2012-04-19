@@ -16,6 +16,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.logging.Level;
 
+import java.net.*;
+import java.util.*;
+
 
 import org.ccnx.ccn.config.ConfigurationException;
 import org.ccnx.ccn.profiles.SegmentationProfile;
@@ -33,6 +36,47 @@ import thoth.CCNComms;
 import thoth.CCNComms.NodeNetworkMode;
 
 public class DTNode {
+
+    private class BeaconGenerator implements Runnable {
+	
+	boolean keepSending=true;
+	
+	public void stopSending() {
+	    keepSending = false;
+	}
+	
+	public void run() {
+	    int SERVER_PORT = 1893;
+	    String SERVER_IP = "192.168.122.254";
+	    DatagramSocket socket = null;
+	    Log.info("Starting beacon thread..");
+
+	    try {
+		socket = new DatagramSocket();
+		InetAddress serverAddr= InetAddress.getByName(SERVER_IP);
+		DatagramPacket msg = new DatagramPacket(new String("ready").getBytes(), 5, serverAddr, SERVER_PORT);
+		while (keepSending) {
+		    // send beacon to server 
+		    socket.send(msg);
+		    Log.info("Sent ready signal to server.");
+		    
+		    //delay for two seconds before next beacon
+		    Thread.currentThread().sleep(2000);
+		}
+		
+		socket.close();
+		
+	    } 
+	    catch (InterruptedException e) {
+		// interrupt early to avoid sleeping extra
+		socket.close();
+	    }
+	    catch (Exception e) {
+		System.err.println("Problem sending beacon to server. Exception:" +e );
+	    }
+	}
+    }
+    
     
     protected DTNode() {
 	_dataObjects = new ArrayList<ContentObject>();
@@ -153,6 +197,43 @@ public class DTNode {
 
     }
 
+    private void waitForSync() {
+	int BCAST_PORT = 1892;
+	String SERVER_IP = "192.168.122.254";
+	String SYNC_MSG = "gogogo";
+	
+	// Create and start new thread to send alive beacons once ready
+	BeaconGenerator generator = new BeaconGenerator();
+	Thread beaconThread = new Thread(generator);
+	beaconThread.start();
+	
+	// main thread blocks and listens for sync signal
+        
+        byte[] beacon = new byte[16];
+	try {
+	    DatagramSocket socket = new DatagramSocket(BCAST_PORT);
+	    DatagramPacket packet = new DatagramPacket(beacon, beacon.length);
+	    Log.info("Waiting for synchronization signal..");
+
+	    while (true) {
+		socket.receive(packet);
+		String received = new String(packet.getData(), 0, packet.getLength());
+		if (received.equals(SYNC_MSG)) break;
+	    }
+	
+	    generator.stopSending();
+//	    beaconThread.interrupt();
+	
+	    Log.info("Got synchronization signal, good to go!");
+	    Thread.currentThread().sleep(1000);
+	    
+	    socket.close();
+	}
+	catch (Exception e) {
+	    System.err.println("Error receiving synchronization signal.");
+	}
+    }
+
     private void PowerOn() throws ConfigurationException, IOException, MalformedContentNameStringException, InterruptedException {
 	
 	_file = new File(_filename);
@@ -167,10 +248,15 @@ public class DTNode {
 	Log.info("Our public key is: " + _connection.getMyPublicKeyString());
 	Log.info("Our public key fingerprint is: " + _connection.getMyPublicKeyShortString());
 
+	if (_mode == NodeMode.Sender)
+	    createContentObjects();
+	
+	// Now wait for Sync signal before sending/receiving requests
+	waitForSync();
+	
 	switch (_mode) {
 	case Sender:
 	    Log.info("NODE is in SENDER MODE");
-	    createContentObjects();
 	    handleRequests();
 	    break;
 	case Receiver:
