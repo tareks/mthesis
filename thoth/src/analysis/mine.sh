@@ -42,7 +42,7 @@ for x in $EXPDIRLIST; do
     TOTALTIMEARRAY=()
     for y in $ITERDIRLIST; do
 	echo -e "Getting data from iteration $y"
-        # TODO: check timestamps
+        # TODO: check timestamps to make sure data is valid
         # Get the data we need
 	NUMINTERESTS=$(egrep -re "<message>Number of Interests to fulfill request: .*</message>" $y | sed -n "s/.*: \(.*\)<.*/\1/p")
 	echo -e "Number of interests sent: $NUMINTERESTS" | tee -a $LOG_NAME
@@ -58,12 +58,17 @@ for x in $EXPDIRLIST; do
 	echo -e "$TIME,$EXPNAME,$NUMNODES: $ITERNUM,$NUMINTERESTS,$SUCCESSTIME,$TOTALTIME" | tee -a $REPORT_NAME
 
 	NUMINTERESTSARRAY+=($NUMINTERESTS)
-	echo -e "NUMINTERESTARRAY:${NUMINTERESTSARRAY[@]}"
+#	echo -e "NUMINTERESTARRAY:${NUMINTERESTSARRAY[@]}"
 	SUCCESSTIMEARRAY+=($SUCCESSTIME)
-	echo -e "SUCCESSTIMEARRAY:${SUCCESSTIMEARRAY[@]}"
+#	echo -e "SUCCESSTIMEARRAY:${SUCCESSTIMEARRAY[@]}"
 	TOTALTIMEARRAY+=($TOTALTIME)
-	echo -e "TOTALTIMEARRAY:${TOTALTIMEARRAY[@]}"
+#	echo -e "TOTALTIMEARRAY:${TOTALTIMEARRAY[@]}"
     done
     # Calculate averages for each experiment, min, max
-    
+    echo -e "NUMINTERESTARRAY:${NUMINTERESTSARRAY[@]}"
+    echo "${NUMINTERESTSARRAY[@]}" | awk '{if(min==""){min=max=$1}; if($1>max) {max=$1}; if($1<min) {min=$1}; total+=$1; count+=1} END {print "Number of interests:" total/count, max, min}'
+    echo -e "SUCCESSTIMEARRAY:${SUCCESSTIMEARRAY[@]}"
+    echo "${SUCCESSTIMEARRAY[@]}" | awk ' BEGIN { FS=" "; } { if(min==""){min=max=$1}; if($1>max) {max=$1}; if($1<min) {min=$1}; total+=$1; count+=1} END {print "Success time:" total/count, max, min}'
+    echo -e "TOTALTIMEARRAY:${TOTALTIMEARRAY[@]}"
+    echo "${TOTALTIMEARRAY[@]}" | awk '{if(min==""){min=max=$1}; if($1>max) {max=$1}; if($1<min) {min=$1}; total+=$1; count+=1} END {print "Total time:" total/count, max, min}'
 done
