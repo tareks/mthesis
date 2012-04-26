@@ -1,7 +1,6 @@
 /* 
  * Contains consolidated node code to handle sending and receiving.
  *
- *
  */
 
 package thoth;
@@ -61,7 +60,7 @@ public class DTNode {
 		    Log.info("Sent ready signal to server.");
 		    
 		    //delay for two seconds before next beacon
-		    Thread.currentThread().sleep(2000);
+		    Thread.currentThread().sleep(5000);
 		}
 		
 		socket.close();
@@ -321,12 +320,14 @@ public class DTNode {
 
 	// TODO - add -debug flag and switch to Level.info or define new?
 	boolean _debug = true;
-
 	if (_debug == true)
 	    Log.setLevel(Log.FAC_ALL, Level.INFO);
 	else 
 	    Log.setLevel(Log.FAC_ALL, Level.OFF);
 
+	Thread t = new Thread();
+	
+	
 	DTNode node = new DTNode();
 	
 	if (! node.parseArgs(args) ) {
