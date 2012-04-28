@@ -120,7 +120,7 @@ public class DTNode {
 	    Log.info("No data received, giving up.");
 	}
 	else {
-	    Log.info("Got CO: " + co.toString());
+//	    Log.info("Got CO: " + co.toString());
 	    Log.info("Writing ContentObject to file...");
 	    
 	    try {
@@ -168,6 +168,7 @@ public class DTNode {
 
 	    long length = _file.length();
 
+Log.info ("Got length = " + length);
 	    if (length > Integer.MAX_VALUE) {
 		Log.info("File is too big, skipping..");
 		return;
@@ -177,13 +178,16 @@ public class DTNode {
 	    byte[] data = new byte[(int) length];
 	    inStream.read(data);
 	    inStream.close();
+Log.info ("Read file into memory");
 
 	    co = ContentObject.buildContentObject(name, data);
 	    //, new SignedInfo(_connection.getMyPublicKey(), new KeyLocator(name)), data, (int) _file.length());
 	    
+Log.info ("Built object..");
 	    _dataObjects.add(co);
+Log.info ("Added object to list");
 
-	    Log.info("Created CO: " + co.toString());
+//	    Log.info("Created CO: " + co.toString());
 	}
 
 	catch (IOException e) {

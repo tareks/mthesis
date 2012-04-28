@@ -58,17 +58,16 @@ for x in $EXPDIRLIST; do
 	echo -e "$TIME,$EXPNAME,$NUMNODES: $ITERNUM,$NUMINTERESTS,$SUCCESSTIME,$TOTALTIME" | tee -a $REPORT_NAME
 
 	NUMINTERESTSARRAY+=($NUMINTERESTS)
-#	echo -e "NUMINTERESTARRAY:${NUMINTERESTSARRAY[@]}"
 	SUCCESSTIMEARRAY+=($SUCCESSTIME)
-#	echo -e "SUCCESSTIMEARRAY:${SUCCESSTIMEARRAY[@]}"
 	TOTALTIMEARRAY+=($TOTALTIME)
-#	echo -e "TOTALTIMEARRAY:${TOTALTIMEARRAY[@]}"
     done
+    
+    export EXPNAME
     # Calculate averages for each experiment, min, max
-    echo -e "NUMINTERESTARRAY:${NUMINTERESTSARRAY[@]}"
-    echo "${NUMINTERESTSARRAY[@]}" | awk '{if(min==""){min=max=$1}; if($1>max) {max=$1}; if($1<min) {min=$1}; total+=$1; count+=1} END {print "Number of interests:" total/count, max, min}'
-    echo -e "SUCCESSTIMEARRAY:${SUCCESSTIMEARRAY[@]}"
-    echo "${SUCCESSTIMEARRAY[@]}" | awk ' BEGIN { FS=" "; } { if(min==""){min=max=$1}; if($1>max) {max=$1}; if($1<min) {min=$1}; total+=$1; count+=1} END {print "Success time:" total/count, max, min}'
-    echo -e "TOTALTIMEARRAY:${TOTALTIMEARRAY[@]}"
-    echo "${TOTALTIMEARRAY[@]}" | awk '{if(min==""){min=max=$1}; if($1>max) {max=$1}; if($1<min) {min=$1}; total+=$1; count+=1} END {print "Total time:" total/count, max, min}'
+    # echo -e "NUMINTERESTARRAY:${NUMINTERESTSARRAY[@]}"
+    echo "${NUMINTERESTSARRAY[@]}" | awk ' BEGIN {FS=" "} { count=NF;max=min=$1;sum=0; for (i=1; i<=NF; i++) { if ($i>max) max=$i; if ($i<min) min=$i; sum+=$i} }  END { print ENVIRON["EXPNAME"]":NUMINTEREST SUMMARY(interests): Minimum=" min ", Maximum="max ", Average="sum/count } ' | tee -a $REPORT_NAME
+    # echo -e "SUCCESSTIMEARRAY:${SUCCESSTIMEARRAY[@]}"
+    echo "${SUCCESSTIMEARRAY[@]}" | awk ' BEGIN {FS=" "} { count=NF;max=min=$1;sum=0; for (i=1; i<=NF; i++) { if ($i>max) max=$i; if ($i<min) min=$i; sum+=$i} }  END { print ENVIRON["EXPNAME"]":SUCCESSTIME SUMMARY(ms): Minimum=" min ", Maximum="max ", Average="sum/count } ' | tee -a $REPORT_NAME
+    # echo -e "TOTALTIMEARRAY:${TOTALTIMEARRAY[@]}"
+    echo "${TOTALTIMEARRAY[@]}" | awk ' BEGIN {FS=" "} { count=NF;max=min=$1;sum=0; for (i=1; i<=NF; i++) { if ($i>max) max=$i; if ($i<min) min=$i; sum+=$i} }  END { print ENVIRON["EXPNAME"]":TOTALTIME SUMMARY(ms): Minimum=" min ", Maximum="max ", Average="sum/count } ' | tee -a $REPORT_NAME
 done
