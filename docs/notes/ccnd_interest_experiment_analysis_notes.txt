@@ -1,0 +1,50 @@
+Analysis:
+--------
+
+On the receiving node, ccnd performs the following steps:
+- Application sends a interest_from packet for the required ccnx URI (debug.3563)
+-- lifetime of 4 seconds for that interest
+- prefix_mismatch ? (debug.3619)
+- ccnd sends an interest_to pack for the URI over the network (debug.3011)
+- repeated attempts to send the request for a maximum of 13 times, timer based 4 seconds?(debug.3050) 
+-- propagate_interesting() -> do_propagate() called then do_propagate is rescheduled on a timer until Interest lifetime expires
+-- pe->usec is lifetime (starts at 4 seconds and decreases over time)
+-- delay is 0.25 seconds, after each delay, lifetime is decreased
+--- lifetime = 4 seconds; if lifetime < (16384 <  (INT_MAX / (15625 * 64)) then usec = lifetime * (15625 /64) else usec = INT_MAX 
+--- pe_next_usec(): pe->usec = pe->usec - next_delay (0.25s) each iteration
+- if no response, an interest_expiry packet is sent back to the application for that URI. (debug.2994) - not valid for this experiment!
+- When a response is received, a "content_from" packet is received by ccnd (debug.3844)
+-- a "consume" packet for that URI is sent to the application (debug.1381)
+--- pe->usec (lifetime) is set to 0 (ie.expires) 
+-- a "content_to" packet is sent to that application (debug.1140)
+
+
+On the sender node, ccnd performs the following steps:
+- ccnd receives an "interest_from" packet on the wire for a specifc ccnx URI (debug.3563)
+- ccnd forwards "interest_from" packet to the application (debug.3563)
+- prefix_mismatch ? (debug.3619)
+- data is searched for on local cache + ccnd faces which includes sender application (debug.3302, 3050,2243)
+- ccnd send "interest_to" for URI to its faces. (debug.3011)
+- ccnd gets confirmation that URI exists on one of the faces? (debug.3050)
+- ccnd sends "content_from" packet to retrieve that data using the URI. (debug.3844)
+- ccnd sends "consume" packet to outbound face (debug.1381)
+- ccnd sends "content_to" packet to outbound face (debug.1140)
+- ccnd releases outbound face (debug.726)
+
+
+Notes:
+ - check ccnx protocol and how they match these message sequences above
+ - check ccnd.c for these debug lines
+ - On Sender end, the searching on local cache + faces, is that what takes so long the first time?
+
+
+
+ - How does ccnd decide when to send interests? When application asks it to.
+ - When does an interest expire? When lifetime expires, can be specified at application level?
+
+
+=============
+Common observations:
+
+- information about application registration and Interests propagated during KeyStore and Content Object initialization
+
