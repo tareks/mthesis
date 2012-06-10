@@ -4,27 +4,25 @@ Experiment 2
 Description
 -----------
 This is a setup to simulate a DTN with:
-Node A: Node requesting data. (Receiver)
-Node B: Node relaying/caching data. (Relay)
-Node C: Node storing data and responding to data requests. (Sender)
+Node 1: Node requesting data. (Sender)
+Node 2: Node relaying/caching data. (Relay)
+Node 3: Node storing data and responding to data requests. (Receiver)
 
-A <----> B <-----> C
+1 <----> 2 <-----> 3
      ^        ^
    Link 1    Link 2
 
 Assumptions:
 - Each node runs on a separate ccnd instance.
 - It is the responsiblity of the requester to ensure data is received.
-- Not using CCN*Streams.
 - Assume different data files sizes that allow for interruptions during transmission/receipt.
 
 Parameters:
 - Number of nodes: 3
 - Number of relay nodes: 1
 - Number of links: 2
-- Number of trials per scenario: 5
-- Number of Interest requests sent per trial: 5
-- Interest timeout period: 2 seconds
+- Number of Interest requests sent per trial: 3
+- Interest timeout period: 4 seconds
 - Interval between Interest retries: 5 seconds
 - Sender/Receiver data buffer size: unspecified (no segmentation, 1-to-1 interest/data mapping)
 - File size: 512 bytes

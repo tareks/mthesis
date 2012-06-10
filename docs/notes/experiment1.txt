@@ -23,8 +23,8 @@ Parameters:
 - Number of relay nodes: 0
 - Number of links: 1
 - Number of trials per scenario: 5
-- Number of Interest requests sent per trial: 5
-- Interest timeout period: 2 seconds
+- Number of Interest requests sent per trial: 3
+- Interest timeout period: 4 seconds
 - Interval between Interest retries: 5 seconds
 - Sender/Receiver data buffer size: unspecified (no segmentation, 1-to-1 interest/data mapping)
 - File size: 512 bytes unless otherwise specified.
