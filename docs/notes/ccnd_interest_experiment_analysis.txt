@@ -1,5 +1,9 @@
 A number of simple experiments using 2 nodes were conducted in order to identify how CCNX reacts in an opportunistic setting particularly in regards to how Interest retransmission works. The experiments consist of a receiver node that requests a certain CCNX URI (ccnx:/test/1) and a sender node that stores data corresponding to that URI and responds to Interest requests. The scenarios presented below identify CCNX Interest retransmission behavior using different conditions of link connectivity.
 
+Notes on data collection:
+------------------------
+The intervals measured includes all ccnx protocol mechanisms (including key retrieeval and content object verification) beyond the initial registration of the application with its ccnd instance. The time involved in security mechanisms is inherently absolved from the comparison by being included in all measurements.
+
 Experiment (1a) Summary:
 -----------------------
 This scenario involves no link interruptions or disconnections. The receiver requests information from the sender and this data is immediately satisfied.
@@ -21,10 +25,12 @@ Based on a number of 10 runs, the experiments yields the expected end result of 
 
 Analysis:
 --------
+	The receiving node requests the CCN URI (ccnx:/test/1) at the application level which runs on top of the CCN daemon instance running on the same node. The application sends an Interest packet specifying the URI using the network face that is connected to the daemon. The Interest packet has a number of parameters, most notably its lifetime, which was set to 4 seconds for this experiment[1]*. The Interest packet triggers an "interest_from" event on the the local CCN daemon which results in that Interest being added to the local Pending Interest Table (PIT) as there is no existing entry. A lookup is then perfomed on the Forwarding Information Base (FIB) which returns a match for the prefix (ccnx:/test) on a face, UDP in this experiment, that connects to the other node. The CCN daemon triggers an "interest_to" event which relays the request over that network face to the sender node. Once the Interest is sent, the CCN daemon will monitor that prefix for the lifetime of the Intere
+ st.
 
-The receiving node requests the CCN URI (ccnx:/test/1) at the application level which runs on top of the CCN daemon instance running on the same node. The application first sends an "interest_from" packet specifying the URI using the network face that is connected to the daemon. The Interest packet has a number of parameters, most notably its lifetime, which was set to 4 seconds for this experiment[1]*. When the CCN daemon receives the "interest_from" packet, the Interest packet is added to the Pending Interest Table (PIT). It then relays the request over the network as an "interest_to" packet. Once the Interest is sent, the CCN daemon will monitor that URI it for its specified lifetime.
-On the other node, the sender, the CCN daemon receives the "interest_from" packet on its network face for a URI it may hold. The Forwarding Information Base on the node is searched for a match for that URI prefix. As one is found in the FIB, the daemon sends an "interest_to" packet to the application face. A secruity key request is performed to verify the indentify of the remote node. When validation is complete, a "consume" packet is then sent to the application which then responds with a "content_from" the same application face. 
-   At this point, the file is cached as a Content Object in the Content Store of the sender node. A "consume" packet is sent over the network, followed by a "content_to" packet. That packet is received on the receiver node as a "content_from" by the daemon, which sends a "consume" to the application face. Finally, a "content_to" packet is sent which triggers the application to read the data from the local CCN daemon Content Store concluding the transfer. 
+	On the other node, the sender, the CCN daemon receives the Interest packet on its network face. An "interest_from" event on the daemon which queries its PIT for a match, which results in no matches. The FIB is then checked for the same prefix and a match is found. The daemon then formwards the Interest to the application face. Signature verification is performed to verify the Content Object. When verification is complete, a "consume" event is issued by the daemon followed by a "content_from" event to alert the application that it should send the data across the network.
+
+	At this point, the file is cached as a Content Object in the Content Store of the sender node. A "consume" event followed by a "content_to" event results in the Content Object being sent the data over the network. The data packet is received on the receiver node and processed through a "content_from" event on the daemon. A lookup is performed on the PIT on the prefix. A match is found in the PIT for that Content Object and consequently a "consume" event sends it to the application face interested in the prefix. Finally, a "content_to" event signals that the application reads the data from the local CCN daemon Content Store into memory and writing it to disk to conclude the transfer.
 
 Experiment (1b) Summary:
 -----------------------
@@ -48,9 +54,9 @@ These times are much lower than the time recorded in experiment 1a for an immedi
 Analysis:
 --------
 
-The receiving node requests the CCN URI (ccnx:/test/1) at the application level which runs on top of the CCN daemon instance running on the same node. The application first sends an "interest_from" packet for that URI to the daemon. The Interest packet is added to the Pending Interest Table (PIT) for the lifetime of the that Interest (4 seconds)*. The CCN daemon then issues an "interest_to" packet on the network and waits for a response. Because the connection between the two nodes is down at this point in time of the experiment, the Interest never reaches the sender node. After 4 seconds, an "interest_expiry" packet is sent back to the application and the Interest is removed from the PIT.
-The application on the receiving node is designed to retry the requests 3 times with a retry interval in between attempts. After it timeouts from the first Interest request, it waits for the user specified retry interval and sends another request. This time the link between the two nodes is up and the Interest reaches the sender. 
-The sender, the CCN daemon receives the "interest_from" packet from the network, and follows the same steps outlined in experiment 1a until the file is correctly received.
+The receiving node starts in the same manner it did for experiment 1a. It requests the CCN URI (ccnx:/test/1) at the application level. The prefix is not found in the local Content Store or the PIT, so the Interest is added to the Pending Interest Table (PIT) for the lifetime of the that Interest (4 seconds)*. The FIB is then searched and a match is found for that prefix. The Interest is sent over the network and the daemon awaits a response. Because the connection between the two nodes is down at this point in time, the Interest never reaches the sender node. After 4 seconds, an "interest_expiry" event is triggered signalling the end of the lifetime and corresponding entry is removed from the PIT. 
+The application on the receiving node is designed to retry the requests 3 times with a retry interval in between attempts. After it timeouts from the first Interest request, it waits for the user specified retry interval and sends another request. The second time an Interest request is sent, the link between the two nodes is up and the Interest reaches the sender node. 
+On the sender node, the CCN daemon receives the Interest and follows the same steps outlined in experiment 1a until the file is correctly received.
 
 Experiment (1c) Summary:
 -----------------------
@@ -68,12 +74,13 @@ These times are very close to the ones observed in experiment 1b due to the Inte
 
 In addition, the following times identify the response time for the (second) successful Interest request:
    Minimum=4, Maximum=6, Average=5.33333 (milliseconds) 
-These times are much faster than the ones recorded in 1a and 1b because when the second Interest request is sent, the data is cached in the Content Store on the CCN daemon.
+These times are much faster than the ones recorded in 1a and 1b.
 
 Analysis:
 --------
-In this scenario, the receiving node behaves the same way as it did in experiments 1a and 1b. A request is made for the CCN URI by the application which triggers an Interest request that is sent over the Network. In this case, the link between the two nodes is up when the Interest is received by the sender node, however, the link drops before a response is sent back. 
-The sender node operates normally by searching for the requested URI locally, requesting the data from the local application, and sending "consume" and "content_to" packets back over the network. However, because the connection is lost by the time those 2 packets are sent back, the CCN daemon on the receiving node expires the Interest. The receiving application will then send another request after its retry interval elapses which corresponds to when the connection is re-established, allowing the Interest to be propagated successfully, and the data to be sent back without interruption or delay. It should be noted that in this second case, the file is cached locally on the CCN daemon and therefore there is no need to propagate the Interest request to the sender application. The prefix is matched directly to the Content Store and is sent back over the network without requiring intervention from the application.   
+In this scenario, the receiving node behaves the same way as it did in experiments 1a and 1b. A request is made for the CCN URI by the application which triggers an Interest request that is sent over the Network. In this case, the link between the two nodes is up when the Interest is received by the sender node, however, the link drops before a response in the form of a Content Object is sent back. 
+The sender node follows the normal procedure by searching for the requested prefix in its Content Store, loading the Content Object from the local application, then sending it back over the network. However, because the connection is lost by the time those Content Object is sent back, the CCN daemon on the receiving node had already expired the Interest from its PIT which results in the Content Object being discarded. The receiving application will then send a new Interest request after its retry interval elapses, which corresponds to when the connection is restored. This allows the second Interest to propagate successfully, and the Content Object to be sent back without interruption or delay. 
+It should be noted that in this case, the Content Object by the CCN daemon on the sender node making it unnecessary to propagate the Interest to the application running on that node. The prefix is matched directly to the Content Store and is sent back over the network without intervention from the application reducing the response time.   
 
 
 Experiment (1d) Summary:
@@ -91,15 +98,15 @@ This results from this experiment was rather inconclusive, however they provide 
 
 Analysis:
 --------
-The scenario follows the same basic steps outlined in previous experiments. The main difference is that even though the first Interest packet is received by the sender application, the transmission of the datastream back is interrupted and never completed. As a result, the receiving application will retry the request procedure by sending another Interest which is satisfied directly from the Content Store on the sender node's CCN daemon. It appears that due to the large size of the file being transmitted, the data is not completely stored in the Content Store and the application hanging while writing the Content Object to the network does not allow the entire file to be transmitted. The CCN daemon on the receiving node appears to detect this incomplete data and ignores the "content_to" packets being received. The lifetime of the Interest elapses and expires. This process is repeated another time before the receiving application completes its retry attempts and exits.
-
+The scenario follows the same basic steps outlined in previous experiments. The main difference is that even though the first Interest is received by the sender application, the transmission of the Content Object datastream back is interrupted and never completed. As a result, the receiving application will retry the request procedure by sending another Interest which is satisfied directly from the Content Store on the sender node's CCN daemon. 
+It appears that due to the large size of the file being transmitted, the data is not completely stored in the Content Store and the application hangs while writing the Content Object to the network. This does not allow the entire file to be transmitted. The CCN daemon on the receiving node appears to detect this incomplete data and ignores the Content Object data being received as it does not fully match the Interest parameters. The lifetime of the Interest elapses and expires without the entirety of the Content Object being received. This process repeats before the receiving application completes its retry attempts and exits.
+TODO: Why does the application hang when writing to the network?
 
 Conclusion:
 ----------
-Throughout the simple experiments conducted with a single link connecting 2 nodes, it can be concluded that the CCN daemon does not request Interest requests other than as instructed by the application driving the requests. When Interests are lost or not satisfied due to transmission errors, it is the responsibility of the application to send another Interest request until data is received. It is important to note that although the CCN daemon does not attempt to retransmit Interests itself, it does provide the capability of validating data being received by matching it to the Interest information as well as originating Content Object. 
-In a Delay Tolerant environment, it will be the responsbility of the application to make sure that there is a continous stream of requests that attempt to recover from loss of connectivity.
+Throughout the simple experiments conducted with a single link connecting 2 nodes, it can be concluded that the CCN daemon does not submit Interest messages other than those expressed by the application driving the requests. When Interests are lost or not satisfied due to transmission errors, it is the responsibility of the application to send another Interest request until valid data is received. It is important to note that although the CCN daemon does not attempt to retransmit Interests itself, it does provide the capability of validating data being received by matching it to the Interest information as well as originating Content Object. 
+In a Delay Tolerant environment, it will be the responsbility of the application to make sure that there is a continous stream of Interest requests to recover from a loss of connectivity.
  
-
 
 References:
 ---------
