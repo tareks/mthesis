@@ -4,9 +4,9 @@ Experiment 2
 Description
 -----------
 This is a setup to simulate a DTN with:
-Node 1: Node requesting data. (Sender)
+Node 1: storing data and responding to data requests. (Sender)
 Node 2: Node relaying/caching data. (Relay)
-Node 3: Node storing data and responding to data requests. (Receiver)
+Node 3: Node requesting data. (Receiver)
 
 1 <----> 2 <-----> 3
      ^        ^
@@ -37,62 +37,49 @@ Link2 up at: 0s
 Test relaying and caching.
 
 - Expected results:
-No transmission problems. All Interest requests are satistified with 100% success rate.
+No transmission problems. The first Interest request is immediately satistified.
 
-b) Link 1 is down before the request from A is sent.
+b) Link 1 is down before the request from node-3 is received by node-1, but Interest reaches node-2.
 - Timeline:
-Link1 down at: 0s
-Link2 up at 0s
-Link1 up at: 1s
+Link1 up from : 4s
+Link2 up from : 0s
 
 - Purpose:
-Test Interest retransmission by A.
+Test Interest retransmission through node-2.
 
 - Expected results:
-First Interest packet in each trial is lost. The next packet is satisfied. (80% success rate)
+First Interest packet in each trial is lost even though it reaches the relay node. The next packet is satisfied. Even though node-2 adds the Interest to its PIT, it makes no attempts to resend it to node-1 until a new Interest is received from the requesting application on node-3. The PIT entry on node-2 will expire and a new Interest from node-3 is required before data is sent back.
 
-c) Link 2 is down before data is received by A (after Interest is fulfilled by C).
+
+c) The Interest request from node-3 reaches node-1 successfully, but the data response does not reach node-1 on the first attempt because link 2 is down (ie. link 2 is only up until the Interest is propagated to node-1). 
+
 - Timeline:
-Link1 up at: 0s
-Link2 up at: 0s
-Link1 down at: 0.1s (before data is received by A)
-Link2 down at: 0.1s (simulate node C being down, data cached at B)
-Link1 up at: 1s
+Link1 up from: 0ms
+Link2 up from: 0ms
+Link2 down from: 1500ms
+Link2 up from : 2000ms
 
 - Purpose:
-Test Interest retransmission by A. 
+Test Interest retransmission and Content Object caching.
 
 - Expected results:
-First Interest packet in each trial is lost. The next packet is satisfied. (80% success rate)
-Second Interest packet sent should be fulfilled by node B as it is cached.
+The initial request from node-3 reaches node-1 through the relay node (node-2). Both node-2 and node-1 add the Interest request to their PIT. node-1 will send the Content Object back on the network. The data is stored in node-2's Content Store but will does reach node-3 as Link2 is down. When Link2 is restored, the application on node-3 will send another Interest which is immediately satisified by node-2 as it is cached in its Content Store. The second Interest is not relayed to node-1. 
 
-d) Link 2 is broken while data is being received by C.
-- Timeline:
-Link1 up at: 0s
-Link2 up at: 0s
-Link1 down at: 1s (before data is received by A - using 1MB file size)
-Link1 up at: 3s
-
-- Purpose:
-Test data integrity/transaction completion and Interest retransmission.
-
-- Expected results:
-As data is not completely received, A will resend Interest which will be satisfied by node B (cached).
 
 Steps
 -----
 1. Generate random data and sha1sum for it:
 $ dd if=/dev/random of=testfile.512 bs=512 count=1
 
-2. Start first CCND instance (Node A)
+2. Start first CCND instance (node-1)
 $ CCN_LOCAL_PORT=6001 CCND_DEBUG=2 ./ccndstart
 
-3. Start second CCND instance (Node B)
+3. Start second CCND instance (node-2)
 $ CCN_LOCAL_PORT=6002 CCND_DEBUG=2 ./ccndstart
 
 $ CCN_LOCAL_PORT=6001 ./ccndc add ccnx:/test tcp localhost 6002
 
-4. Start third CCND instance (Node C)
+4. Start third CCND instance (node-3)
 $ CCN_LOCAL_PORT=6003 CCND_DEBUG=2 ./ccndstart
 
 $ CCN_LOCAL_PORT=6002 ./ccndc add ccnx:/test tcp localhost 6003
