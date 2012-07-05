@@ -1,8 +1,18 @@
-A number of simple experiments using 2 nodes were conducted in order to identify how CCNX reacts in an opportunistic setting particularly in regards to how Interest retransmission works. The experiments consist of a receiver node that requests a certain CCNX URI (ccnx:/test/1) and a sender node that stores data corresponding to that URI and responds to Interest requests. The scenarios presented below identify CCNX Interest retransmission behavior using different conditions of link connectivity.
+A number of simple experiments using CCNx nodes were conducted in order to identify how the protocol works in an opportunistic setting particularly with regards to Interest retransmission. The experiments consist of a 2 main nodes: a receiver node, that requests a certain CCNX URI (ccnx:/test/1); and a sender node, that stores data corresponding to that URI and responds to Interest requests. Additional nodes are optionally added to act relays between the 2 main nodes. The scenarios presented below identify CCNX Interest retransmission behavior using different conditions related to link availability and interruption.
 
 Notes on data collection:
 ------------------------
-The intervals measured includes all ccnx protocol mechanisms (including key retrieeval and content object verification) beyond the initial registration of the application with its ccnd instance. The time involved in security mechanisms is inherently absolved from the comparison by being included in all measurements.
+- The intervals measured includes all ccnx protocol mechanisms (including key retrieval and content object verification) beyond the initial registration of the application with its ccnd instance. The time involved in security mechanisms is inherently absolved from the comparison by being included in all measurements.
+
+- In certain situations, responses are delayed either due to network latency, hard drive response time, application response time, or other factors. In addition, because the ccnd Interest lifetime timer is checked every 250ms, there maybe be multiples of 250ms gaps in the response time. This explains why in certain scenarios the response time could be much higher than in others testing the same case. While those can be ignored as outliers, they should have no real impact on the total time of Interest success, especially when an Interest must be retransmitted.
+
+Experiment (1):
+--------------
+This experiment involves 4 scenarios to test Interest retransmission between the sender and receiver nodes. It includes:
+a) No interruptions of disconnections.
+b) Link is down from start of scenario. (Interest not sent)
+c) Link is down shortly after start of scenario. (Interest sent, data lost)
+d) Link is down while receiving data. (Interest sent, data interrupted)
 
 Experiment (1a) Summary:
 -----------------------
@@ -107,6 +117,118 @@ Conclusion:
 Throughout the simple experiments conducted with a single link connecting 2 nodes, it can be concluded that the CCN daemon does not submit Interest messages other than those expressed by the application driving the requests. When Interests are lost or not satisfied due to transmission errors, it is the responsibility of the application to send another Interest request until valid data is received. It is important to note that although the CCN daemon does not attempt to retransmit Interests itself, it does provide the capability of validating data being received by matching it to the Interest information as well as originating Content Object. 
 In a Delay Tolerant environment, it will be the responsbility of the application to make sure that there is a continous stream of Interest requests to recover from a loss of connectivity.
  
+
+				*****************************
+
+Experiment (2):
+===============
+This experiment involves 3 scenarios to test Interest retransmission between the sender node, a relay node, and a receiver node. It includes:
+a) Both links are up.
+b) Link is down before Interest reaches relay node.
+c) Link is down just after Interest reaches relay node.  
+
+Experiment (2a) Summary:
+-----------------------
+This scenario involves no link interruptions or disconnections. The receiver requests information from the sender and this data is promptly returned through the relay node.
+
+Experiment parameters:
+---------------------
+- Number of nodes: 3
+- Number of relay nodes: 1
+- Number of links: 2
+- Interest timeout period: 2 seconds
+- Interval between Interest retries: 5 seconds
+- File size: 512 bytes
+
+Observations:
+------------
+
+Based on a number of 10 runs, the experiments yields the expected end result of the data being received based on the first Interest request. The following information shows response times for the requested data to be successfully received by node-3:
+      Minimum=32, Maximum=532, Average=176.3 (milliseconds)
+
+In this case, node-3 sends an Interest which must be propagated to node-1. As an intermediate relay node, node-2 relays the Interest to node-1. Node-1 then sends data back to node-2, which relays it back to node-3.
+
+Analysis:
+--------
+	The application running on node-3 requests the CCN URI (ccnx:/test/1). The request in the form of an Interest message is sent to the local daemon instance running on the same node. The Interest is then added to the local Pending Interest Table (PIT). A lookup is then perfomed on the Forwarding Information Base (FIB) which returns a match for the prefix (ccnx:/test) on a face, UDP in this experiment, that connects to node-2. When the Interest message reaches node-2, it is added to the PIT. The FIB is then searched for the prefix which returns an entry pointing to node-1. As a result, the Interest message is then forwarded to node-1 where it is also added to the PIT. The prefix matches data which is locally served by the node, which is consequently retrieved from the application and sent back over the network. The data first arrives at node-2 where it is verified, then cached in its Content Store. The PIT entry for that Interest is removed as it has been satisified and the data is relayed back to node-3. 
+
+	This process is very similar to experiment 1a when there are no disconnections or interruptions between 2 nodes. The only exception is the additional relaying operation that is performed by node-2 in this case which does not appear to impact performance by a large amount when comparing response times.
+
+
+Experiment (2b) Summary:
+-----------------------
+This scenario involves testing Interest retransmission by the receiving node (node-1). The link between node-2 and node-1 is down from the beginning of the experiment. This link is restored after the first Interest request expires. More than one Interest will be sent before the request is satisified.
+
+Experiment parameters:
+---------------------
+- Number of nodes: 3
+- Number of relay nodes: 1
+- Number of links: 2
+- Interest timeout period: 2 seconds
+- Interval between Interest retries: 5 seconds
+- File size: 512 bytes
+
+Observations:
+------------
+
+Based on a number of 10 runs, the experiments show that 2 interests are required to successfully complete the request. The following information shows the total time for the requested data to be successfully received by node-3:
+      Minimum=7026, Maximum=7105, Average=7036.9   (milliseconds)
+
+In addition, the following measurements identify the response time for the (second) successful Interest request:
+      Minimum=25, Maximum=104, Average=35.9    (milliseconds) 
+
+The total time it takes for Interest to be fulfilled is much longer than experiment 2a. 
+
+
+Analysis:
+--------
+This is similar to the scenario described in experiment 2b with the exception of the connection between node-2 (relay) and node-1 (sender) being unavailable at the start. The Interest sent from the application on node-3 (receiver) reaches node-2, but cannot be relayed to node-3 because the link is down. After the lifetime of the Interest expires, the PIT entries expire on both nodes and the Interest message is discarded. No Interest reach node-1 up to this point.
+After the Interest retry interval (5 seconds) elapses, the application on node-3 resends the Interest which is then sent to node-2 and this time relayed to node-1. Node-1 identifies the URI in the request and replies with the requested data. The data is first cached in the Content Store on node-2, then once it arrives at node-3 is also cached and forwarded back to the application.  
+
+The total time required to fulfill the request is noticeably longer than experiment 2a due to the need for the second Interest message to be sent. This involves the time required for the Interest message to expire, the application wait time, the time for the second Interest to be sent, and finally the time it takes the data to be relayed back. 
+
+The time for the successful Interest to be fulfilled is similar to experiment 2a which is expected as after the first Interest message expires, the entire process must be repeated without knowledge of the prior attempt. 
+
+Experiment (2c) Summary:
+-----------------------
+This scenario also involves testing Interest retransmission by the receiving node (node-1). However, in this case, the link between node-3 and node-2 is down immediately after the Interest request is sent from the node. The link between node-2 and node-1 is operational throughout the experiment. More than one Interest will be sent before the request is satisfied.
+
+
+Experiment parameters:
+---------------------
+- Number of nodes: 3
+- Number of relay nodes: 1
+- Number of links: 2
+- Interest timeout period: 2 seconds
+- Interval between Interest retries: 5 seconds
+- File size: 512 bytes
+
+Observations:
+------------
+
+Based on a number of 5 runs, the results show that 2 Interests are required for the request to be satisified. The following measurements show the total time for the request data to be successfully received by node-3:
+      Minimum=7006, Maximum=7008, Average=7007        (milliseconds)
+
+In addition, the following times identify the response time for the (second) successful Interest request:
+      Minimum=5, Maximum=7, Average=6.2       (milliseconds) 
+
+The times for the successful (second) Interest to be fulfilled are noticeably lower than experiment 2a and 2b. In addition, while the total time required to fulfill the request is still higher than the one taken in experiment 2a, it is lower than experiment 2b. 
+
+Analysis:
+--------
+This scenario is similar to experiment 2b, except that it forces Interest retransmission at a different point of time in the experiment. As opposed to node-1 (sender) not receiving the first Interest message in experiment 2b, the first Interest reaches node-1 through node-2. However, immediately after the Interest leaves node-3 (receiver), the connection between node-3 and node-2 is lost. 
+Because the Interest reaches node-2, it is added to its PIT and based on the FIB forwarded to node-1. Node-1 will then send the data back to node-2, which attempts to send the data back to node-3 but cannot due to the link being down. The PIT entry expires on all 3 nodes, but the Content Object remains cached in the Content Store of both node-3 and node-2.
+
+After the Interest retry interval (5 seconds) elapses, node-3 will send another Interest. When this message reaches node-2, the URI is looked up in the Content Store. Since the corresponding Content Object is still cached, a response is directly sent back to node-3. Node-1 plays no role in satisfying the second Interest message.
+ 
+The total time to satisfy the request is slightly shorter than experiment 2b due to the fact that the second Interest request does not need to be sent all the way back to node-1. Additionally, the response time for the second successful Interest message is noticeably shorter as well confirming that data is being retrieved from the relay node's Content Store rather than being forwarded on the network.
+
+
+Conclusion:
+----------
+Similar to the conclusion from Experiment 1, the application is responsible to ensure that Interests are retransmismitted as required to fulfill requests. The behavior of the relay node confirms that CCNx does not interfere with Interest retransmission. It also highlights the advantages of caching Content Objects in the local Content Store which would be an important feature in a Delay Tolerant environment. Additionally, the introduction of a relay node does not hugely impact performance when tested at similar connection speeds between the nodes. 
+It is expected that in a network with more relay nodes, the performance would be similar since retransmitted Interests would be satisified by the closest node on the network. In a Delay Tolerant setting, it would be beneficial to have Interests retransmitted at shorter Intervals without explicit requests from the application. This would ensure that there is a larger window of opportunity around link outages for the data to be retrieved as well as a greater chance of requested data being cached on more nodes in the network resulting in faster overall retrieval times.
+
 
 References:
 ---------
