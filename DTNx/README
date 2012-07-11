@@ -1,0 +1,10 @@
+To Compile:
+javac -cp ./ccnx-0.6.0/lib/ccn.jar DTNx.java
+
+To Run:
+java -cp  ccnx-0.6.0/lib/ccn.jar:ccnx-0.6.0/lib/bcprov-jdk16-143.jar:ccnx-0.6.0/lib/kxml2-2.3.0.jar:.  DTNx
+
+
+Notes:
+
+- We normally don't want to express Interests until we actually need to do this (ie. some Interests get satisfied immediately), but spamming Interests will make sure the data is cached + anything already in CS will be discarded.
