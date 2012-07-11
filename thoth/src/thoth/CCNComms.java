@@ -154,17 +154,20 @@ public final class CCNComms {
 	return null;
     }
 
+    public void setInterestFilter() {
+        _senderGotInterest = false;
+        try {
+           _networkManager.setInterestFilter(this, _contentName, _sndrListener);
+        } catch (IOException ioe) {
+    	    Log.info("Exception: "+ ioe.getMessage());
+        }
+    }
 
     /* 
      * Register a listener for interests and handle them if we get any.
      */
     public Interest handleInterests() {
-	Interest i = new Interest(_contentName);
-	
-	_senderGotInterest = false;
 	try {
-	    _networkManager.setInterestFilter(this, _contentName, _sndrListener);
-
 	    // Keep waiting for an interest 
 	    while (! _senderGotInterest) {
 		Log.info("Listening for interests..");
@@ -172,6 +175,10 @@ public final class CCNComms {
 	    }
 	    
 	    _networkManager.cancelInterestFilter(this, _contentName, _sndrListener);
+
+            /* FIXME Here we need to return the interest received by
+             * _sndrListener, not the one we created. */
+	    Interest i = new Interest(_contentName);
 	    return i;
 	}
 	

@@ -251,8 +251,11 @@ Log.info ("Added object to list");
 	Log.info("Our public key is: " + _connection.getMyPublicKeyString());
 	Log.info("Our public key fingerprint is: " + _connection.getMyPublicKeyShortString());
 
-	if (_mode == NodeMode.Sender)
+	if (_mode == NodeMode.Sender) {
+            /* Register prefix so we'll get interests. */
+            _connection.setInterestFilter();
 	    createContentObjects();
+        }
 	
 	// Now wait for Sync signal before sending/receiving requests
 	waitForSync();
