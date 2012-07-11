@@ -143,20 +143,20 @@ public class DTNode {
 	while (true) {
 	    i = _connection.handleInterests();
 	    
-	if (i != null) {
-	    Log.info("Checking if we have a CO to match this interest..");
-	    
-	    for (ContentObject co : _dataObjects) {
-		if (i.matches(co)) {
-		    Log.info("Found match! Writing CO to network..");
-		    _connection.sendObject(co);
-		} else
-		    Log.info("Found no match. Ignoring interest.");
+	    if (i != null) {
+		Log.info("Checking if we have a CO to match this interest..");
+		
+		for (ContentObject co : _dataObjects) {
+		    if (i.matches(co)) {
+			Log.info("Found match! Writing CO to network..");
+			_connection.sendObject(co);
+		    } else
+			Log.info("Found no match. Ignoring interest.");
+		}
 	    }
 	}
-	}
     }
-
+    
     private void createContentObjects() {
 	ContentName name, baseName; 
 	ContentObject co;
@@ -200,7 +200,7 @@ Log.info ("Added object to list");
 
     }
 
-    private void waitForSync() {
+    private void waitForTestbedSync() {
 	int BCAST_PORT = 1892;
 	String SERVER_IP = "192.168.122.254";
 	String SYNC_MSG = "gogogo";
@@ -251,11 +251,16 @@ Log.info ("Added object to list");
 	Log.info("Our public key is: " + _connection.getMyPublicKeyString());
 	Log.info("Our public key fingerprint is: " + _connection.getMyPublicKeyShortString());
 
-	if (_mode == NodeMode.Sender)
+	if (_mode == NodeMode.Sender) {
+	    /* Register prefix so we'll get interests. */
+	    _connection.setInterestFilter();
+	    
+	    /* Create COs from files */
 	    createContentObjects();
+	}
 	
 	// Now wait for Sync signal before sending/receiving requests
-	waitForSync();
+	waitForTestbedSync();
 	
 	switch (_mode) {
 	case Sender:
@@ -270,7 +275,10 @@ Log.info ("Added object to list");
 	    // should never happen
 	    break;
 	}
-	    
+	
+	// Unregister prefix to cleanup
+	_connection.cancelInterestFilter();
+	
 	_connection.closeConnection();
 
 	if (numRequestFulfilled > 0) {
