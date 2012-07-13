@@ -76,6 +76,8 @@ public final class CCNComms {
 	    Log.info("Received an interest: " + interest.toString());
 	    
 	    _senderGotInterest = true;
+	    _senderInterestMsg = interest;
+	    
 	    filterSema.release();
 
 	    return true;
@@ -181,10 +183,10 @@ public final class CCNComms {
 	    
 	    /* Got an Interest we need to process */
 
-	    // Build a reference Interest to match CO received against
-	    Interest i = new Interest(_contentName); 
+	    // Return a reference Interest received to match against COs
+	    //Interest i = new Interest(_contentName); 
 
-	    return i;
+	    return _senderInterestMsg;
 	}
 	
 	catch (Exception e) {
@@ -377,6 +379,7 @@ public final class CCNComms {
     private ReceiverListener _rcvrListener;
 
     private Semaphore filterSema;
+    private Interest _senderInterestMsg = null;
 
     // Contants
     private static int BLOCK_SIZE = 512;
