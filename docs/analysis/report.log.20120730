@@ -1,0 +1,67 @@
+Time	Experiment#	# of nodes:	Iteration#	# of Interests Sent	Time for success interest (ms)	Total time to succeed (ms)
+Fri Jul 13 11:55:29 EET 2012,1a,2: 1,1,11,11
+Fri Jul 13 11:55:29 EET 2012,1a,2: 2,1,13,13
+Fri Jul 13 11:55:29 EET 2012,1a,2: 3,1,14,14
+Fri Jul 13 11:55:29 EET 2012,1a,2: 4,1,10,10
+Fri Jul 13 11:55:29 EET 2012,1a,2: 5,1,13,13
+Fri Jul 13 11:55:29 EET 2012,1a,2: 6,1,13,13
+Fri Jul 13 11:55:29 EET 2012,1a,2: 7,1,14,14
+Fri Jul 13 11:55:29 EET 2012,1a,2: 8,1,73,73
+Fri Jul 13 11:55:29 EET 2012,1a,2: 9,1,16,16
+Fri Jul 13 11:55:29 EET 2012,1a,2: 10,1,10,10
+1a:NUMINTEREST SUMMARY(interests): Minimum=1, Maximum=1, Average=1
+1a:SUCCESSTIME SUMMARY(ms): Minimum=10, Maximum=73, Average=18.7
+1a:TOTALTIME SUMMARY(ms): Minimum=10, Maximum=73, Average=18.7
+Thu Apr 26 11:10:01 EET 2012,1b,2: 1,2,19,7020
+Thu Apr 26 11:10:01 EET 2012,1b,2: 2,2,23,7024
+Thu Apr 26 11:10:01 EET 2012,1b,2: 3,2,23,7024
+Thu Apr 26 11:10:01 EET 2012,1b,2: 4,2,26,7027
+Thu Apr 26 11:10:01 EET 2012,1b,2: 5,2,54,7055
+Thu Apr 26 11:10:01 EET 2012,1b,2: 6,2,21,7022
+Thu Apr 26 11:10:01 EET 2012,1b,2: 7,2,21,7022
+Thu Apr 26 11:10:01 EET 2012,1b,2: 8,2,23,7025
+Thu Apr 26 11:10:01 EET 2012,1b,2: 9,2,22,7023
+Thu Apr 26 11:10:01 EET 2012,1b,2: 10,2,20,7021
+1b:NUMINTEREST SUMMARY(interests): Minimum=2, Maximum=2, Average=2
+1b:SUCCESSTIME SUMMARY(ms): Minimum=19, Maximum=54, Average=25.2
+1b:TOTALTIME SUMMARY(ms): Minimum=7020, Maximum=7055, Average=7026.3
+Thu Jun  7 12:13:26 EET 2012,1c,2: 1,2,4,7005
+Thu Jun  7 12:13:26 EET 2012,1c,2: 2,2,6,7007
+Thu Jun  7 12:13:26 EET 2012,1c,2: 3,2,6,7007
+1c:NUMINTEREST SUMMARY(interests): Minimum=2, Maximum=2, Average=2
+1c:SUCCESSTIME SUMMARY(ms): Minimum=4, Maximum=6, Average=5.33333
+1c:TOTALTIME SUMMARY(ms): Minimum=7005, Maximum=7007, Average=7006.33
+Fri Jul 13 12:36:25 EET 2012,2a,3: 1,1,24,24
+Fri Jul 13 12:36:25 EET 2012,2a,3: 2,1,17,17
+Fri Jul 13 12:36:25 EET 2012,2a,3: 3,1,24,24
+Fri Jul 13 12:36:25 EET 2012,2a,3: 4,1,25,25
+Fri Jul 13 12:36:25 EET 2012,2a,3: 5,1,16,16
+Fri Jul 13 12:36:25 EET 2012,2a,3: 6,1,22,22
+Fri Jul 13 12:36:25 EET 2012,2a,3: 7,1,19,19
+Fri Jul 13 12:36:25 EET 2012,2a,3: 8,1,23,23
+Fri Jul 13 12:36:25 EET 2012,2a,3: 9,1,18,18
+Fri Jul 13 12:36:25 EET 2012,2a,3: 10,1,20,20
+2a:NUMINTEREST SUMMARY(interests): Minimum=1, Maximum=1, Average=1
+2a:SUCCESSTIME SUMMARY(ms): Minimum=16, Maximum=25, Average=20.8
+2a:TOTALTIME SUMMARY(ms): Minimum=16, Maximum=25, Average=20.8
+Wed Jul  4 06:53:51 EET 2012,2b,3: 1,2,31,7032
+Wed Jul  4 06:53:51 EET 2012,2b,3: 2,2,32,7034
+Wed Jul  4 06:53:51 EET 2012,2b,3: 3,2,30,7030
+Wed Jul  4 06:53:51 EET 2012,2b,3: 4,2,29,7030
+Wed Jul  4 06:53:51 EET 2012,2b,3: 5,2,28,7029
+Wed Jul  4 06:53:51 EET 2012,2b,3: 6,2,25,7026
+Wed Jul  4 06:53:51 EET 2012,2b,3: 7,2,104,7105
+Wed Jul  4 06:53:51 EET 2012,2b,3: 8,2,25,7026
+Wed Jul  4 06:53:51 EET 2012,2b,3: 9,2,30,7031
+Wed Jul  4 06:53:51 EET 2012,2b,3: 10,2,25,7026
+2b:NUMINTEREST SUMMARY(interests): Minimum=2, Maximum=2, Average=2
+2b:SUCCESSTIME SUMMARY(ms): Minimum=25, Maximum=104, Average=35.9
+2b:TOTALTIME SUMMARY(ms): Minimum=7026, Maximum=7105, Average=7036.9
+Wed Jul  4 13:11:10 EET 2012,2c,3: 1,2,5,7006
+Wed Jul  4 13:11:10 EET 2012,2c,3: 2,2,6,7007
+Wed Jul  4 13:11:10 EET 2012,2c,3: 3,2,7,7008
+Wed Jul  4 13:11:10 EET 2012,2c,3: 4,2,7,7007
+Wed Jul  4 13:11:10 EET 2012,2c,3: 5,2,6,7007
+2c:NUMINTEREST SUMMARY(interests): Minimum=2, Maximum=2, Average=2
+2c:SUCCESSTIME SUMMARY(ms): Minimum=5, Maximum=7, Average=6.2
+2c:TOTALTIME SUMMARY(ms): Minimum=7006, Maximum=7008, Average=7007
