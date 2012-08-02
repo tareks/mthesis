@@ -137,7 +137,8 @@ public final class CCNComms {
 		throw new Exception();
 	    }
 	     Log.info("Interest text: " + i.toString());
-
+	     //	     ControlThreadClient execControl = new ControlThreadClient();
+	     //execControl.resume();
 	     _connection.expressInterest(i, _rcvrListener);
 	     filterSema.tryAcquire(SEMA_TIMEOUT, TimeUnit.MILLISECONDS);
 
@@ -173,7 +174,7 @@ public final class CCNComms {
      */
     public Interest handleInterests() {
 	
-	_senderGotInterest = false;
+	//_senderGotInterest = false;
 	try {
 	    // Keep waiting for an interest 
 	    while (! _senderGotInterest) {
@@ -182,9 +183,7 @@ public final class CCNComms {
 	    }
 	    
 	    /* Got an Interest we need to process */
-
-	    // Return a reference Interest received to match against COs
-	    //Interest i = new Interest(_contentName); 
+	    _senderGotInterest = false;
 
 	    return _senderInterestMsg;
 	}
