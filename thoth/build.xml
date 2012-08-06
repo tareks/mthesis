@@ -23,7 +23,7 @@
 	<property name="jarfile-base" value="thoth.jar"/>
 	<property name="TOP_DIR" value="."/>
 	<property name="jarfile" location="${TOP_DIR}/${jarfile-base}"/>
-	<property name="CCNX_LIBS" value="/home/tarek/work/thesis/ccnx-0.4.1/lib"/>
+	<property name="CCNX_LIBS" value="/home/tarek/work/thesis/ccnx-0.6.0/lib"/>
         <property name="ccnxjar" location="${CCNX_LIBS}/ccn.jar"/>
 
         <path id="ccn-classpath">

@@ -1,3 +1,5 @@
+USES: ccnx-0.6.0
+
 Description:
 Simple sender/receiver node pair that allow sending and receiving of (versioned/with metadata) files over CCNx.
 

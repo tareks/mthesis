@@ -15,8 +15,10 @@ import java.util.logging.Level;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-import org.ccnx.ccn.CCNFilterListener;
-import org.ccnx.ccn.CCNInterestListener;
+//import org.ccnx.ccn.CCNFilterListener;
+import org.ccnx.ccn.CCNInterestHandler;
+import org.ccnx.ccn.CCNContentHandler;
+//import org.ccnx.ccn.CCNInterestListener;
 import org.ccnx.ccn.CCNHandle;
 import org.ccnx.ccn.config.ConfigurationException;
 import org.ccnx.ccn.impl.support.Log;
@@ -52,7 +54,7 @@ public final class CCNComms {
      * This class provides the callback for the receiver waiting for 
      * responses to Interest packets.
      */
-    class ReceiverListener implements CCNInterestListener {
+    class ReceiverListener implements CCNContentHandler {
 
 	public Interest handleContent(ContentObject co,
 				      Interest interest) {
@@ -69,7 +71,7 @@ public final class CCNComms {
      * This class provides the callback for the sender waiting for 
      * Interest packets.
      */
-    class SenderListener implements CCNFilterListener {
+    class SenderListener implements CCNInterestHandler {
 	
 	public boolean handleInterest(Interest interest) {
 	    
