@@ -1,5 +1,3 @@
-package DTNx;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +15,7 @@ import org.ccnx.ccn.impl.support.Log;
 
 public class DTNx implements CCNInterestHandler, CCNContentHandler {
 	public static final int INTEREST_TIMEOUT = 1000 * 60;
-	public static final int PERIODIC_RETRANSMISSION_INTERVAL = 1000 * 10;
+	public static final int PERIODIC_RETRANSMISSION_INTERVAL = 1000 * 1;
 	
 	protected CCNHandle handle;
 	protected List<Interest> interests = new ArrayList<Interest>();
