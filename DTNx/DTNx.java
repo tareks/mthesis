@@ -1,3 +1,5 @@
+package DTNx;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +11,9 @@ import org.ccnx.ccn.protocol.ContentName;
 import org.ccnx.ccn.protocol.ContentObject;
 import org.ccnx.ccn.protocol.Interest;
 import org.ccnx.ccn.protocol.MalformedContentNameStringException;
+
+import java.util.logging.Level;
+import org.ccnx.ccn.impl.support.Log;
 
 public class DTNx implements CCNInterestHandler, CCNContentHandler {
 	public static final int INTEREST_TIMEOUT = 1000 * 60;
@@ -58,12 +63,12 @@ public class DTNx implements CCNInterestHandler, CCNContentHandler {
 	public synchronized boolean handleInterest(Interest i) {
 		
 		if (! interests.contains(i)) {
-		    System.out.printf("Received new interest %s\n", i.toString());
+		    Log.warning("Received new interest " + i.toString());
 		    interests.add(i);
 		    interestsRecvd.add(System.currentTimeMillis());
 		}
 		else {
-		    System.out.printf("Interest already cached, extending lifetime.\n");
+		    Log.warning("Interest already cached, extending lifetime.\n");
 		    interestsRecvd.set(interests.indexOf(i), 
 				       interestsRecvd.get(interests.indexOf(i)) + INTEREST_TIMEOUT);
 		}
@@ -76,7 +81,7 @@ public class DTNx implements CCNInterestHandler, CCNContentHandler {
 		int i;
 		int n = interests.size();
 		
-		System.out.printf("%d interests in retransmission list.\n", n);
+		Log.warning(n + " interests in retransmission list.");
 		
 		for (i=0;i<n;i++) {
 			Interest in = interests.get(i);
@@ -84,7 +89,7 @@ public class DTNx implements CCNInterestHandler, CCNContentHandler {
 					
 			if (System.currentTimeMillis() - INTEREST_TIMEOUT > recvd) {
 				/* The interest has timed out. */
-				System.out.printf("Dropping interest %s.\n", in.toString());
+				Log.warning("Dropping interest " + in.toString());
 				interests.remove(i);
 				interestsRecvd.remove(i);
 				n--;
@@ -104,14 +109,19 @@ public class DTNx implements CCNInterestHandler, CCNContentHandler {
 		 * now satisfied interests from our retransmission list. 
 		 */
 		int i = interests.indexOf(in);
-		interests.remove(i);
-		interestsRecvd.remove(i);
+		if (i >= 0) {
+			interests.remove(i);
+			interestsRecvd.remove(i);
+		}
 		
 		return null;
 	}
 	
 	public static void main(String[] argv) throws Exception {
 		DTNx d = new DTNx(CCNHandle.getHandle());
+		
+		Log.setLevel(Log.FAC_ALL, Level.WARNING);
+
 		d.init();
 	}
 }

@@ -1,6 +1,8 @@
 To Compile:
 javac -cp ./ccnx-0.6.0/lib/ccn.jar DTNx.java
 
+jar cvf DTNx.jar *.class
+
 To Run:
 java -cp  ccnx-0.6.0/lib/ccn.jar:ccnx-0.6.0/lib/bcprov-jdk16-143.jar:ccnx-0.6.0/lib/kxml2-2.3.0.jar:.  DTNx
 
