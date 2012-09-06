@@ -1,0 +1,7 @@
+To compile:
+make
+
+To run:
+* start ccnd
+. env_setup
+java -cp $CLASSPATH:dtgp.jar dtgp.Main -d

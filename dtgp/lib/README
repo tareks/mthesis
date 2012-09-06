@@ -1,0 +1,7 @@
+This directory should include:
+
+bcprov-jdk16-143.jar 
+ccn.jar
+kxml2-2.3.0.jar
+
+Code uses ccnx version: 0.4.1 
