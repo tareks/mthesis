@@ -59,7 +59,6 @@ public class Game implements DTApp {
     *	Start and keep track of a game 
     */
     public void run() {
-	TicTacToe game = null;
 	Move move = null;
 
 	Logger.msg("Running game...");
@@ -68,24 +67,20 @@ public class Game implements DTApp {
 	Logger.msg("Advertising game: " + gameID);
 	network.putGame(tttState); 
 	
-	// in the meantime, ask for a new game
-	game = network.getGame();
-	if (game == null) {
-	    // we've initiated the game, use our object
-	    
-	    // since we won the network battle, we play first
-	    // TODO: there must be a better way to do this
-	    Logger.msg("We get to play first.");
-	    myTurn = true; 
-	} else {
-	    // otherwise, use object returned from the other player
+	// in the meantime, ask for a new game with a certain ID
+	tttState  = network.getGame(gameID);
+	if (gameID == tttState.gameId()) {
+	    // we got this object off the network
 	    myTurn = false;
-	    tttState = game;
+	} else {
+	    // this is our object with gameID updated to match Interest
+	    // we play first as its our game object, update our local ID copy
+	    myTurn = true;
 	    gameID = tttState.gameId();
 	}
-	
+
 	inGame = true;
-	Logger.msg("Found a game.");
+	Logger.msg("Found a game: " + gameID);
 	
 	moveCount=1;
 	while (!tttState.isGameOver()) {
@@ -93,6 +88,8 @@ public class Game implements DTApp {
 		move = selectMove(moveCount);
 		network.putMove(gameID, moveCount, move);
 		
+		// dont ask for next move until we've sent ours?
+
 		myTurn = false;
 	    }
 	    else {

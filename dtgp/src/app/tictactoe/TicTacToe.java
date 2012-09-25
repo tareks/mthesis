@@ -9,7 +9,12 @@ public class TicTacToe implements Serializable {
 
     /** Tiles are either empty (_), O, or X. */
     public enum Tile { _, O, X };
-	
+
+    /** Describes the current state of the game. */
+    public enum GameState { New, InProgress, Ended };
+
+    protected GameState state = GameState.New;
+
     /** The current board state. */
     protected Tile[][] board = new Tile[3][3];
 	
@@ -38,6 +43,7 @@ public class TicTacToe implements Serializable {
 	}
 	gameID = id;
 	moveCount = 0;
+	state = GameState.New;
     }
 	
     public boolean validMove(int x, int y) {
@@ -97,6 +103,7 @@ public class TicTacToe implements Serializable {
      * 	 	 */
     public boolean isGameOver() {
 	if (getWinner() != Tile._) {
+	    state = GameState.Ended;
 	    return true;
 	}
 		
@@ -108,6 +115,7 @@ public class TicTacToe implements Serializable {
 	    }
 	}
 	
+	state = GameState.Ended;
 	return true;
     }
 	
@@ -125,6 +133,20 @@ public class TicTacToe implements Serializable {
 
     public int gameId() {
 	return gameID;
+    }
+
+    public void setGameId(int id) {
+	gameID = id;
+    }
+
+    public boolean isInProgress() {
+	if (state == GameState.InProgress)
+	    return true;
+	return false;
+    }
+
+    public void markStarted() {
+	state = GameState.InProgress;
     }
 }
 

@@ -27,29 +27,30 @@ import java.io.ByteArrayInputStream;
 
 public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandler {
     
-    private String ccnURI;
     private CCNHandle ccnHandle;
     private CCNNetworkManager networkManager;
-    private ContentName contentName;
-    private ContentObject contentData;
+    private ContentName contentNameDefault = null;
+    private ContentObject contentData = null;
+    private ContentName contentName = null;
     private boolean interestSatisfied = false;
     private PublisherPublicKeyDigest myPublicKeyDigest, remotePublicKeyDigest;
-    
-    private final String tttCCNxPrefix = "/uu/core/games/ttt";
 
-    /** time to fulfill Interest in milliseconds */
-    private long requestFulfilledTime; 
-    /** time to fulfill from first Interest */
-    private long totalTimeToFulfillRequest; 
-    /** the request that was fulfilled */
-    private int numRequestFulfilled; 
-    
+    private final String tttCCNxPrefix = "/uu/core/games/ttt";
+    private final String tttCCNxNewGamePrefix = "/uu/core/games/ttt/new";
+    private TicTacToe gameObject;
+
     // Constants
     private static int NETWORK_TIMEOUT = 5000; //ms 
 
     public CCNxNetwork() {
-	//	ccnURI = tttCCNxPrefix;
-	ccnURI = ""; // Listen for nothing by default
+	String defaultURI = "";
+	
+	try {
+	    contentNameDefault = ContentName.fromURI(defaultURI);
+	}
+	catch (Exception e) {
+
+	}
     }
 
     public void openConnection() {
@@ -65,11 +66,9 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 	    Logger.msg("Connected to " + getMyNodeId() + " over " + getIPProto() + "."); 
 	    Logger.msg("Our public key digest is: " + myPublicKeyDigest.toString());
 	    
-	    contentName = ContentName.fromURI(ccnURI);
-	    /* Register prefix so we'll get interests. */
-	    Logger.msg("Listening for prefix: " + ccnURI);
-	    ccnHandle.registerFilter(contentName, this);
-	    
+	    /* Register prefix so we get all interests. */
+	    Logger.msg("Listening for prefix: " + contentNameDefault.toString());
+	    ccnHandle.registerFilter(contentNameDefault, this);
 	}
 	catch (Exception e) {
 	    Logger.msg("Error opening connection: " + e.getMessage());
@@ -79,9 +78,9 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
     public void closeConnection() {
 
 	try {
-	    Logger.msg("Unregistering prefix: "+ccnURI);
+	    Logger.msg("Unregistering prefix: " + contentNameDefault.toString());
 	    // Unregister prefix to cleanup
-	    ccnHandle.unregisterFilter(contentName,this);
+	    ccnHandle.unregisterFilter(contentNameDefault,this);
 	    
 	    Logger.msg("Shutting down...");	
 	    // Kill connection with ccnd
@@ -92,69 +91,81 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 	    Logger.msg("Error closing connection: " + e.getMessage());
 	}
 
-
-	if (numRequestFulfilled > 0) {
-	    Logger.msg("Number of Interests to fulfill request: " + numRequestFulfilled);
-	    Logger.msg("Time to fulfill request for successful Interest: " + requestFulfilledTime + " milliseconds.");
-	    Logger.msg("Time to fulfill request from first Interest: " + totalTimeToFulfillRequest + " milliseconds.");
-	}
-	
     }
     
-    /** 
-     * Send an interest asking for the next move
+    /**
+     * 
      */
-    public Move getMove(int gameID, int moveNum) { 
-	String uri = tttCCNxPrefix + "/" + gameID + "/move/" + moveNum;
-	ContentObject co;
-	
-	co = sendRequest(uri);
-	
-	Logger.msg("Asking for move #.." + moveNum);
-	
-	return ContentObjectToMove(co);
+    private void unsetURIListener() {
+
+	try {
+	    Logger.msg("Unregistering prefix: " + contentName.toString());
+	    // Unregister prefix to cleanup
+	    ccnHandle.unregisterFilter(contentName,this);
+	    // reset contentName here
+	    contentName = ContentName.fromURI("");
+	}
+	catch (Exception e) { 
+	    Logger.msg("Failed to unregister: " + contentName.toString());
+	    e.printStackTrace();
+	}
     }
 
-    /**
-     * Create a Content Object and make it available
+    
+    /** 
+     * Adds the URI to our filter list.
      */
-    public void putMove(int gameID, int moveNum, Move move) {
-	String uri = tttCCNxPrefix + "/" + gameID + "/move/" + moveNum;
-	Logger.msg("Sending move..");
-
+    private void setURIListener(String uri) {
 	try {
 	    contentName = ContentName.fromURI(uri);
 	    /* Register prefix so we'll get interests. */
-	    Logger.msg("Listening for prefix: " + uri);	
+	    Logger.msg("Listening for prefix: " + contentName.toString());	
 	    ccnHandle.registerFilter(contentName, this);
 	}
 	
 	catch (Exception e) {
-	    Logger.msg("Failed publishing game state.");
+	    Logger.msg("Failed to register: " + uri);
 	    e.printStackTrace();
 	}
-	
-	ContentObject co = createContentObject(contentName, (Object) move);
-	
-	contentData = co;
-    } 
-    
+    }
 
     public boolean handleInterest(Interest i) {
 	
-	Logger.msg("Got an Interest from: ");// + i.publisherID().hashCode());// TODO: can't figure out where the Interest is coming from?
+
+	Logger.msg("Got an Interest for: " + i.getContentName().toString()); // TODO: We can't figure out where the Interest is coming from..
+		
+	/* 
+	 * For new game Interests, we construct the CO with the gameID on the fly
+	 * and send it back.
+	*/
+	String uri = i.getContentName().toString();
+	if (! gameObject.isInProgress() &&  uri.startsWith(tttCCNxNewGamePrefix)) {
+	  // Catch new game requests and satisfy them
+	    String uriEnd = uri.substring(uri.lastIndexOf("/") + 1);
+	    
+	    Logger.msg("New game Interest: GameID = " + uriEnd);
+	    gameObject.setGameId(Integer.parseInt(uriEnd));
+	    gameObject.markStarted();
+	    
+	    contentData = createContentObject(i.getContentName(), (Object) gameObject);
+	}
+	
+	if (contentData == null) {
+	    Logger.msg("We are waiting for nothing. Ignoring this request.");
+	    return true;
+	} else {
+	    Logger.msg("We are waiting for: " + contentData.getContentName().toString());
+	}
+
 	
 	if (i.matches(contentData)) {
-	    Logger.msg("MATCH, send the CO back.");
-	    // Only send it back once, receiver has to re-request if lost
-	    sendObject(contentData);
+	    Logger.msg("MATCH, sending the CO back for: " + contentData.getContentName().toString());
 	    
-	    //	    remotePublicKeyDigest = i.publisherID();
-	    interestSatisfied = true; //FIXME: could cause problems
-
-	    Logger.msg("Unregistering prefix: "+ccnURI);
-	    // Unregister prefix to cleanup
-	    ccnHandle.unregisterFilter(i.getContentName(),this);
+	    sendObject(contentData);
+	    contentData = null;
+	    // mark interest satisified, we've replied to an interest
+	    //	    unsetURIListener();
+	    interestSatisfied = true; 
 	}
 	
 	return true;
@@ -177,7 +188,7 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
     
     public ContentObject sendRequest(String cURI) {
 	// TODO: sanity checks here on URI
-	ContentName cName = new ContentName("");
+	ContentName cName = null;
 
 	try {
 	    cName = ContentName.fromURI(cURI);
@@ -194,7 +205,7 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
      * Sends one interest packet for a CN.
      */
     public ContentObject sendRequest(ContentName cName) {
-	ContentObject co;
+	ContentObject co = null;
 	Interest i = new Interest(cName);
 	
 	Logger.msg("Sending request for:" + cName.toString());
@@ -205,17 +216,31 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 		throw new Exception();
 	    }
 	    
+	    interestSatisfied = false;
 	    do {
+		// REQUESTER marks interest not satisfied
+		// REQUESTER waiting for object to continue
+		// SENDER waiting for interestSatisfied flag to change
+		Logger.msg("GET LOOP: Sending: " + i.name());
 		co = ccnHandle.get(i, NETWORK_TIMEOUT);
-	    } while (co == null);
-	    
+		if (co != null) {
+		    Logger.msg("Got CO:" + co.getContentName().toString());
+		}
+		if (interestSatisfied && gameObject.isInProgress()) {
+		    Logger.msg("We sent back a game CO!, should exit now");
+		    // this should only happen for game COs
+		    // move COs should not be affected or we get nulls
+		    break;
+		}
+	    } while ((co == null));
+	    // should never exit with co = null after game started
 	    //ccnHandle.expressInterest(i, this);
 	    //ccnHandle.cancelInterest(i, this);
 	}
 	
 	catch (Exception e) {
 	    // Something went wrong
-	    Logger.msg("Exception: "+ e.getMessage());
+	    Logger.msg("Problem sending Interest: "+ e.getMessage());
 	    return null;
 	}
 	
@@ -274,9 +299,8 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 
 
     private ContentObject createContentObject(ContentName name, Object o) {
-	ObjectOutputStream os = null;
-	ByteArrayOutputStream bos = null;
-	Logger.msg ("Creating CO:");
+	ObjectOutputStream os = null;	ByteArrayOutputStream bos = null;
+	Logger.msg ("Creating CO: " + name.toString());
 	
 	try {
 	    bos = new ByteArrayOutputStream();
@@ -328,7 +352,7 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 	ByteArrayInputStream bis = null;
 
 	Logger.msg("Disassembling Move CO:");
-
+	// 
 	byte[] data = co.content();
 
 	try {
@@ -351,7 +375,7 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 	ObjectInputStream is = null;
 	ByteArrayInputStream bis = null;
 
-	Logger.msg("Disassembling Game CO:");
+	Logger.msg("Disassembling CO :" + co.getContentName().toString());
 
 	byte[] data = co.content();
 
@@ -366,75 +390,90 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 	    e.printStackTrace();
 	}
 
+	Logger.msg("Disassembled Game object with ID: " + game.gameId());
+
 	return game;
     }
 
     public void putProfile(int gameID, Player p) {
-	ccnURI = tttCCNxPrefix + "/" + gameID +"/player";
+	String uri = tttCCNxPrefix + "/" + gameID +"/player";
+	ContentName cname = null;
 
-	try {
-	    contentName = ContentName.fromURI(ccnURI);
-	    /* Register prefix so we'll get interests. */
-	    Logger.msg("Listening for prefix: " + ccnURI);
-	}
+	setURIListener(uri);
 
-	catch (Exception e) {
-	}
-	
-	ContentObject co = createContentObject(contentName, (Object) p);
-	contentData = co;
+	contentData = createContentObject(contentName, (Object) p);
     }
 
     public Player getProfile(int gameID) {
 	String uri = tttCCNxPrefix + "/" +gameID + "/player";
 	
+	setURIListener(uri);
+
 	ContentObject co = sendRequest(uri);
 	
 	return ContentObjectToProfile(co);
     }
 
     public void putGame(TicTacToe game) {
-	String uri = tttCCNxPrefix + "/newgame";
+	String uri = tttCCNxPrefix + "/new";
+	ContentName cname = null;
 
-	try {
-	    contentName = ContentName.fromURI(uri);
-	    /* Register prefix so we'll get interests. */
-	    Logger.msg("Listening for prefix: " + uri);	
-	    ccnHandle.registerFilter(contentName, this);
-	}
+	setURIListener(uri);
 
-	catch (Exception e) {
-	    Logger.msg("Failed publishing game state.");
-	    e.printStackTrace();
-	}
-	
-	ContentObject co = createContentObject(contentName, (Object) game);
-	contentData = co;
+	gameObject = game;
     }
 
     	
-    public TicTacToe getGame() {
-	String uri = tttCCNxPrefix + "/newgame";
+    public TicTacToe getGame(int gameID) {
+	String uri = tttCCNxPrefix + "/new/" + gameID;
 	
 	ContentObject co = sendRequest(uri);
 	
+	// SENDER: interestSatisfied, co maybe not null?
+	// REQUESTER: co not null
 	if (interestSatisfied) {
-	    Logger.msg("We've sent our game state.");
-	    return null; // we initiated, our state is valid
+	    Logger.msg("We've sent our game object.");
+	    unsetURIListener();
+	    return gameObject; // gameID has been updated
 	}
+
+	// TODO: check that co really matches our URI
+	// extract game from CO
+	gameObject = ContentObjectToGame(co);
 	
-	return ContentObjectToGame(co);
+	Logger.msg("Got new game object for ID: " + gameObject.gameId() + " - stop listening.");
+	unsetURIListener();
+
+	return gameObject;
+    }
+
+    /**
+     * Create a Content Object and make it available
+     */
+    public void putMove(int gameID, int moveNum, Move move) {
+	String uri = tttCCNxPrefix + "/" + gameID + "/move/" + moveNum;
+
+	Logger.msg("Sending move..");
+
+	setURIListener(uri);
+	
+	contentData = createContentObject(contentName, (Object) move);
+    } 
+
+    /** 
+     * Send an interest asking for the next move
+     */
+    public Move getMove(int gameID, int moveNum) { 
+	String uri = tttCCNxPrefix + "/" + gameID + "/move/" + moveNum;
+	ContentObject co;
+
+	Logger.msg("Asking for move #.." + moveNum);
+
+	co = sendRequest(uri);
+
+	unsetURIListener();	
+
+	return ContentObjectToMove(co);
     }
     
 }
-
-/*
-
-- How to link Move to TicTacToe logic? applyMove needs to take x,y?
--- Tile identifies the which player is which (X is first, O is second)
-
-- Why have a list of Interests or ContentObjects? Isn't the current enough?
--- do we need an old move in case of disconnection for a long time
-- After getMove() and get a CO, then switch turns
-
-*/

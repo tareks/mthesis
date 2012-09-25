@@ -27,7 +27,7 @@ public interface Network {
     public Player getProfile(int gameID);
     
     /** Ask for a new game instance. */
-    public TicTacToe getGame();
+    public TicTacToe getGame(int gameID);
 
     /** Send a new game instance. */
     public void putGame(TicTacToe game);
