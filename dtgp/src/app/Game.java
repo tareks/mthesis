@@ -61,10 +61,10 @@ public class Game implements DTApp {
     public void run() {
 	Move move = null;
 
-	Logger.msg("Running game...");
+	System.out.println("Running game...");
 
 	// advertise a new game if we get requests for one
-	Logger.msg("Advertising game: " + gameID);
+	System.out.println("Advertising game: " + gameID);
 	network.putGame(tttState); 
 	
 	// in the meantime, ask for a new game with a certain ID
@@ -80,7 +80,7 @@ public class Game implements DTApp {
 	}
 
 	inGame = true;
-	Logger.msg("Found a game: " + gameID);
+	System.out.println("Found a game: " + gameID);
 	
 	moveCount=1;
 	while (!tttState.isGameOver()) {
@@ -89,7 +89,6 @@ public class Game implements DTApp {
 		network.putMove(gameID, moveCount, move);
 		
 		// dont ask for next move until we've sent ours?
-
 		myTurn = false;
 	    }
 	    else {
@@ -102,24 +101,16 @@ public class Game implements DTApp {
 		tttState.applyMove(tttState.getNextPlayer(),move);
 	    }
 	    catch (IllegalMoveException e) {
-		Logger.msg("Illegal move! - Cheating?");
-		moveCount--; myTurn=!myTurn;
+		System.out.println("Illegal move! - Cheating?");
+		// CAVEAT: If we GET an illegal move, game is over because we can't expire previous cached move CO
+		//moveCount--; 
+		myTurn=!myTurn; // ignore bad move, and continue without switching turns
 	    }
-
+	    
 	    moveCount++;
 	}
-
-	// Game ended, wait until other player knows they lost
-	if (!myTurn) {
-	    try {
-		// FIXME: What if latency is more than 5s?
-		Thread.sleep(5000);
-	    }
-	    catch (Exception e) {
-	    }
-	}
-
-	Logger.msg("Game ended! - Winner is: " + tttState.getWinner());
+	
+	System.out.println("Game ended! - Winner is: " + tttState.getWinner());
 
 	isGameOver = true;
     }
@@ -158,7 +149,7 @@ public class Game implements DTApp {
 	
 	boolean validMove = false;
 	do {
-	    System.out.println("Enter X and Y coordinates (1-3). Ex: 1 3, or 2 2.");
+	    System.out.println("Enter X and Y coordinates (1-3). Ex: 2 2 (col row). You are player: " + tttState.getNextPlayer());
 	    x = stdin.nextInt() - 1;
 	    y = stdin.nextInt() - 1;
 
@@ -170,8 +161,6 @@ public class Game implements DTApp {
 	    
 	} while (!validMove);
 	
-	ui.printBoard(tttState);
-
 	return new Move(x,y);
     }
     

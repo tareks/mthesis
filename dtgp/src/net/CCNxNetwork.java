@@ -32,7 +32,8 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
     private ContentName contentNameDefault = null;
     private ContentObject contentData = null;
     private ContentName contentName = null;
-    private boolean interestSatisfied = false;
+    private boolean gotMatchingContent = false;
+    private boolean sentMatchingContent = false;
     private PublisherPublicKeyDigest myPublicKeyDigest, remotePublicKeyDigest;
 
     private final String tttCCNxPrefix = "/uu/core/games/ttt";
@@ -157,15 +158,13 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 	    Logger.msg("We are waiting for: " + contentData.getContentName().toString());
 	}
 
-	
 	if (i.matches(contentData)) {
 	    Logger.msg("MATCH, sending the CO back for: " + contentData.getContentName().toString());
 	    
 	    sendObject(contentData);
 	    contentData = null;
-	    // mark interest satisified, we've replied to an interest
 	    //	    unsetURIListener();
-	    interestSatisfied = true; 
+	    sentMatchingContent = true; 
 	}
 	
 	return true;
@@ -216,24 +215,28 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 		throw new Exception();
 	    }
 	    
-	    interestSatisfied = false;
-	    do {
+	    gotMatchingContent = false;
+	    while (true) {
 		// REQUESTER marks interest not satisfied
 		// REQUESTER waiting for object to continue
-		// SENDER waiting for interestSatisfied flag to change
+		// SENDER waiting for sentMatchingContent flag to change
 		Logger.msg("GET LOOP: Sending: " + i.name());
 		co = ccnHandle.get(i, NETWORK_TIMEOUT);
-		if (co != null) {
-		    Logger.msg("Got CO:" + co.getContentName().toString());
+		if ( co != null) {
+		    Logger.msg("Exiting loop, Got CO:" + co.getContentName().toString());
+		    gotMatchingContent = true;
+		    break;
 		}
-		if (interestSatisfied && gameObject.isInProgress()) {
-		    Logger.msg("We sent back a game CO!, should exit now");
+		if (sentMatchingContent) {
+		    Logger.msg("Exiting loop, We sent back a  CO!");
 		    // this should only happen for game COs
 		    // move COs should not be affected or we get nulls
 		    break;
 		}
-	    } while ((co == null));
-	    // should never exit with co = null after game started
+	    } 
+	    // CO = null means we got nothing this get(), check that we sent something instead
+	    // FIXME: should never exit with co = null after game started
+
 	    //ccnHandle.expressInterest(i, this);
 	    //ccnHandle.cancelInterest(i, this);
 	}
@@ -418,8 +421,9 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 	String uri = tttCCNxPrefix + "/new";
 	ContentName cname = null;
 
+	sentMatchingContent = false;
 	setURIListener(uri);
-
+	
 	gameObject = game;
     }
 
@@ -429,16 +433,16 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 	
 	ContentObject co = sendRequest(uri);
 	
-	// SENDER: interestSatisfied, co maybe not null?
+	// SENDER: gotMatchingContent, co maybe not null?
 	// REQUESTER: co not null
-	if (interestSatisfied) {
+	if (sentMatchingContent) {
 	    Logger.msg("We've sent our game object.");
 	    unsetURIListener();
 	    return gameObject; // gameID has been updated
 	}
 
 	// TODO: check that co really matches our URI
-	// extract game from CO
+	// we received a CO, extract game from CO
 	gameObject = ContentObjectToGame(co);
 	
 	Logger.msg("Got new game object for ID: " + gameObject.gameId() + " - stop listening.");
@@ -455,9 +459,16 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 
 	Logger.msg("Sending move..");
 
+	sentMatchingContent = false;
+
 	setURIListener(uri);
 	
 	contentData = createContentObject(contentName, (Object) move);
+
+	while (!sentMatchingContent) {
+	    // Wait till we actually send a CO back on the network
+	    Logger.msg("Still not sent CO..");
+	}
     } 
 
     /** 
@@ -469,8 +480,11 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 
 	Logger.msg("Asking for move #.." + moveNum);
 
-	co = sendRequest(uri);
-
+	do {
+	    co = sendRequest(uri);
+	} while (co == null);
+	//FIXME we should never get a null CO Here
+	
 	unsetURIListener();	
 
 	return ContentObjectToMove(co);
