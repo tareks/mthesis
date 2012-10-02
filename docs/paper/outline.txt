@@ -1,6 +1,6 @@
 I. Abstract
 
-II. Introduction
+II. Introduction (5 pages)
 - Shortcomings associated with conventional TCP/IP architectures
 -- Problems with handling delays, and transmission over high latency connections.
 -- Data retrieval decoupling from location. Searching for data each host as opposed to data on the network (request/reply vs publish/retrieve).
@@ -9,24 +9,7 @@ II. Introduction
 - Named Data offers a different approach to for information retrieval
 -- Information is retrieved by name rather than through a hosts, network caching is a by-product
 
-III. Problem definition
-- What makes NDN useful in an ON? Is it a promising/rewarding alternative to conventional approaches?
-- What are the problems that face NDN in such a scenario/network configuration?
-- Do the advantages outweight the shortcomings?
-- What can be done to address these shortcomings?
-
-- Thesis does not investigate:
--- Security (assume clear text, minimal packet signature if any, some overhead missing from calculations as a result?)
--- Naming (assume basic naming scheme proposed/discussed in NDN paper; ie. ccnx:/org/data/file)
---- Flat addressing scheme from the node's point of view. Nodes ignore routing complexity and assume that data will get forwarded to the target nodes.
-
-- What framework, methods and testbed are used in the investigation?
--- ccnx (as a ndn implementation)
--- Haggle (as a testbed)
--- ON specific scenarios of varying complexities (simply mainly to test interest retransmission in delay tolerant settings)
--- Delay Tolerant implementation of TicTacToe as an application
-
-IV. Challenged Networks
+Challenged Networks
 - What they are and why they are important to study?
 -- These architures attempt to resolve problems that are not easily addressed with other widely deployed network architectures, namely TCP/IP based.
 - Opportunistic Networks
@@ -35,7 +18,7 @@ IV. Challenged Networks
 - Challenges and issues assosciated with such networks (move to dedicated section?)
 - Thesis focuses on ON(?) but results apply to delay and disruption tolerant networks as well.
 
-V. Information Centric Networking
+Information Centric Networking
 - How this model differs from the conventional approach.
 -- A potential Paradigm shift. The location of the data is unimportant. Users interested in data, not its location. Information/data centric, not location centric.
 -- Focuses on better content distribution, disruption and "flash-crowd" handling.
@@ -48,7 +31,7 @@ V. Information Centric Networking
 -- NDN (CCNx used as an implementation for this investigation)
 { One sentence to describe each, and reference original paper - not too long }
 
-VI. Challanges of Information Centric Networking on Challenged Networks
+Introduce challenges of Information Centric Networking on Challenged Networks
 - Issues that need to be investigated/considered
 -- Naming { not relevant }
 -- Name resolution (separate from naming?) { not relevant }
@@ -69,7 +52,33 @@ VI. Challanges of Information Centric Networking on Challenged Networks
 -- Performance { vs TCP/IP in challenged environments }
 -- Scalability { probably not covered, will be affected by addressing and routing issues - whole different area }
 
-VII. Investigation/Experimentation
+These challenges lead to problem definition
+
+III. Problem definition (1-2 pages)
+- What makes NDN useful in an ON? Is it a promising/rewarding alternative to conventional approaches?
+- What are the problems that face NDN in such a scenario/network configuration?
+- Do the advantages outweight the shortcomings?
+- What can be done to address these shortcomings?
+
+From general questions (how ICN useful in DTN setting), focus on the following:
+- How do we design a game that works in a Challenged Network setting? Gaming platform as an example
+-- How we came to understand CCNx and interest retransmission (from experiments)
+contributions: experiments + design of gaming platform + evaluation of that platform
+- main focus on disruption tolerance as an advantage of ICN
+
+- Thesis does not investigate:
+-- Security (assume clear text, minimal packet signature if any, some overhead missing from calculations as a result?)
+-- Naming (assume basic naming scheme proposed/discussed in NDN paper; ie. ccnx:/org/data/file)
+--- Flat addressing scheme from the node's point of view. Nodes ignore routing complexity and assume that data will get forwarded to the target nodes.
+
+- What framework, methods and testbed are used in the investigation?
+-- ccnx (as a ndn implementation)
+-- Haggle (as a testbed)
+-- ON specific scenarios of varying complexities (simply mainly to test interest retransmission in delay tolerant settings)
+-- Delay Tolerant implementation of TicTacToe as an application
+
+
+VII. Investigation/Experimentation (5-10 pages)
 - Brief CCNx description as NDN implementation (any assumptions that deviate from NDN design)
 - Brief Haggle testbed description and why/how it's used.
 - Outline experiments from simple to complex.
@@ -85,15 +94,16 @@ VII. Investigation/Experimentation
 -- Proposals for improvement and their results.
 -- Proposals for future research/work.
 
-VIII. Delay/Disruption Tolerant Gaming Platform (DTPG) - TicTacToe as an example
+VIII. Delay/Disruption Tolerant Gaming Platform (DTPG) - TicTacToe as an example (5-10 pages)
 - Introduction
 - Design alternatives
+-- even ones with flaws that looked okay on paper
 - Experimentation
 -- Scenario 1: No network delays or disruptions
 -- Scenario 2: Simulated link disruptions
 - Discussion
 
-IX. Related/Future Work
+IX. Related/Future Work (1 page)
 - Additional issues to investigate
 -- identify issues related to device mobility in a ON
 --- Assumption made during investigation is that layer 1/2 connectivity is provided and nodes can communicate freely on top of those layers.
