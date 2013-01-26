@@ -102,7 +102,7 @@ public class Game implements DTApp {
 	    }
 	    catch (IllegalMoveException e) {
 		System.out.println("Illegal move! - Cheating?");
-		// CAVEAT: If we GET an illegal move, game is over because we can't expire previous cached move CO
+		// CAVEAT: If we GET an illegal move, game is over because we can't expire previous cached move CO - no longer the case, moves will increment for re-requests and continue until a move is acceptable. Cannot correlate move # to player in this case.
 		//moveCount--; 
 		myTurn=!myTurn; // ignore bad move, and continue without switching turns
 	    }
