@@ -1,5 +1,5 @@
 To Compile:
-javac -cp ./ccnx-0.6.0/lib/ccn.jar DTNx.java
+javac -cp ../../ccnx-0.6.0/lib/ccn.jar DTNx.java
 
 jar cvf DTNx.jar *.class
 

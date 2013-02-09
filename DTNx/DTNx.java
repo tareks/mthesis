@@ -14,8 +14,8 @@ import java.util.logging.Level;
 import org.ccnx.ccn.impl.support.Log;
 
 public class DTNx implements CCNInterestHandler, CCNContentHandler {
-	public static final int INTEREST_TIMEOUT = 1000 * 60;
-	public static final int PERIODIC_RETRANSMISSION_INTERVAL = 1000 * 1;
+	private int INTEREST_TIMEOUT = 1000 * 60;
+	private int PERIODIC_RETRANSMISSION_INTERVAL = 500; /*ms*/
 	
 	protected CCNHandle handle;
 	protected List<Interest> interests = new ArrayList<Interest>();
@@ -45,6 +45,12 @@ public class DTNx implements CCNInterestHandler, CCNContentHandler {
 	
 	public DTNx(CCNHandle h) {
 		handle = h;
+	}
+
+        public DTNx(CCNHandle h, int retransmit, int lifetime) {
+	        handle = h;
+		INTEREST_TIMEOUT = lifetime;
+		PERIODIC_RETRANSMISSION_INTERVAL = retransmit;
 	}
 	
 	public void init() throws IOException {
@@ -116,11 +122,20 @@ public class DTNx implements CCNInterestHandler, CCNContentHandler {
 	}
 	
 	public static void main(String[] argv) throws Exception {
-		DTNx d = new DTNx(CCNHandle.getHandle());
-		
-		Log.setLevel(Log.FAC_ALL, Level.WARNING);
+	    DTNx d;
+	    /* 
+	     * INTEREST TIMEOUT = lifetime of the Interest for which we keep retransmitting in ms
+	     * PERIODIC_RETRANSMISSION_INTERVAL = retransmit each interest every X ms
+	     */
+	    if (argv.length > 0)
+		d = new DTNx(CCNHandle.getHandle(), Integer.parseInt(argv[1]), Integer.parseInt(argv[2]));
+	    else
+		d = new DTNx(CCNHandle.getHandle());
 
-		d.init();
+	    Log.setLevel(Log.FAC_ALL, Level.WARNING);
+	    
+	    
+	    d.init();
 	}
 }
 
