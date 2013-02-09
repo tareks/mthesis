@@ -127,8 +127,9 @@ public class DTNx implements CCNInterestHandler, CCNContentHandler {
 	     * INTEREST TIMEOUT = lifetime of the Interest for which we keep retransmitting in ms
 	     * PERIODIC_RETRANSMISSION_INTERVAL = retransmit each interest every X ms
 	     */
-	    if (argv.length > 0)
-		d = new DTNx(CCNHandle.getHandle(), Integer.parseInt(argv[1]), Integer.parseInt(argv[2]));
+	    if (argv.length > 0) {
+		d = new DTNx(CCNHandle.getHandle(), Integer.parseInt(argv[0]), Integer.parseInt(argv[1]));
+}
 	    else
 		d = new DTNx(CCNHandle.getHandle());
 
