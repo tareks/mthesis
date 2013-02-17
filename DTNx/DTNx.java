@@ -13,10 +13,15 @@ import org.ccnx.ccn.protocol.MalformedContentNameStringException;
 import java.util.logging.Level;
 import org.ccnx.ccn.impl.support.Log;
 
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
+
 public class DTNx implements CCNInterestHandler, CCNContentHandler {
 	private int INTEREST_TIMEOUT = 1000 * 60;
 	private int PERIODIC_RETRANSMISSION_INTERVAL = 500; /*ms*/
-	
+        private int SEMA_TIMEOUT = 2000; /* ms */
+
+        private Semaphore expressSema;
 	protected CCNHandle handle;
 	protected List<Interest> interests = new ArrayList<Interest>();
 	protected List<Long> interestsRecvd = new ArrayList<Long>();
@@ -45,12 +50,16 @@ public class DTNx implements CCNInterestHandler, CCNContentHandler {
 	
 	public DTNx(CCNHandle h) {
 		handle = h;
+		expressSema = new Semaphore(0);
 	}
 
         public DTNx(CCNHandle h, int retransmit, int lifetime) {
-	        handle = h;
+		this(h);
+	        
 		INTEREST_TIMEOUT = lifetime;
 		PERIODIC_RETRANSMISSION_INTERVAL = retransmit;
+		
+
 	}
 	
 	public void init() throws IOException {
@@ -70,6 +79,7 @@ public class DTNx implements CCNInterestHandler, CCNContentHandler {
 		    Log.warning("Received new interest " + i.toString());
 		    interests.add(i);
 		    interestsRecvd.add(System.currentTimeMillis());
+		    expressSema.release();
 		}
 		else {
 		    Log.warning("Interest already cached, extending lifetime.\n");
@@ -101,6 +111,14 @@ public class DTNx implements CCNInterestHandler, CCNContentHandler {
 			} else {
 				/* Retransmit. */
 				handle.expressInterest(in, this);
+				try { 
+				    expressSema.tryAcquire(SEMA_TIMEOUT, TimeUnit.MILLISECONDS);
+				}
+				catch (Exception e) {
+				    System.out.println("Error waiting for Interest." + e.getMessage());
+				}
+				
+				handle.cancelInterest(in, this);
 			}
 		}
 	}
