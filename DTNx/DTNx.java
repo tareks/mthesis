@@ -75,15 +75,24 @@ public class DTNx implements CCNInterestHandler, CCNContentHandler {
 		interestsRecvd.add(System.currentTimeMillis());
 	    }
 	    else {
-		Log.warning("Interest already cached, extending lifetime.\n");
+		Log.warning("Interest already cached, ignoring.\n");
+/*		Log.warning("Interest already cached, extending lifetime.\n");
 		interestsRecvd.set(interests.indexOf(i), 
-				   interestsRecvd.get(interests.indexOf(i)) + INTEREST_TIMEOUT);
+				   interestsRecvd.get(interests.indexOf(i.getContentName())) + INTEREST_TIMEOUT); */
 	    }
 	    /* We never satisfy interests ourselves, we just store
 	     * them and retransmit them periodically. */
 	    return false;
 	}
 	
+/* 
+ * When retransmitting, we:
+ * 1) Create a new Interest
+ * 2) cancelInterest() to remove it from the PIT when its satisfied or expires
+ *
+ * otherwise, they all get marked as dupes and nothing gets sent over the wire.
+ *
+ */
     protected synchronized void retransmitInterests() throws IOException {
 	int i;
 	int n = interests.size();
@@ -96,7 +105,9 @@ public class DTNx implements CCNInterestHandler, CCNContentHandler {
 					
 	    if (System.currentTimeMillis() - INTEREST_TIMEOUT > recvd) {
 		/* The interest has timed out. */
-		Log.warning("Dropping interest " + cn.toString());
+		Log.warning("Timeout: Dropping interest " + cn.toString());
+		Interest in = new Interest(cn);
+		handle.cancelInterest(in, this);
 		interests.remove(i);
 		interestsRecvd.remove(i);
 		n--;
@@ -116,8 +127,11 @@ public class DTNx implements CCNInterestHandler, CCNContentHandler {
 	     * interest from the cache. Thus, all we do here is remove the 
 	     * now satisfied interests from our retransmission list. 
 	     */
-	    int i = interests.indexOf(in);
+	    ContentName cn = in.getContentName();
+	    int i = interests.indexOf(cn);
 	    if (i >= 0) {
+		Log.warning("Got Matching CO: Dropping interest " + in.getContentName().toString());
+		handle.cancelInterest(in, this);
 		interests.remove(i);
 		interestsRecvd.remove(i);
 	    }
