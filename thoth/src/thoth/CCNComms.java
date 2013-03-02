@@ -386,7 +386,7 @@ public final class CCNComms {
     private static int BLOCK_SIZE = 512;
     private static int NETWORK_TIMEOUT = 10000; //ms OR SystemConfiguration.getDefaultTimeout(); ?
     private static int LISTEN_TIMEOUT = 5000; //ms OR SystemConfiguration.getDefaultTimeout(); ?
-    protected static final int SEMA_TIMEOUT = 2000; // if this is too big, ccnd will resend interests before they expire - expressInterest() will re-express Interests every 2000ms until cancelled.
+    protected static final int SEMA_TIMEOUT = 3000; // if this is too big, ccnd will resend interests before they expire - expressInterest() will re-express Interests every 2000ms until cancelled.
     
     public enum NodeNetworkMode { 
 	NODE_USES_CCNX_STREAMS, // Use CCN*Streams
