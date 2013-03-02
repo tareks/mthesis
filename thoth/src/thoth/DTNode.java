@@ -86,7 +86,7 @@ public class DTNode {
      * 
      * If a request is satisfied, callbacks will be triggered in CCNComms.
      */
-    protected void sendRequests(int numRequests, int interval) {
+    protected void sendRequests(int numRequests, long interval) {
 	ContentObject co = null;
 
 	// reset for every set of requests
@@ -374,7 +374,7 @@ Log.info ("Added object to list");
     // Variables
     private CCNComms _connection;
     private int numRetries = 3;
-    private final short retryTimeout = 5000; // 5 seconds (in msec)?
+    private final long retryTimeout = 60000; // time between retries in ms (factor in sema timeout too)
     private File _file;
     private InputStream inStream;
     private OutputStream outStream;
