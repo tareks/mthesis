@@ -106,7 +106,8 @@ public final class CCNComms {
     public void createConnection() throws ConfigurationException, IOException {
 	Log.info("Connecting to CCN network..."); 
 	
-	_connection = CCNHandle.open();
+	//	_connection = CCNHandle.open();
+	_connection = CCNHandle.getHandle();
 	_networkManager = _connection.getNetworkManager();
 	
 	Log.info("Connected to " + getCCNDPublicKey() + " over " + getIPProto() + "."); 
@@ -116,7 +117,7 @@ public final class CCNComms {
     public void closeConnection() { 
 	Log.info("Killing network connection ..."); 
 	try {
-	    _networkManager.shutdown();
+	    //	    _networkManager.shutdown();
 	    _connection.close();
 	}
 	
@@ -144,7 +145,7 @@ public final class CCNComms {
 	     _connection.expressInterest(i, _rcvrListener);
 	     filterSema.tryAcquire(SEMA_TIMEOUT, TimeUnit.MILLISECONDS);
 
-	     // cancel before 2000ms so that we  control re-expression
+	     // cancel so that we  control re-expression
 	     _connection.cancelInterest(i, _rcvrListener);
 	     if (_receiverGotData) {
 		 return contentData;
@@ -161,14 +162,16 @@ public final class CCNComms {
 
     public void setInterestFilter() {
         try {
-	    _networkManager.setInterestFilter(this, _contentName, _sndrListener);
+	    //	    _networkManager.setInterestFilter(this, _contentName, _sndrListener);
+	    _connection.registerFilter(_contentName, _sndrListener);
         } catch (IOException ioe) {
 	    Log.info("Exception: "+ ioe.getMessage());
         }
     }
     
     public void cancelInterestFilter() {
-	_networkManager.cancelInterestFilter(this, _contentName, _sndrListener);
+	//	_networkManager.cancelInterestFilter(this, _contentName, _sndrListener);
+	_connection.unregisterFilter(_contentName, _sndrListener);
     }
     
     /* 
@@ -201,7 +204,8 @@ public final class CCNComms {
     public void sendObject(ContentObject co) {
 	
 	try {
-	    _networkManager.put(co);
+	    //	    _networkManager.put(co);
+	    _connection.put(co);
 	}
 
 	catch (Exception e) {
@@ -386,7 +390,7 @@ public final class CCNComms {
     private static int BLOCK_SIZE = 512;
     private static int NETWORK_TIMEOUT = 10000; //ms OR SystemConfiguration.getDefaultTimeout(); ?
     private static int LISTEN_TIMEOUT = 5000; //ms OR SystemConfiguration.getDefaultTimeout(); ?
-    protected static final int SEMA_TIMEOUT = 3000; // if this is too big, ccnd will resend interests before they expire - expressInterest() will re-express Interests every 2000ms until cancelled.
+    protected static final int SEMA_TIMEOUT = 3000; // This must be under 4s or ccnd will transmit additional interests. confirmed from ccnpeek.c code where timeout is set to 3000ms as well
     
     public enum NodeNetworkMode { 
 	NODE_USES_CCNX_STREAMS, // Use CCN*Streams
