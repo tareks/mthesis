@@ -1,6 +1,8 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
 
 import org.ccnx.ccn.CCNContentHandler;
 import org.ccnx.ccn.CCNHandle;
@@ -16,8 +18,10 @@ import org.ccnx.ccn.impl.support.Log;
 public class DTNx implements CCNInterestHandler, CCNContentHandler {
     private int INTEREST_TIMEOUT = 1000 * 60;
     private int PERIODIC_RETRANSMISSION_INTERVAL = 500; /*ms*/
+    private int SEMA_TIMEOUT = 3000; /* must be less than 4s or ccnd retransmits*/
 
     protected CCNHandle handle;
+    private Semaphore sema;
     protected List<ContentName> interests = new ArrayList<ContentName>();
     protected List<Long> interestsRecvd = new ArrayList<Long>();
     /*
@@ -45,6 +49,8 @@ public class DTNx implements CCNInterestHandler, CCNContentHandler {
 	
     public DTNx(CCNHandle h) {
 	handle = h;
+
+	sema = new Semaphore(0);
     }
 
     public DTNx(CCNHandle h, int retransmit, int lifetime) {
@@ -52,7 +58,7 @@ public class DTNx implements CCNInterestHandler, CCNContentHandler {
 	        
 	INTEREST_TIMEOUT = lifetime;
 	PERIODIC_RETRANSMISSION_INTERVAL = retransmit;
-		
+	
 
     }
 	
@@ -115,7 +121,16 @@ public class DTNx implements CCNInterestHandler, CCNContentHandler {
 	    } else {
 		/* Retransmit. */
 		Interest in = new Interest(interests.get(i));
-		handle.expressInterest(in, this);
+		Log.warning("Retransmitting Interest: " + cn.toString());
+		/* express then wait for 3s and cancel so we control transmission */
+		try {
+		    handle.expressInterest(in, this);
+		    sema.tryAcquire(SEMA_TIMEOUT, TimeUnit.MILLISECONDS);
+		    handle.cancelInterest(in,this);
+		}
+		catch (Exception e) {
+		    Log.warning("Failed to express and cancel interest!");
+		}
 	    }
 	}
     }
@@ -131,7 +146,8 @@ public class DTNx implements CCNInterestHandler, CCNContentHandler {
 	    int i = interests.indexOf(cn);
 	    if (i >= 0) {
 		Log.warning("Got Matching CO: Dropping interest " + in.getContentName().toString());
-		handle.cancelInterest(in, this);
+		//handle.cancelInterest(in, this);
+		sema.release();
 		interests.remove(i);
 		interestsRecvd.remove(i);
 	    }
