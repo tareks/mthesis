@@ -60,6 +60,7 @@ public class Game implements DTApp {
     */
     public void run() {
 	Move move = null;
+	ConsoleUI ui=  new ConsoleUI();
 
 	System.out.println("Running game...");
 
@@ -85,6 +86,7 @@ public class Game implements DTApp {
 	moveCount=1;
 	while (!tttState.isGameOver()) {
 	    if (myTurn) {
+		ui.printBoard(tttState);
 		move = selectMove(moveCount);
 		network.putMove(gameID, moveCount, move);
 		
@@ -93,7 +95,7 @@ public class Game implements DTApp {
 	    }
 	    else {
 		move = network.getMove(gameID, moveCount);
-		    
+	       
 		myTurn = true;
 	    }
 	    
@@ -110,6 +112,7 @@ public class Game implements DTApp {
 	    moveCount++;
 	}
 	
+	ui.printBoard(tttState);
 	System.out.println("Game ended! - Winner is: " + tttState.getWinner());
 
 	isGameOver = true;
@@ -142,17 +145,35 @@ public class Game implements DTApp {
      */
     private Move selectMove(int moveNum) {
 	Scanner stdin = new Scanner(System.in);
-	ConsoleUI ui=  new ConsoleUI();
+	//	ConsoleUI ui=  new ConsoleUI();
 	int x,y;
 	
-	ui.printBoard(tttState);
+	//	ui.printBoard(tttState);
 	
 	boolean validMove = false;
 	do {
 	    System.out.println("Enter X and Y coordinates (1-3). Ex: 2 2 (col row). You are player: " + tttState.getNextPlayer());
-	    x = stdin.nextInt() - 1;
-	    y = stdin.nextInt() - 1;
-
+	    /* - CONSOLEUI CODE ONLY
+	      x = stdin.nextInt() - 1;
+	      y = stdin.nextInt() - 1;
+	    */
+	    /*	    
+	    // AI Selection with brute force
+	    // Generate a random int between 1-3 and either brute force or verify
+	    Random r = new Random();
+	    x = r.nextInt(3); 
+	    y = r.nextInt(3);
+	    System.out.println("AI chose: " + (x+1) + "," + (y+1));
+	    */
+	    
+	    // Hardcoded selection - need 3 moves to complete each game regardless of who starts. Array is ordered based on moveNum: odd, even, odd, even, etc.
+	    // Whoever starts will always win
+	    int moves[][] = { {0,0},{0,2},{1,0},{1,2},{2,0} };
+	    x = moves[moveNum-1][0];
+	    y = moves[moveNum-1][1];
+	    
+	    System.out.println("Predef move: " + (x+1) + "," + (y+1));
+	    
 	    if (! tttState.validMove(x,y)) {
 		System.out.println("Invalid move: " + x + "," +y);
 		System.out.println("Try again.");
