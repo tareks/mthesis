@@ -38,6 +38,7 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 
     private final String tttCCNxPrefix = "/uu/core/games/ttt";
     private final String tttCCNxNewGamePrefix = "/uu/core/games/ttt/new";
+    private final String tttCCNxEndGamePrefix = "/uu/core/games/ttt/fin";
     private TicTacToe gameObject;
 
     // Constants
@@ -98,6 +99,8 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
      * 
      */
     private void unsetURIListener() {
+	
+	if (contentName ==  null) return;
 
 	try {
 	    Logger.msg("Unregistering prefix: " + contentName.toString());
@@ -132,8 +135,7 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 
     public boolean handleInterest(Interest i) {
 	
-
-	Logger.msg("Got an Interest for: " + i.getContentName().toString()); // TODO: We can't figure out where the Interest is coming from..
+	Logger.msg("Got an Interest: " + i.getContentName().toString()); // TODO: We can't figure out where the Interest is coming from..
 		
 	/* 
 	 * For new game Interests, we construct the CO with the gameID on the fly
@@ -163,7 +165,7 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 	    
 	    sendObject(contentData);
 	    contentData = null;
-	    //	    unsetURIListener();
+ 	    //	    unsetURIListener();
 	    sentMatchingContent = true; 
 	}
 	
@@ -417,14 +419,28 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 	return ContentObjectToProfile(co);
     }
 
-    public void putGame(TicTacToe game) {
+    public TicTacToe putGame(TicTacToe game) {
 	String uri = tttCCNxPrefix + "/new";
 	ContentName cname = null;
 
 	sentMatchingContent = false;
-	setURIListener(uri);
-	
+
 	gameObject = game;
+	setURIListener(uri);
+
+	// wait till we send the object
+	while (true) {
+	    try {
+		Thread.sleep(100);
+	    }
+	    catch (InterruptedException e) { }
+	    if (sentMatchingContent) break;
+	}
+
+	unsetURIListener();
+	Logger.msg("We've sent our game object.");
+	
+	return gameObject;
     }
 
     	
@@ -433,20 +449,11 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 	
 	ContentObject co = sendRequest(uri);
 	
-	// SENDER: gotMatchingContent, co maybe not null?
-	// REQUESTER: co not null
-	if (sentMatchingContent) {
-	    Logger.msg("We've sent our game object.");
-	    unsetURIListener();
-	    return gameObject; // gameID has been updated
-	}
-
 	// TODO: check that co really matches our URI
 	// we received a CO, extract game from CO
 	gameObject = ContentObjectToGame(co);
 	
 	Logger.msg("Got new game object for ID: " + gameObject.gameId() + " - stop listening.");
-	unsetURIListener();
 
 	return gameObject;
     }
@@ -461,14 +468,26 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 
 	sentMatchingContent = false;
 
-	setURIListener(uri);
-	
+	try {
+	    contentName = ContentName.fromURI(uri);
+	}
+	catch (Exception e) {
+	}
+
 	contentData = createContentObject(contentName, (Object) move);
 
-	while (!sentMatchingContent) {
-	    // Wait till we actually send a CO back on the network
-	    Logger.msg("Still not sent CO..");
+	setURIListener(uri);
+
+	// Wait till we actually send a CO back on the network
+	while (true) {
+	    try {
+		Thread.sleep(10);
+	    }
+	    catch (InterruptedException e) { }
+	    if (sentMatchingContent) break;
 	}
+	
+	unsetURIListener();	
     } 
 
     /** 
@@ -484,10 +503,43 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 	    co = sendRequest(uri);
 	} while (co == null);
 	//FIXME we should never get a null CO Here
-	
-	unsetURIListener();	
+       
 
 	return ContentObjectToMove(co);
     }
-    
+
+    public TicTacToe getEndGame(int gameID) {
+	String uri = tttCCNxPrefix + "/fin/" + gameID;
+	ContentObject co;
+	
+	Logger.msg("Requesting game " + gameID + " to be terminated: " + uri);
+
+	do {
+	    co = sendRequest(uri);
+	} while (co == null);
+	
+	return ContentObjectToGame(co);
+	
+    }
+
+    public void putEndGame(int gameID) {
+	String uri = tttCCNxPrefix + "/fin/" + gameID;
+	ContentObject co;
+
+	sentMatchingContent = false;
+
+	Logger.msg("Preparing final game state object for: " + gameID);
+	setURIListener(uri);
+	contentData = createContentObject(contentName, (Object) gameObject);
+	
+	while (true) {
+	    try {
+		Thread.sleep(10);
+	    }
+	    catch (InterruptedException e) { }
+	    if (sentMatchingContent) break;
+	}
+	
+	unsetURIListener();	
+    }
 }

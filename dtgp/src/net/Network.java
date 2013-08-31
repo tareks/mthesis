@@ -30,13 +30,19 @@ public interface Network {
     public TicTacToe getGame(int gameID);
 
     /** Send a new game instance. */
-    public void putGame(TicTacToe game);
+    public TicTacToe putGame(TicTacToe game);
 
     /** Retrieve ID for a certain node. */
     public String getMyNodeId();
 
     /** Retrieve ID for a certain node. */
     public String getRemoteNodeId();
+
+    /** Request that the game be terminated. */
+    public TicTacToe getEndGame(int gameID);
+
+    /** Publish final game state object for termination */
+    public void putEndGame(int gameID);
 
 }
 

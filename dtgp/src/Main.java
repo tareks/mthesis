@@ -16,11 +16,15 @@ class Main {
 
     public static void main(String[] args) {
 
+	boolean isInitiatorNode=false; // describes if this node starts games
+
 	// parse args
 	for (int i=0; i < args.length; i++) {
 	    if (args[i].equals("-d"))
 		Logger.enable();
-	    else Logger.disable();
+	    
+	    if (args[i].equals("-I"))
+		isInitiatorNode = true;
 	    
 	    if (args[i].equals("-h")) {
 		usage();
@@ -34,8 +38,9 @@ class Main {
 	Game ttt = new Game();
 	
 	ttt.init(); 
+	// Wait for testbed sync signal before we do anything? - no longer needed as the game should be able to pickup from whatever state it is in on load
 
-	// TODO: Wait for testbed sync signal before we do anything
+	ttt.setInitiator(isInitiatorNode);
 	ttt.run();
 	
 	ttt.end();
@@ -43,5 +48,4 @@ class Main {
 	Logger.msg("Exiting..");
 	System.exit(0);
     }
-    
 }

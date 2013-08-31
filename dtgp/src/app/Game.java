@@ -22,6 +22,7 @@ public class Game implements DTApp {
 	gameID = -1;
 	myTurn = false;
 	inGame = false;
+	initiatorNode = false;
     }
 
     public void init() {
@@ -51,7 +52,7 @@ public class Game implements DTApp {
 	    System.exit(1);
 	}
 
-	Logger.msg("Created new game with ID: " + gameID);
+	Logger.msg("Initialized new game with ID: " + gameID);
 	
     }
 
@@ -64,24 +65,25 @@ public class Game implements DTApp {
 
 	System.out.println("Running game...");
 
-	// advertise a new game if we get requests for one
-	System.out.println("Advertising game: " + gameID);
-	network.putGame(tttState); 
-	
-	// in the meantime, ask for a new game with a certain ID
-	tttState  = network.getGame(gameID);
-	if (gameID == tttState.gameId()) {
-	    // we got this object off the network
-	    myTurn = false;
-	} else {
-	    // this is our object with gameID updated to match Interest
-	    // we play first as its our game object, update our local ID copy
-	    myTurn = true;
+	// To avoid new game race conditions, we only start a game if we are
+	// set as an initiator node.
+
+	if (initiatorNode) {
+	    // advertise a new game and wait for a request
+	    System.out.println("Advertising game: " + gameID);
+	    tttState = network.putGame(tttState);     
+	    // get the new ID that's been updated based on received Interest
 	    gameID = tttState.gameId();
+	    myTurn = true; 
+
+	} else {
+	    // All other nodes, ask for a new game with a certain ID
+	    tttState  = network.getGame(gameID);
+	    myTurn = false;
 	}
 
 	inGame = true;
-	System.out.println("Found a game: " + gameID);
+	System.out.println("In a game: " + gameID);
 	
 	moveCount=1;
 	while (!tttState.isGameOver()) {
@@ -90,12 +92,11 @@ public class Game implements DTApp {
 		move = selectMove(moveCount);
 		network.putMove(gameID, moveCount, move);
 		
-		// dont ask for next move until we've sent ours?
+		// don't ask for next move until we've sent ours
 		myTurn = false;
 	    }
 	    else {
 		move = network.getMove(gameID, moveCount);
-	       
 		myTurn = true;
 	    }
 	    
@@ -114,7 +115,7 @@ public class Game implements DTApp {
 	
 	ui.printBoard(tttState);
 	System.out.println("Game ended! - Winner is: " + tttState.getWinner());
-
+	
 	isGameOver = true;
     }
     
@@ -129,6 +130,12 @@ public class Game implements DTApp {
     public void end() {
 	Logger.msg("Ending TTTMain...");
 	
+	// send a terminate request
+	if (initiatorNode)
+	    tttState = network.getEndGame(gameID);
+	else network.putEndGame(gameID);
+	
+		
 	Logger.msg("Shutting down...");	
 	// Kill connection with ccnd
 	network.closeConnection();
@@ -199,6 +206,10 @@ public class Game implements DTApp {
     public void saveState() {
 	
     }
+
+    public void setInitiator(boolean flag) {
+	initiatorNode = flag;
+    }
     
     private Network network;
     private TicTacToe tttState; // Current game state
@@ -208,6 +219,7 @@ public class Game implements DTApp {
     private Player myProfile;
     private Player opponent;
     private boolean inGame;
+    private boolean initiatorNode;
 
     /** Timeout between attempts when looking for players. */
     private final int playerSearchTimeout = 5000;
