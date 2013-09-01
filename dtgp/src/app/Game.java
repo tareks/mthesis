@@ -70,14 +70,17 @@ public class Game implements DTApp {
 
 	if (initiatorNode) {
 	    // advertise a new game and wait for a request
-	    System.out.println("Advertising game: " + gameID);
-	    tttState = network.putGame(tttState);     
+	    System.out.println("Waiting for a game to host: " + gameID);
+	    network.setInitiator();
+	    tttState = network.putGame(tttState);
+
 	    // get the new ID that's been updated based on received Interest
 	    gameID = tttState.gameId();
 	    myTurn = true; 
 
 	} else {
 	    // All other nodes, ask for a new game with a certain ID
+	    System.out.println("Searching for a game: " + gameID);
 	    tttState  = network.getGame(gameID);
 	    myTurn = false;
 	}
@@ -100,6 +103,13 @@ public class Game implements DTApp {
 		myTurn = true;
 	    }
 	    
+	    // This only happens when a move request times out
+	    // and we need to break of the game
+	    if (move == null) {
+		tttState = null;
+		return;
+	    }
+	    
 	    try {
 		tttState.applyMove(tttState.getNextPlayer(),move);
 	    }
@@ -114,9 +124,6 @@ public class Game implements DTApp {
 	}
 	
 	ui.printBoard(tttState);
-	System.out.println("Game ended! - Winner is: " + tttState.getWinner());
-	
-	isGameOver = true;
     }
     
     public boolean isRunning() {
@@ -130,15 +137,20 @@ public class Game implements DTApp {
     public void end() {
 	Logger.msg("Ending TTTMain...");
 	
-	// send a terminate request
-	if (initiatorNode)
-	    tttState = network.getEndGame(gameID);
-	else network.putEndGame(gameID);
-	
-		
+	if (tttState != null) {
+	    // send a terminate request
+	    if (initiatorNode)
+		tttState = network.getEndGame(gameID);
+	    else network.putEndGame(gameID);
+	    
+	    System.out.println("Game ended! - Winner is: " + tttState.getWinner());
+	}
+
 	Logger.msg("Shutting down...");	
 	// Kill connection with ccnd
 	network.closeConnection();
+	
+	isGameOver = true;
     }
     
     private void matchPlayer() {

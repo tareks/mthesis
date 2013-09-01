@@ -139,6 +139,12 @@ public class TicTacToe implements Serializable {
 	gameID = id;
     }
 
+    public boolean isNew() {
+	if (state == GameState.New)
+	    return true;
+	return false;
+    }
+    
     public boolean isInProgress() {
 	if (state == GameState.InProgress)
 	    return true;

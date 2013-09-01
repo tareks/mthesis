@@ -44,5 +44,7 @@ public interface Network {
     /** Publish final game state object for termination */
     public void putEndGame(int gameID);
 
+    /** Specifies whether this node can host games or not. */
+    public void setInitiator();
 }
 

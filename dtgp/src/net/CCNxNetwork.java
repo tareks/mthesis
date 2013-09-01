@@ -40,18 +40,22 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
     private final String tttCCNxNewGamePrefix = "/uu/core/games/ttt/new";
     private final String tttCCNxEndGamePrefix = "/uu/core/games/ttt/fin";
     private TicTacToe gameObject;
+    private boolean isInitiatorNode;
 
     // Constants
     private static int NETWORK_TIMEOUT = 5000; //ms 
+    private static int MAX_NETWORK_TIMEOUT = 60000; //ms 
 
     public CCNxNetwork() {
 	String defaultURI = "";
 	
+	isInitiatorNode = false;
+
 	try {
 	    contentNameDefault = ContentName.fromURI(defaultURI);
 	}
 	catch (Exception e) {
-
+	    
 	}
     }
 
@@ -142,7 +146,7 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 	 * and send it back.
 	*/
 	String uri = i.getContentName().toString();
-	if (! gameObject.isInProgress() &&  uri.startsWith(tttCCNxNewGamePrefix)) {
+	if (isInitiatorNode && gameObject.isNew() && uri.startsWith(tttCCNxNewGamePrefix)) {
 	  // Catch new game requests and satisfy them
 	    String uriEnd = uri.substring(uri.lastIndexOf("/") + 1);
 	    
@@ -157,6 +161,8 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 	    Logger.msg("We are waiting for nothing. Ignoring this request.");
 	    return true;
 	} else {
+	    // FIXME: If we are waiting for move/1 for too long, we need to timeout and return null
+
 	    Logger.msg("We are waiting for: " + contentData.getContentName().toString());
 	}
 
@@ -219,11 +225,9 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 	    
 	    gotMatchingContent = false;
 	    while (true) {
-		// REQUESTER marks interest not satisfied
-		// REQUESTER waiting for object to continue
-		// SENDER waiting for sentMatchingContent flag to change
 		Logger.msg("GET LOOP: Sending: " + i.name());
 		co = ccnHandle.get(i, NETWORK_TIMEOUT);
+		
 		if ( co != null) {
 		    Logger.msg("Exiting loop, Got CO:" + co.getContentName().toString());
 		    gotMatchingContent = true;
@@ -236,8 +240,6 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 		    break;
 		}
 	    } 
-	    // CO = null means we got nothing this get(), check that we sent something instead
-	    // FIXME: should never exit with co = null after game started
 
 	    //ccnHandle.expressInterest(i, this);
 	    //ccnHandle.cancelInterest(i, this);
@@ -428,7 +430,6 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 	gameObject = game;
 	setURIListener(uri);
 
-	// wait till we send the object
 	while (true) {
 	    try {
 		Thread.sleep(100);
@@ -446,9 +447,11 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
     	
     public TicTacToe getGame(int gameID) {
 	String uri = tttCCNxPrefix + "/new/" + gameID;
-	
+
+	// initialize object
+	gameObject = new TicTacToe(gameID);
+
 	ContentObject co = sendRequest(uri);
-	
 	// TODO: check that co really matches our URI
 	// we received a CO, extract game from CO
 	gameObject = ContentObjectToGame(co);
@@ -541,5 +544,9 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 	}
 	
 	unsetURIListener();	
+    }
+
+    public void setInitiator() {
+	isInitiatorNode = true;
     }
 }
