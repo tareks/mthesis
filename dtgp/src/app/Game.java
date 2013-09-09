@@ -23,6 +23,7 @@ public class Game implements DTApp {
 	myTurn = false;
 	inGame = false;
 	initiatorNode = false;
+	hostNode = false;
     }
 
     public void init() {
@@ -65,13 +66,13 @@ public class Game implements DTApp {
 
 	System.out.println("Running game...");
 
-	// To avoid new game race conditions, we only start a game if we are
-	// set as an initiator node.
-
-	if (initiatorNode) {
+	// To avoid new game race conditions:
+	// Host nodes can host games (listen for requests)
+	// Initiator Nodes can request games (send requests)
+	if (hostNode) {
 	    // advertise a new game and wait for a request
 	    System.out.println("Waiting for a game to host: " + gameID);
-	    network.setInitiator();
+	    network.setHost();
 	    tttState = network.putGame(tttState);
 
 	    // get the new ID that's been updated based on received Interest
@@ -139,7 +140,7 @@ public class Game implements DTApp {
 	
 	if (tttState != null) {
 	    // send a terminate request
-	    if (initiatorNode)
+	    if (hostNode)
 		tttState = network.getEndGame(gameID);
 	    else network.putEndGame(gameID);
 	    
@@ -222,6 +223,10 @@ public class Game implements DTApp {
     public void setInitiator(boolean flag) {
 	initiatorNode = flag;
     }
+
+    public void setHost(boolean flag) {
+	hostNode = flag;
+    }
     
     private Network network;
     private TicTacToe tttState; // Current game state
@@ -232,6 +237,7 @@ public class Game implements DTApp {
     private Player opponent;
     private boolean inGame;
     private boolean initiatorNode;
+    private boolean hostNode;
 
     /** Timeout between attempts when looking for players. */
     private final int playerSearchTimeout = 5000;

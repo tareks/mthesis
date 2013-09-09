@@ -41,6 +41,7 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
     private final String tttCCNxEndGamePrefix = "/uu/core/games/ttt/fin";
     private TicTacToe gameObject;
     private boolean isInitiatorNode;
+    private boolean isHostNode;
 
     // Constants
     private static int NETWORK_TIMEOUT = 5000; //ms 
@@ -50,6 +51,7 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 	String defaultURI = "";
 	
 	isInitiatorNode = false;
+	isHostNode = false;
 
 	try {
 	    contentNameDefault = ContentName.fromURI(defaultURI);
@@ -146,7 +148,7 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 	 * and send it back.
 	*/
 	String uri = i.getContentName().toString();
-	if (isInitiatorNode && gameObject.isNew() && uri.startsWith(tttCCNxNewGamePrefix)) {
+	if (isHostNode && gameObject.isNew() && uri.startsWith(tttCCNxNewGamePrefix)) {
 	  // Catch new game requests and satisfy them
 	    String uriEnd = uri.substring(uri.lastIndexOf("/") + 1);
 	    
@@ -548,5 +550,9 @@ public class CCNxNetwork implements Network, CCNInterestHandler, CCNContentHandl
 
     public void setInitiator() {
 	isInitiatorNode = true;
+    }
+
+    public void setHost() {
+	isHostNode = true;
     }
 }

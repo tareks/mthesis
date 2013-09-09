@@ -16,7 +16,8 @@ class Main {
 
     public static void main(String[] args) {
 
-	boolean isInitiatorNode=false; // describes if this node starts games
+	boolean isInitiatorNode=false; // describes if this node sends interests for games
+	boolean isHostNode=false; // describes if this node hosts games (accepts interests)
 
 	// parse args
 	for (int i=0; i < args.length; i++) {
@@ -25,6 +26,9 @@ class Main {
 	    
 	    if (args[i].equals("-I"))
 		isInitiatorNode = true;
+	    
+	    if (args[i].equals("-H"))
+		isHostNode = true;
 	    
 	    if (args[i].equals("-h")) {
 		usage();
@@ -41,6 +45,7 @@ class Main {
 	// Wait for testbed sync signal before we do anything? - no longer needed as the game should be able to pickup from whatever state it is in on load
 
 	ttt.setInitiator(isInitiatorNode);
+	ttt.setHost(isHostNode);
 	ttt.run();
 	
 	ttt.end();
