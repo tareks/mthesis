@@ -1,0 +1,78 @@
+# Verify the ccnd logs exist for the nodes in question
+# Get the time at which the experiment started and when it ended
+
+# First find any games that took place. Parse for "ccnx:/uu/it/core/games/ttt/new/<gameid>/".  
+
+# Iterate through each game and look for:
+# - number of occurences of that string for a particular gameid.
+# - first occurance to identify when the game was started
+# - catalog all interests on the network for that gameid (match each interest with which node it was seen on) - one to many relationship
+# -- identify whether each interest has a corresponding content_to/consume on the 2 nodes in question. ie. satisfied or not
+# -- All nodes that have seen an interest means they were part of the end to end path per message (not game)
+# -- Collect timestamps for everything so we can calculate time taken for messages traversal
+# -- If interets have no corresponding messages, that means they timed out. 
+# - find matching FIN message for that gameid
+
+# Each interest found needs a data structure as follows:
+# { Interest String, timestamp, Satisfied?, node it was seen on } - list of nodes doesnt necessarily imply traversal
+
+# Class Game - gameId, activeNodes[], timeStarted, timeEnded, hasCompleted, messageIDs[]
+# Class Message - { Interest, Relay, Response, Consume(to identify receipt) }, timestamp, NodeId, String
+# Class MessageType - { GameStart, GameEnd, PutMove, GetMove }, SequenceNum [ 0/1 for game/fin, and 1-5 for moves ] 
+
+## interest_from signals sent from some face on some node:  match the prefix ccnx:/uu/core/games/ttt/new/<gameid>
+## interest_to is a relay either to the ccnd instance or external face
+## content_to signals outbound CO: match the same prefix ccnx:/uu/core/games/ttt/new/<gameid>
+## content_from signals incoming CO: 
+
+# Game Path is all activeNodes[] that have any message associated? Might have to ignore Interests and focus on Relays only
+# Message Path is all activeNodes[] that have the same messageID (Interest, Relay(s), Reponse) soirted by timestamp 
+# If for a GameID we have an Interest message with no corresponding Response, it timed out.
+# How to identify individual moves?
+
+
+# Use the ccnd logs to track the path from initiator node to host node
+
+
+* Number of complete/incomplete games in an iteration of an experiment.
+* Number of Interests sent and satisfied (in total) for a game.
+* Number of Interests sent and satisfied for a particular request (move or game request) - ie. How many Interests required to satisfy a request?
+* Time for a game to complete.
+* Time for an interest to be satisfied.
+
+- Go through all experiments, iterations, games, nodes and find unique interests in that game and store in Array
+Count that number of unique interests
+How many of those interests were satisfied
+Find all nodes that saw this Interest
+Find path for this Interest
+Calculate time it took to satisfy an interest
+Do we have any complete games? (every interest from i-node (new) and h-node (fin), and everything in between was satisfied)
+Total time to end a game
+
+To plot histogram from an application's perspective, we need:
+- Each interest from i-nodes, how many attempts to satisfy it (note that retransmits are handled by ccnd)
+-- ie. for each unique interest/request, how many copies of it were seen in all messages on the i-node that sent it.
+-- Iterate over all unique interests and count:
+1) Number of matching interests found on the originating i-node
+2) number of matcing interests found on the whole network
+
+To plot histogram from a network's perspective, we need:
+Iterate over all nodes
+- for each Interest message
+-- Find a corresponding content_to message from the messages array on the same face (there should be 1 content_to for every Interest, but many interests for 1 content_to)
+-- Take note of timestamp for Interest and Response and calculate the difference.
+
+What about retransmissions? How do we know they were never satisfied? We just count the number of interests required for each response.
+
+Definitions:
+
+* counts for "interests" mean interest requests sent on the network (regardless of face). This is an important distinction because the more faces a node has, the more interests it will send out.
+
+There are 2 ways to collect Interest information:
+* From an Application's perspective:
+- when we mean "satify" an interest, it means that the original requester gets the reponse back and not necessarily that all outstanding interests for all nodes on the network to be satisfied.
+- This approach only takes "unique game messages" into consideration and will generally show how many interests required by the Initiator to receive a response and whether a game was completed or not. If one unique game message has no response, then game can't end normally.
+
+* From a network's perspective:
+- an interest is considered satisfied if there is a corresponding content_to event for an interest_to event on the same face for the same node.
+- This helps count the total number of interests sent, how many had responses, and calculate the time to satisfy each.

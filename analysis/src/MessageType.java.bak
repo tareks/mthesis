@@ -1,0 +1,15 @@
+package analyser;
+
+class MessageType {
+
+    private enum Type { GameStart, GameEnd, PutMove, GetMove };
+
+    private int sequenceNum; // 0/1 for game/fin, and 1-5 for moves
+    
+    MessageType() {
+
+
+    }
+    
+
+}

@@ -1,0 +1,1251 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2013-09-08T02:57:10</date>
+  <millis>1378609030565</millis>
+  <sequence>0</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Initializing game...</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:10</date>
+  <millis>1378609030573</millis>
+  <sequence>1</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Connecting to CCN network...</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031189</millis>
+  <sequence>2</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>loadKeyStore</method>
+  <thread>10</thread>
+  <message>Loading CCN key store from /home/user/.ccnx/.ccnx_keystore...last modified 1377320649000(ms).</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031189</millis>
+  <sequence>3</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>readKeyStore</method>
+  <thread>10</thread>
+  <message>Loading CCN key store...</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031380</millis>
+  <sequence>4</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>loadKeyStore</method>
+  <thread>10</thread>
+  <message>Loaded CCN key store from /home/user/.ccnx/.ccnx_keystore...version 2013-08-24 05:04:09.0 ms: 1377320649000</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031382</millis>
+  <sequence>5</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>loadValuesFromKeystore</method>
+  <thread>10</thread>
+  <message>Loading key store file:/home/user/.ccnx/.ccnx_keystore version 2013-08-24 05:04:09.0 version component %FD%05%21%83%EC%90%00 millis 1377320649000</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031493</millis>
+  <sequence>6</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>loadValuesFromKeystore</method>
+  <thread>10</thread>
+  <message>Default key ID for user user: AAxU8kdW/TMYvYBQ+T82Hq2Lrw2EIoxUuDtbMFGhgVc=</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031516</millis>
+  <sequence>7</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.SecureKeyCache</class>
+  <method>loadKeyStore</method>
+  <thread>10</thread>
+  <message>KeyCache: loading signing key AAxU8kdW/TMYvYBQ+T82Hq2Lrw2EIoxUuDtbMFGhgVc=, remembering public key in public key cache.</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031518</millis>
+  <sequence>8</sequence>
+  <logger>ccnx.AccessControl</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.SecureKeyCache</class>
+  <method>addMyPrivateKey</method>
+  <thread>10</thread>
+  <message>SecureKeyCache: adding my private key c54f24756fd3318bd8050f93f361ead8baf0d84228c54b83b5b3051a18157</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031519</millis>
+  <sequence>9</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>loadValuesFromConfiguration</method>
+  <thread>10</thread>
+  <message>loadValuesFromConfiguration: attempting to load configuration from /home/user/.ccnx/ccnx_config.bin</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031519</millis>
+  <sequence>10</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>loadValuesFromConfiguration</method>
+  <thread>10</thread>
+  <message>loadValuesFromConfiguration: configuration file /home/user/.ccnx/ccnx_config.bin does not exist.</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031519</millis>
+  <sequence>11</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>loadSavedSecureKeyCache</method>
+  <thread>10</thread>
+  <message>Not loading key cache in response to user configuration variable.</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031546</millis>
+  <sequence>12</sequence>
+  <logger>ccnx.NetManager</logger>
+  <level>WARNING</level>
+  <class>org.ccnx.ccn.impl.CCNNetworkManager</class>
+  <method>&lt;init&gt;</method>
+  <thread>10</thread>
+  <message>NetworkManager 1: Non-standard CCN agent port 6001 per property ccn.agent.port</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031546</millis>
+  <sequence>13</sequence>
+  <logger>ccnx.NetManager</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.CCNNetworkManager</class>
+  <method>&lt;init&gt;</method>
+  <thread>10</thread>
+  <message>NetworkManager 1: Contacting CCN agent at localhost:6001</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031552</millis>
+  <sequence>14</sequence>
+  <logger>ccnx.NetManager</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.CCNNetworkChannel</class>
+  <method>&lt;init&gt;</method>
+  <thread>10</thread>
+  <message>NetworkChannel 1: Starting up CCNNetworkChannel using TCP.</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031558</millis>
+  <sequence>15</sequence>
+  <logger>ccnx.NetManager</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.CCNNetworkChannel</class>
+  <method>open</method>
+  <thread>10</thread>
+  <message>NetworkChannel 1: open()</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031609</millis>
+  <sequence>16</sequence>
+  <logger>ccnx.NetManager</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.CCNNetworkChannel</class>
+  <method>open</method>
+  <thread>10</thread>
+  <message>NetworkChannel 1: Contacting CCN agent at localhost:6001 on local port 34313</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031609</millis>
+  <sequence>17</sequence>
+  <logger>ccnx.NetManager</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.CCNHandle</class>
+  <method>&lt;init&gt;</method>
+  <thread>10</thread>
+  <message>CCNHandle 1: Handle is now open</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031612</millis>
+  <sequence>18</sequence>
+  <logger>ccnx.NetManager</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.CCNNetworkManager</class>
+  <method>run</method>
+  <thread>11</thread>
+  <message>NetworkManager 1: CCNNetworkManager processing thread started for port: 6001</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031677</millis>
+  <sequence>19</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.PublicKeyCache</class>
+  <method>getPublicKeyObject</method>
+  <thread>10</thread>
+  <message>Retrieved key dr/QpapWoMkR1l4GTFCZafwlN62dOlb8FYKGjVKsFBY= using locator NAME: /%C1.M.S.localhost/%C1.M.SRV/ccnd/KEY/%C1.M.K%00v%BF%D0%A5%AAV%A0%C9%11%D6%5E%06LP%99i%FC%257%AD%9D%3AV%FC%15%82%86%8DR%AC%14%16/%FD%05%22%BEv%2F%1B.</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031678</millis>
+  <sequence>20</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.PublicKeyCache</class>
+  <method>getPublicKeyObject</method>
+  <thread>10</thread>
+  <message>Retrieved key dr/QpapWoMkR1l4GTFCZafwlN62dOlb8FYKGjVKsFBY= using locator NAME: /%C1.M.S.localhost/%C1.M.SRV/ccnd/KEY/%C1.M.K%00v%BF%D0%A5%AAV%A0%C9%11%D6%5E%06LP%99i%FC%257%AD%9D%3AV%FC%15%82%86%8DR%AC%14%16/%FD%05%22%BEv%2F%1B - got /%C1.M.S.localhost/%C1.M.SRV/ccnd/KEY/%C1.M.K%00v%BF%D0%A5%AAV%A0%C9%11%D6%5E%06LP%99i%FC%257%AD%9D%3AV%FC%15%82%86%8DR%AC%14%16/%FD%05%22%BEv%2F%1B/%00</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031718</millis>
+  <sequence>21</sequence>
+  <logger>ccnx.IO</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNAbstractInputStream</class>
+  <method>&lt;init&gt;</method>
+  <thread>10</thread>
+  <message>CCNAbstractInputStream: /%C1.M.S.localhost/%C1.M.SRV/ccnd/KEY/%C1.M.K%00v%BF%D0%A5%AAV%A0%C9%11%D6%5E%06LP%99i%FC%257%AD%9D%3AV%FC%15%82%86%8DR%AC%14%16/%FD%05%22%BEv%2F%1B segment 0</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031718</millis>
+  <sequence>22</sequence>
+  <logger>ccnx.Pipeline</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNAbstractInputStream</class>
+  <method>startPipeline</method>
+  <thread>10</thread>
+  <message>PIPELINE: starting pipelining</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031719</millis>
+  <sequence>23</sequence>
+  <logger>ccnx.Pipeline</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNAbstractInputStream</class>
+  <method>startPipeline</method>
+  <thread>10</thread>
+  <message>PIPELINE: BaseName for pipeline: /%C1.M.S.localhost/%C1.M.SRV/ccnd/KEY/%C1.M.K%00v%BF%D0%A5%AAV%A0%C9%11%D6%5E%06LP%99i%FC%257%AD%9D%3AV%FC%15%82%86%8DR%AC%14%16/%FD%05%22%BEv%2F%1B base name: /%C1.M.S.localhost/%C1.M.SRV/ccnd/KEY/%C1.M.K%00v%BF%D0%A5%AAV%A0%C9%11%D6%5E%06LP%99i%FC%257%AD%9D%3AV%FC%15%82%86%8DR%AC%14%16/%FD%05%22%BEv%2F%1B</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031719</millis>
+  <sequence>24</sequence>
+  <logger>ccnx.Pipeline</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNAbstractInputStream</class>
+  <method>startPipeline</method>
+  <thread>10</thread>
+  <message>PIPELINE: we already have the first segment...  start from there: /%C1.M.S.localhost/%C1.M.SRV/ccnd/KEY/%C1.M.K%00v%BF%D0%A5%AAV%A0%C9%11%D6%5E%06LP%99i%FC%257%AD%9D%3AV%FC%15%82%86%8DR%AC%14%16/%FD%05%22%BEv%2F%1B/%00</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031719</millis>
+  <sequence>25</sequence>
+  <logger>ccnx.Pipeline</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNAbstractInputStream</class>
+  <method>startPipeline</method>
+  <thread>10</thread>
+  <message>PIPELINE: we already have the last segment...  don't need to pipeline (returning)</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031724</millis>
+  <sequence>26</sequence>
+  <logger>ccnx.Pipeline</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNAbstractInputStream</class>
+  <method>seek</method>
+  <thread>10</thread>
+  <message>PIPELINE: in seek(0) currentSegment 0</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031724</millis>
+  <sequence>27</sequence>
+  <logger>ccnx.Pipeline</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNAbstractInputStream</class>
+  <method>tell</method>
+  <thread>10</thread>
+  <message>PIPELINE: in tell() currentSegment 0</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031725</millis>
+  <sequence>28</sequence>
+  <logger>ccnx.Pipeline</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNAbstractInputStream</class>
+  <method>skip</method>
+  <thread>10</thread>
+  <message>PIPELINE: in skip(0) currentSegment 0</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031753</millis>
+  <sequence>29</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.PublicKeyCache</class>
+  <method>getPublicKeyObject</method>
+  <thread>10</thread>
+  <message>Retrieved public key using name: /%C1.M.S.localhost/%C1.M.SRV/ccnd/KEY/%C1.M.K%00v%BF%D0%A5%AAV%A0%C9%11%D6%5E%06LP%99i%FC%257%AD%9D%3AV%FC%15%82%86%8DR%AC%14%16/%FD%05%22%BEv%2F%1B</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031754</millis>
+  <sequence>30</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.PublicKeyCache</class>
+  <method>getPublicKey</method>
+  <thread>10</thread>
+  <message>Retrieved key dr/QpapWoMkR1l4GTFCZafwlN62dOlb8FYKGjVKsFBY= from network with locator NAME: /%C1.M.S.localhost/%C1.M.SRV/ccnd/KEY/%C1.M.K%00v%BF%D0%A5%AAV%A0%C9%11%D6%5E%06LP%99i%FC%257%AD%9D%3AV%FC%15%82%86%8DR%AC%14%16/%FD%05%22%BEv%2F%1B!</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031755</millis>
+  <sequence>31</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.config.PlatformConfiguration</class>
+  <method>&lt;clinit&gt;</method>
+  <thread>10</thread>
+  <message>BC provider: BC</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031771</millis>
+  <sequence>32</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.config.PlatformConfiguration</class>
+  <method>&lt;clinit&gt;</method>
+  <thread>10</thread>
+  <message>Provider info: BouncyCastle Security Provider v1.43 version: 1.43</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031773</millis>
+  <sequence>33</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.config.PlatformConfiguration</class>
+  <method>&lt;clinit&gt;</method>
+  <thread>10</thread>
+  <message>java.vm.name = OpenJDK 64-Bit Server VM</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031830</millis>
+  <sequence>34</sequence>
+  <logger>ccnx.IO</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.CCNFlowControl</class>
+  <method>addNameSpace</method>
+  <thread>10</thread>
+  <message>Flow controller addNameSpace: added namespace: /ccnx.org/Users/user/Keys/%C1.M.K%00%00%0CT%F2GV%FD3%18%BD%80P%F9%3F6%1E%AD%8B%AF%0D%84%22%8CT%B8%3B%5B0Q%A1%81W/%FD%05%21%83%EC%90%00</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031830</millis>
+  <sequence>35</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>getKeyLocator</method>
+  <thread>10</thread>
+  <message>getKeyLocator: returning locator KEY: AAxU8kdW/TMYvYBQ+T82Hq2Lrw2EIoxUuDtbMFGhgVc= for key AAxU8kdW/TMYvYBQ+T82Hq2Lrw2EIoxUuDtbMFGhgVc=</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031831</millis>
+  <sequence>36</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.KeyManager</class>
+  <method>publishKey</method>
+  <thread>10</thread>
+  <message>publishKey: key not previously published, making new key object /ccnx.org/Users/user/Keys/%C1.M.K%00%00%0CT%F2GV%FD3%18%BD%80P%F9%3F6%1E%AD%8B%AF%0D%84%22%8CT%B8%3B%5B0Q%A1%81W with version 2013-08-24 05:04:09.0 displayed as %FD%05%21%83%EC%90%00</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031838</millis>
+  <sequence>37</sequence>
+  <logger>ccnx.IO</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNAbstractOutputStream</class>
+  <method>&lt;init&gt;</method>
+  <thread>10</thread>
+  <message>CCNAbstractOutputStream: /ccnx.org/Users/user/Keys/%C1.M.K%00%00%0CT%F2GV%FD3%18%BD%80P%F9%3F6%1E%AD%8B%AF%0D%84%22%8CT%B8%3B%5B0Q%A1%81W/%FD%05%21%83%EC%90%00 blocksize is 4096</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031839</millis>
+  <sequence>38</sequence>
+  <logger>ccnx.IO</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNAbstractOutputStream</class>
+  <method>startWrite</method>
+  <thread>10</thread>
+  <message>CCNAbstractOutputStream: startWrite -- searching for keys.</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031849</millis>
+  <sequence>39</sequence>
+  <logger>ccnx.AccessControl</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.profiles.security.access.AccessControlManager</class>
+  <method>keysForOutput</method>
+  <thread>10</thread>
+  <message>keysForOutput: found an acm: (null)</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031850</millis>
+  <sequence>40</sequence>
+  <logger>ccnx.IO</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNOutputStream</class>
+  <method>flushToNetwork</method>
+  <thread>10</thread>
+  <message>flush: outputting to the segmenter, baseName /ccnx.org/Users/user/Keys/%C1.M.K%00%00%0CT%F2GV%FD3%18%BD%80P%F9%3F6%1E%AD%8B%AF%0D%84%22%8CT%B8%3B%5B0Q%A1%81W/%FD%05%21%83%EC%90%00 basenameindex %00; 162 bytes written, holding back 162 flushing final blocks? false.</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031851</millis>
+  <sequence>41</sequence>
+  <logger>ccnx.IO</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNOutputStream</class>
+  <method>flushToNetwork</method>
+  <thread>10</thread>
+  <message>HEADER: CCNOutputStream: flushToNetwork: new _baseNameIndex 0</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031851</millis>
+  <sequence>42</sequence>
+  <logger>ccnx.IO</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNOutputStream</class>
+  <method>flushToNetwork</method>
+  <thread>10</thread>
+  <message>flush: outputting to the segmenter, baseName /ccnx.org/Users/user/Keys/%C1.M.K%00%00%0CT%F2GV%FD3%18%BD%80P%F9%3F6%1E%AD%8B%AF%0D%84%22%8CT%B8%3B%5B0Q%A1%81W/%FD%05%21%83%EC%90%00 basenameindex %00; 162 bytes written, holding back 0 flushing final blocks? true.</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031880</millis>
+  <sequence>43</sequence>
+  <logger>ccnx.IO</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNOutputStream</class>
+  <method>flushToNetwork</method>
+  <thread>10</thread>
+  <message>HEADER: CCNOutputStream: flushToNetwork: new _baseNameIndex 1</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031881</millis>
+  <sequence>44</sequence>
+  <logger>ccnx.IO</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNOutputStream</class>
+  <method>close</method>
+  <thread>10</thread>
+  <message>CCNOutputStream close: /ccnx.org/Users/user/Keys/%C1.M.K%00%00%0CT%F2GV%FD3%18%BD%80P%F9%3F6%1E%AD%8B%AF%0D%84%22%8CT%B8%3B%5B0Q%A1%81W/%FD%05%21%83%EC%90%00</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031882</millis>
+  <sequence>45</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.KeyManager</class>
+  <method>publishKey</method>
+  <thread>10</thread>
+  <message>Published key Sun RSA public key, 1024 bits
+  modulus: 165868099197465360420510669693220979648977610540158137831691891541499013966288875118337299140156866468929820999921499916392232299085013396847023126005322509284740496723589845717935185150943802966550884218157590627892644074281293329868830308987955882563749009920090385999472226164263699199103625992154588426641
+  public exponent: 65537 to name /ccnx.org/Users/user/Keys/%C1.M.K%00%00%0CT%F2GV%FD3%18%BD%80P%F9%3F6%1E%AD%8B%AF%0D%84%22%8CT%B8%3B%5B0Q%A1%81W/%FD%05%21%83%EC%90%00 with key locator NAME: /ccnx.org/Users/user/Keys/%C1.M.K%00%00%0CT%F2GV%FD3%18%BD%80P%F9%3F6%1E%AD%8B%AF%0D%84%22%8CT%B8%3B%5B0Q%A1%81W/%FD%05%21%83%EC%90%00 KEY:cajp4elnt6ccbr02gv4vjc7ldhengr112hhabgeqr618q30an; ephemeral digest %8D%80UN4Y%B7%ECM%E6%B9_T%AC%3A%A0%F5L%8F%9E%8E%A5yF%E2%23g%40%5D%DA%12%F4.</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031889</millis>
+  <sequence>46</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>publishKey</method>
+  <thread>10</thread>
+  <message>publishKey: published key AAxU8kdW/TMYvYBQ+T82Hq2Lrw2EIoxUuDtbMFGhgVc=
+ under specified key name /ccnx.org/Users/user/Keys/%C1.M.K%00%00%0CT%F2GV%FD3%18%BD%80P%F9%3F6%1E%AD%8B%AF%0D%84%22%8CT%B8%3B%5B0Q%A1%81W/%FD%05%21%83%EC%90%00
+ key locator: NAME: /ccnx.org/Users/user/Keys/%C1.M.K%00%00%0CT%F2GV%FD3%18%BD%80P%F9%3F6%1E%AD%8B%AF%0D%84%22%8CT%B8%3B%5B0Q%A1%81W/%FD%05%21%83%EC%90%00 KEY:cajp4elnt6ccbr02gv4vjc7ldhengr112hhabgeqr618q30an</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031889</millis>
+  <sequence>47</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>publishKey</method>
+  <thread>10</thread>
+  <message>publishKey: storing key locator AAxU8kdW/TMYvYBQ+T82Hq2Lrw2EIoxUuDtbMFGhgVc= for key NAME: /ccnx.org/Users/user/Keys/%C1.M.K%00%00%0CT%F2GV%FD3%18%BD%80P%F9%3F6%1E%AD%8B%AF%0D%84%22%8CT%B8%3B%5B0Q%A1%81W/%FD%05%21%83%EC%90%00 KEY:cajp4elnt6ccbr02gv4vjc7ldhengr112hhabgeqr618q30an</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031890</millis>
+  <sequence>48</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Connected to 672119653 over TCP.</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031894</millis>
+  <sequence>49</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Our public key digest is: dr/QpapWoMkR1l4GTFCZafwlN62dOlb8FYKGjVKsFBY=</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031895</millis>
+  <sequence>50</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Listening for prefix: /</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031930</millis>
+  <sequence>51</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>My player id: 672119653</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031930</millis>
+  <sequence>52</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Opponent's id: </message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031930</millis>
+  <sequence>53</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Initialized new game with ID: 238035477</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031931</millis>
+  <sequence>54</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Sending request for:/uu/core/games/ttt/new/238035477</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:11</date>
+  <millis>1378609031931</millis>
+  <sequence>55</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>GET LOOP: Sending: /uu/core/games/ttt/new/238035477</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:15</date>
+  <millis>1378609035938</millis>
+  <sequence>56</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Exiting loop, Got CO:/uu/core/games/ttt/new/238035477</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:15</date>
+  <millis>1378609035938</millis>
+  <sequence>57</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Disassembling CO :/uu/core/games/ttt/new/238035477</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:15</date>
+  <millis>1378609035945</millis>
+  <sequence>58</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Disassembled Game object with ID: 238035477</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:15</date>
+  <millis>1378609035945</millis>
+  <sequence>59</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Got new game object for ID: 238035477 - stop listening.</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:15</date>
+  <millis>1378609035945</millis>
+  <sequence>60</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Asking for move #..1</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:15</date>
+  <millis>1378609035946</millis>
+  <sequence>61</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Sending request for:/uu/core/games/ttt/238035477/move/1</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:15</date>
+  <millis>1378609035946</millis>
+  <sequence>62</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>GET LOOP: Sending: /uu/core/games/ttt/238035477/move/1</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:15</date>
+  <millis>1378609035965</millis>
+  <sequence>63</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Exiting loop, Got CO:/uu/core/games/ttt/238035477/move/1</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:15</date>
+  <millis>1378609035965</millis>
+  <sequence>64</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Disassembling Move CO:</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:15</date>
+  <millis>1378609035968</millis>
+  <sequence>65</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Sending move..</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:15</date>
+  <millis>1378609035968</millis>
+  <sequence>66</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Creating CO: /uu/core/games/ttt/238035477/move/2</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:15</date>
+  <millis>1378609035970</millis>
+  <sequence>67</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>getKeyLocator</method>
+  <thread>10</thread>
+  <message>getKeyLocator: returning locator NAME: /ccnx.org/Users/user/Keys/%C1.M.K%00%00%0CT%F2GV%FD3%18%BD%80P%F9%3F6%1E%AD%8B%AF%0D%84%22%8CT%B8%3B%5B0Q%A1%81W/%FD%05%21%83%EC%90%00 KEY:cajp4elnt6ccbr02gv4vjc7ldhengr112hhabgeqr618q30an for key AAxU8kdW/TMYvYBQ+T82Hq2Lrw2EIoxUuDtbMFGhgVc=</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:15</date>
+  <millis>1378609035973</millis>
+  <sequence>68</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Listening for prefix: /uu/core/games/ttt/238035477/move/2</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:16</date>
+  <millis>1378609036004</millis>
+  <sequence>69</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>11</thread>
+  <message>Got an Interest: /uu/core/games/ttt/238035477/move/2</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:16</date>
+  <millis>1378609036004</millis>
+  <sequence>70</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>11</thread>
+  <message>We are waiting for: /uu/core/games/ttt/238035477/move/2</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:16</date>
+  <millis>1378609036004</millis>
+  <sequence>71</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>11</thread>
+  <message>MATCH, sending the CO back for: /uu/core/games/ttt/238035477/move/2</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:16</date>
+  <millis>1378609036015</millis>
+  <sequence>72</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Unregistering prefix: /uu/core/games/ttt/238035477/move/2</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:16</date>
+  <millis>1378609036016</millis>
+  <sequence>73</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Asking for move #..3</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:16</date>
+  <millis>1378609036016</millis>
+  <sequence>74</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Sending request for:/uu/core/games/ttt/238035477/move/3</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:16</date>
+  <millis>1378609036016</millis>
+  <sequence>75</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>GET LOOP: Sending: /uu/core/games/ttt/238035477/move/3</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:16</date>
+  <millis>1378609036050</millis>
+  <sequence>76</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Exiting loop, Got CO:/uu/core/games/ttt/238035477/move/3</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:16</date>
+  <millis>1378609036050</millis>
+  <sequence>77</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Disassembling Move CO:</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:16</date>
+  <millis>1378609036051</millis>
+  <sequence>78</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Sending move..</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:16</date>
+  <millis>1378609036051</millis>
+  <sequence>79</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Creating CO: /uu/core/games/ttt/238035477/move/4</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:16</date>
+  <millis>1378609036053</millis>
+  <sequence>80</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>getKeyLocator</method>
+  <thread>10</thread>
+  <message>getKeyLocator: returning locator NAME: /ccnx.org/Users/user/Keys/%C1.M.K%00%00%0CT%F2GV%FD3%18%BD%80P%F9%3F6%1E%AD%8B%AF%0D%84%22%8CT%B8%3B%5B0Q%A1%81W/%FD%05%21%83%EC%90%00 KEY:cajp4elnt6ccbr02gv4vjc7ldhengr112hhabgeqr618q30an for key AAxU8kdW/TMYvYBQ+T82Hq2Lrw2EIoxUuDtbMFGhgVc=</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:16</date>
+  <millis>1378609036055</millis>
+  <sequence>81</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Listening for prefix: /uu/core/games/ttt/238035477/move/4</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:16</date>
+  <millis>1378609036088</millis>
+  <sequence>82</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>11</thread>
+  <message>Got an Interest: /uu/core/games/ttt/238035477/move/4</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:16</date>
+  <millis>1378609036088</millis>
+  <sequence>83</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>11</thread>
+  <message>We are waiting for: /uu/core/games/ttt/238035477/move/4</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:16</date>
+  <millis>1378609036088</millis>
+  <sequence>84</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>11</thread>
+  <message>MATCH, sending the CO back for: /uu/core/games/ttt/238035477/move/4</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:16</date>
+  <millis>1378609036096</millis>
+  <sequence>85</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Unregistering prefix: /uu/core/games/ttt/238035477/move/4</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:16</date>
+  <millis>1378609036096</millis>
+  <sequence>86</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Asking for move #..5</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:16</date>
+  <millis>1378609036097</millis>
+  <sequence>87</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Sending request for:/uu/core/games/ttt/238035477/move/5</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:16</date>
+  <millis>1378609036097</millis>
+  <sequence>88</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>GET LOOP: Sending: /uu/core/games/ttt/238035477/move/5</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:21</date>
+  <millis>1378609041098</millis>
+  <sequence>89</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Exiting loop, We sent back a  CO!</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:21</date>
+  <millis>1378609041098</millis>
+  <sequence>90</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Sending request for:/uu/core/games/ttt/238035477/move/5</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:21</date>
+  <millis>1378609041099</millis>
+  <sequence>91</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>GET LOOP: Sending: /uu/core/games/ttt/238035477/move/5</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:26</date>
+  <millis>1378609046099</millis>
+  <sequence>92</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Exiting loop, We sent back a  CO!</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:26</date>
+  <millis>1378609046100</millis>
+  <sequence>93</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Sending request for:/uu/core/games/ttt/238035477/move/5</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:26</date>
+  <millis>1378609046100</millis>
+  <sequence>94</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>GET LOOP: Sending: /uu/core/games/ttt/238035477/move/5</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:30</date>
+  <millis>1378609050112</millis>
+  <sequence>95</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Exiting loop, Got CO:/uu/core/games/ttt/238035477/move/5</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:30</date>
+  <millis>1378609050112</millis>
+  <sequence>96</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Disassembling Move CO:</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:30</date>
+  <millis>1378609050113</millis>
+  <sequence>97</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Ending TTTMain...</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:30</date>
+  <millis>1378609050113</millis>
+  <sequence>98</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Preparing final game state object for: 238035477</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:30</date>
+  <millis>1378609050113</millis>
+  <sequence>99</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Listening for prefix: /uu/core/games/ttt/fin/238035477</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:30</date>
+  <millis>1378609050113</millis>
+  <sequence>100</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Creating CO: /uu/core/games/ttt/fin/238035477</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:30</date>
+  <millis>1378609050114</millis>
+  <sequence>101</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>getKeyLocator</method>
+  <thread>10</thread>
+  <message>getKeyLocator: returning locator NAME: /ccnx.org/Users/user/Keys/%C1.M.K%00%00%0CT%F2GV%FD3%18%BD%80P%F9%3F6%1E%AD%8B%AF%0D%84%22%8CT%B8%3B%5B0Q%A1%81W/%FD%05%21%83%EC%90%00 KEY:cajp4elnt6ccbr02gv4vjc7ldhengr112hhabgeqr618q30an for key AAxU8kdW/TMYvYBQ+T82Hq2Lrw2EIoxUuDtbMFGhgVc=</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:31</date>
+  <millis>1378609051259</millis>
+  <sequence>102</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>11</thread>
+  <message>Got an Interest: /uu/core/games/ttt/fin/238035477</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:31</date>
+  <millis>1378609051259</millis>
+  <sequence>103</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>11</thread>
+  <message>We are waiting for: /uu/core/games/ttt/fin/238035477</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:31</date>
+  <millis>1378609051260</millis>
+  <sequence>104</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>11</thread>
+  <message>MATCH, sending the CO back for: /uu/core/games/ttt/fin/238035477</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:31</date>
+  <millis>1378609051267</millis>
+  <sequence>105</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Unregistering prefix: /uu/core/games/ttt/fin/238035477</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:31</date>
+  <millis>1378609051267</millis>
+  <sequence>106</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Shutting down...</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:31</date>
+  <millis>1378609051267</millis>
+  <sequence>107</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Unregistering prefix: /</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:31</date>
+  <millis>1378609051267</millis>
+  <sequence>108</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Shutting down...</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:31</date>
+  <millis>1378609051267</millis>
+  <sequence>109</sequence>
+  <logger>ccnx.NetManager</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.CCNNetworkManager</class>
+  <method>shutdown</method>
+  <thread>10</thread>
+  <message>NetworkManager 1: Shutdown requested</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:31</date>
+  <millis>1378609051268</millis>
+  <sequence>110</sequence>
+  <logger>ccnx.NetManager</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.CCNNetworkChannel</class>
+  <method>close</method>
+  <thread>10</thread>
+  <message>NetworkChannel 1: close(false)</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:31</date>
+  <millis>1378609051268</millis>
+  <sequence>111</sequence>
+  <logger>ccnx.NetManager</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.CCNNetworkManager</class>
+  <method>run</method>
+  <thread>11</thread>
+  <message>NetworkManager 1: Shutdown complete for port: 6001</message>
+</record>
+<record>
+  <date>2013-09-08T02:57:31</date>
+  <millis>1378609051268</millis>
+  <sequence>112</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>dtgp.util.Logger</class>
+  <method>msg</method>
+  <thread>10</thread>
+  <message>Exiting..</message>
+</record>
+</log>

@@ -1,0 +1,9 @@
+<Scenario>
+	<Magic>haggle</Magic>
+	<Architecture>/usr/local/haggle/ccnx/bin/ccndstart-fg</Architecture>
+	<NodeData>nodedata.config</NodeData>
+	<Tracefile>experiment.trc</Tracefile>
+	<Iterations>1</Iterations>
+	<Warmup>0</Warmup>
+	<Application>app.config</Application>
+</Scenario>

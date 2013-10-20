@@ -1,0 +1,466 @@
+Real start time:1378609029700
+./linkup.sh node-2 node-3 1378609030088, actual: 1378609030088
+./linkup.sh node-2 node-3 Sun Sep 08 04:57:10 CEST 2013
+./linkup.sh node-1 node-5 1378609030431, actual: 1378609030431
+./linkup.sh node-1 node-5 Sun Sep 08 04:57:10 CEST 2013
+./linkdown.sh node-1 node-5 1378609030711, actual: 1378609030711
+./linkdown.sh node-1 node-5 Sun Sep 08 04:57:10 CEST 2013
+./linkdown.sh node-2 node-3 1378609031144, actual: 1378609031145
+./linkdown.sh node-2 node-3 Sun Sep 08 04:57:11 CEST 2013
+./linkup.sh node-1 node-5 1378609031557, actual: 1378609031557
+./linkup.sh node-1 node-5 Sun Sep 08 04:57:11 CEST 2013
+./linkdown.sh node-1 node-5 1378609031706, actual: 1378609031707
+./linkdown.sh node-1 node-5 Sun Sep 08 04:57:11 CEST 2013
+./linkup.sh node-2 node-5 1378609031939, actual: 1378609031939
+./linkup.sh node-2 node-5 Sun Sep 08 04:57:11 CEST 2013
+./linkup.sh node-1 node-3 1378609032213, actual: 1378609032214
+./linkup.sh node-1 node-3 Sun Sep 08 04:57:12 CEST 2013
+./linkup.sh node-4 node-5 1378609032452, actual: 1378609032452
+./linkup.sh node-4 node-5 Sun Sep 08 04:57:12 CEST 2013
+./linkdown.sh node-2 node-5 1378609032603, actual: 1378609032603
+./linkdown.sh node-2 node-5 Sun Sep 08 04:57:12 CEST 2013
+./linkdown.sh node-4 node-5 1378609032755, actual: 1378609032755
+./linkdown.sh node-4 node-5 Sun Sep 08 04:57:12 CEST 2013
+./linkdown.sh node-1 node-3 1378609032906, actual: 1378609032906
+./linkdown.sh node-1 node-3 Sun Sep 08 04:57:12 CEST 2013
+./linkup.sh node-1 node-3 1378609033149, actual: 1378609033149
+./linkup.sh node-1 node-3 Sun Sep 08 04:57:13 CEST 2013
+./linkup.sh node-2 node-3 1378609033381, actual: 1378609033381
+./linkup.sh node-2 node-3 Sun Sep 08 04:57:13 CEST 2013
+./linkup.sh node-3 node-5 1378609033620, actual: 1378609033620
+./linkup.sh node-3 node-5 Sun Sep 08 04:57:13 CEST 2013
+./linkup.sh node-1 node-4 1378609033863, actual: 1378609033864
+./linkup.sh node-1 node-4 Sun Sep 08 04:57:13 CEST 2013
+./linkdown.sh node-1 node-3 1378609034017, actual: 1378609034018
+./linkdown.sh node-1 node-3 Sun Sep 08 04:57:14 CEST 2013
+./linkup.sh node-4 node-5 1378609034250, actual: 1378609034251
+./linkup.sh node-4 node-5 Sun Sep 08 04:57:14 CEST 2013
+./linkup.sh node-3 node-4 1378609034493, actual: 1378609034493
+./linkup.sh node-3 node-4 Sun Sep 08 04:57:14 CEST 2013
+./linkup.sh node-2 node-5 1378609034731, actual: 1378609034731
+./linkup.sh node-2 node-5 Sun Sep 08 04:57:14 CEST 2013
+./linkdown.sh node-3 node-4 1378609034883, actual: 1378609034884
+./linkdown.sh node-3 node-4 Sun Sep 08 04:57:14 CEST 2013
+./linkdown.sh node-2 node-5 1378609035034, actual: 1378609035035
+./linkdown.sh node-2 node-5 Sun Sep 08 04:57:15 CEST 2013
+./linkdown.sh node-3 node-5 1378609035187, actual: 1378609035188
+./linkdown.sh node-3 node-5 Sun Sep 08 04:57:15 CEST 2013
+./linkdown.sh node-2 node-3 1378609035340, actual: 1378609035340
+./linkdown.sh node-2 node-3 Sun Sep 08 04:57:15 CEST 2013
+./linkdown.sh node-1 node-4 1378609035512, actual: 1378609035513
+./linkdown.sh node-1 node-4 Sun Sep 08 04:57:15 CEST 2013
+./linkdown.sh node-4 node-5 1378609035665, actual: 1378609035665
+./linkdown.sh node-4 node-5 Sun Sep 08 04:57:15 CEST 2013
+./linkup.sh node-1 node-5 1378609035911, actual: 1378609035912
+./linkup.sh node-1 node-5 Sun Sep 08 04:57:15 CEST 2013
+./linkdown.sh node-1 node-5 1378609036081, actual: 1378609036081
+./linkdown.sh node-1 node-5 Sun Sep 08 04:57:16 CEST 2013
+./linkup.sh node-3 node-4 1378609036331, actual: 1378609036331
+./linkup.sh node-3 node-4 Sun Sep 08 04:57:16 CEST 2013
+./linkup.sh node-3 node-5 1378609036569, actual: 1378609036569
+./linkup.sh node-3 node-5 Sun Sep 08 04:57:16 CEST 2013
+./linkdown.sh node-3 node-5 1378609036720, actual: 1378609036720
+./linkdown.sh node-3 node-5 Sun Sep 08 04:57:16 CEST 2013
+./linkup.sh node-1 node-5 1378609036964, actual: 1378609036964
+./linkup.sh node-1 node-5 Sun Sep 08 04:57:16 CEST 2013
+./linkup.sh node-3 node-5 1378609037200, actual: 1378609037200
+./linkup.sh node-3 node-5 Sun Sep 08 04:57:17 CEST 2013
+./linkdown.sh node-3 node-4 1378609037353, actual: 1378609037353
+./linkdown.sh node-3 node-4 Sun Sep 08 04:57:17 CEST 2013
+./linkup.sh node-1 node-3 1378609037595, actual: 1378609037595
+./linkup.sh node-1 node-3 Sun Sep 08 04:57:17 CEST 2013
+./linkdown.sh node-1 node-5 1378609037752, actual: 1378609037752
+./linkdown.sh node-1 node-5 Sun Sep 08 04:57:17 CEST 2013
+./linkup.sh node-2 node-3 1378609037986, actual: 1378609037986
+./linkup.sh node-2 node-3 Sun Sep 08 04:57:17 CEST 2013
+./linkdown.sh node-2 node-3 1378609038139, actual: 1378609038139
+./linkdown.sh node-2 node-3 Sun Sep 08 04:57:18 CEST 2013
+./linkup.sh node-4 node-5 1378609038370, actual: 1378609038371
+./linkup.sh node-4 node-5 Sun Sep 08 04:57:18 CEST 2013
+./linkdown.sh node-4 node-5 1378609038523, actual: 1378609038523
+./linkdown.sh node-4 node-5 Sun Sep 08 04:57:18 CEST 2013
+./linkup.sh node-1 node-5 1378609038768, actual: 1378609038768
+./linkup.sh node-1 node-5 Sun Sep 08 04:57:18 CEST 2013
+./linkup.sh node-2 node-4 1378609039008, actual: 1378609039008
+./linkup.sh node-2 node-4 Sun Sep 08 04:57:19 CEST 2013
+./linkdown.sh node-2 node-4 1378609039160, actual: 1378609039160
+./linkdown.sh node-2 node-4 Sun Sep 08 04:57:19 CEST 2013
+./linkdown.sh node-1 node-3 1378609039311, actual: 1378609039311
+./linkdown.sh node-1 node-3 Sun Sep 08 04:57:19 CEST 2013
+./linkup.sh node-2 node-3 1378609039547, actual: 1378609039547
+./linkup.sh node-2 node-3 Sun Sep 08 04:57:19 CEST 2013
+./linkdown.sh node-3 node-5 1378609039705, actual: 1378609039705
+./linkdown.sh node-3 node-5 Sun Sep 08 04:57:19 CEST 2013
+./linkdown.sh node-1 node-5 1378609039857, actual: 1378609039857
+./linkdown.sh node-1 node-5 Sun Sep 08 04:57:19 CEST 2013
+./linkdown.sh node-2 node-3 1378609040007, actual: 1378609040007
+./linkdown.sh node-2 node-3 Sun Sep 08 04:57:20 CEST 2013
+./linkup.sh node-2 node-5 1378609040244, actual: 1378609040244
+./linkup.sh node-2 node-5 Sun Sep 08 04:57:20 CEST 2013
+./linkup.sh node-3 node-5 1378609040480, actual: 1378609040480
+./linkup.sh node-3 node-5 Sun Sep 08 04:57:20 CEST 2013
+./linkup.sh node-2 node-4 1378609040724, actual: 1378609040724
+./linkup.sh node-2 node-4 Sun Sep 08 04:57:20 CEST 2013
+./linkup.sh node-4 node-5 1378609040960, actual: 1378609040960
+./linkup.sh node-4 node-5 Sun Sep 08 04:57:20 CEST 2013
+./linkdown.sh node-2 node-4 1378609041114, actual: 1378609041114
+./linkdown.sh node-2 node-4 Sun Sep 08 04:57:21 CEST 2013
+./linkup.sh node-1 node-5 1378609041348, actual: 1378609041348
+./linkup.sh node-1 node-5 Sun Sep 08 04:57:21 CEST 2013
+./linkdown.sh node-3 node-5 1378609041499, actual: 1378609041500
+./linkdown.sh node-3 node-5 Sun Sep 08 04:57:21 CEST 2013
+./linkdown.sh node-1 node-5 1378609041656, actual: 1378609041656
+./linkdown.sh node-1 node-5 Sun Sep 08 04:57:21 CEST 2013
+./linkdown.sh node-4 node-5 1378609041814, actual: 1378609041814
+./linkdown.sh node-4 node-5 Sun Sep 08 04:57:21 CEST 2013
+./linkdown.sh node-2 node-5 1378609041965, actual: 1378609041965
+./linkdown.sh node-2 node-5 Sun Sep 08 04:57:21 CEST 2013
+./linkup.sh node-1 node-3 1378609042195, actual: 1378609042195
+./linkup.sh node-1 node-3 Sun Sep 08 04:57:22 CEST 2013
+./linkup.sh node-3 node-4 1378609042430, actual: 1378609042431
+./linkup.sh node-3 node-4 Sun Sep 08 04:57:22 CEST 2013
+./linkup.sh node-4 node-5 1378609042664, actual: 1378609042664
+./linkup.sh node-4 node-5 Sun Sep 08 04:57:22 CEST 2013
+./linkdown.sh node-3 node-4 1378609042828, actual: 1378609042828
+./linkdown.sh node-3 node-4 Sun Sep 08 04:57:22 CEST 2013
+./linkdown.sh node-4 node-5 1378609042980, actual: 1378609042980
+./linkdown.sh node-4 node-5 Sun Sep 08 04:57:22 CEST 2013
+./linkup.sh node-3 node-5 1378609043230, actual: 1378609043230
+./linkup.sh node-3 node-5 Sun Sep 08 04:57:23 CEST 2013
+./linkup.sh node-3 node-4 1378609043477, actual: 1378609043478
+./linkup.sh node-3 node-4 Sun Sep 08 04:57:23 CEST 2013
+./linkdown.sh node-3 node-4 1378609043638, actual: 1378609043638
+./linkdown.sh node-3 node-4 Sun Sep 08 04:57:23 CEST 2013
+./linkup.sh node-2 node-3 1378609043886, actual: 1378609043886
+./linkup.sh node-2 node-3 Sun Sep 08 04:57:23 CEST 2013
+./linkdown.sh node-1 node-3 1378609044039, actual: 1378609044039
+./linkdown.sh node-1 node-3 Sun Sep 08 04:57:24 CEST 2013
+./linkup.sh node-3 node-4 1378609044284, actual: 1378609044284
+./linkup.sh node-3 node-4 Sun Sep 08 04:57:24 CEST 2013
+./linkdown.sh node-3 node-5 1378609044436, actual: 1378609044436
+./linkdown.sh node-3 node-5 Sun Sep 08 04:57:24 CEST 2013
+./linkup.sh node-2 node-4 1378609044668, actual: 1378609044668
+./linkup.sh node-2 node-4 Sun Sep 08 04:57:24 CEST 2013
+./linkdown.sh node-2 node-4 1378609044820, actual: 1378609044820
+./linkdown.sh node-2 node-4 Sun Sep 08 04:57:24 CEST 2013
+./linkup.sh node-1 node-5 1378609045068, actual: 1378609045068
+./linkup.sh node-1 node-5 Sun Sep 08 04:57:25 CEST 2013
+./linkup.sh node-3 node-5 1378609045300, actual: 1378609045300
+./linkup.sh node-3 node-5 Sun Sep 08 04:57:25 CEST 2013
+./linkdown.sh node-2 node-3 1378609045454, actual: 1378609045454
+./linkdown.sh node-2 node-3 Sun Sep 08 04:57:25 CEST 2013
+./linkdown.sh node-3 node-4 1378609045612, actual: 1378609045612
+./linkdown.sh node-3 node-4 Sun Sep 08 04:57:25 CEST 2013
+./linkup.sh node-2 node-3 1378609045849, actual: 1378609045850
+./linkup.sh node-2 node-3 Sun Sep 08 04:57:25 CEST 2013
+./linkdown.sh node-3 node-5 1378609046003, actual: 1378609046003
+./linkdown.sh node-3 node-5 Sun Sep 08 04:57:26 CEST 2013
+./linkdown.sh node-2 node-3 1378609046154, actual: 1378609046154
+./linkdown.sh node-2 node-3 Sun Sep 08 04:57:26 CEST 2013
+./linkup.sh node-2 node-3 1378609046390, actual: 1378609046390
+./linkup.sh node-2 node-3 Sun Sep 08 04:57:26 CEST 2013
+./linkdown.sh node-2 node-3 1378609046541, actual: 1378609046542
+./linkdown.sh node-2 node-3 Sun Sep 08 04:57:26 CEST 2013
+./linkup.sh node-2 node-3 1378609046775, actual: 1378609046775
+./linkup.sh node-2 node-3 Sun Sep 08 04:57:26 CEST 2013
+./linkdown.sh node-2 node-3 1378609046928, actual: 1378609046928
+./linkdown.sh node-2 node-3 Sun Sep 08 04:57:26 CEST 2013
+./linkdown.sh node-1 node-5 1378609047080, actual: 1378609047080
+./linkdown.sh node-1 node-5 Sun Sep 08 04:57:27 CEST 2013
+./linkup.sh node-2 node-5 1378609047340, actual: 1378609047340
+./linkup.sh node-2 node-5 Sun Sep 08 04:57:27 CEST 2013
+./linkup.sh node-2 node-4 1378609047577, actual: 1378609047577
+./linkup.sh node-2 node-4 Sun Sep 08 04:57:27 CEST 2013
+./linkdown.sh node-2 node-5 1378609047728, actual: 1378609047728
+./linkdown.sh node-2 node-5 Sun Sep 08 04:57:27 CEST 2013
+./linkdown.sh node-2 node-4 1378609047880, actual: 1378609047880
+./linkdown.sh node-2 node-4 Sun Sep 08 04:57:27 CEST 2013
+./linkup.sh node-3 node-4 1378609048124, actual: 1378609048124
+./linkup.sh node-3 node-4 Sun Sep 08 04:57:28 CEST 2013
+./linkup.sh node-1 node-5 1378609048372, actual: 1378609048372
+./linkup.sh node-1 node-5 Sun Sep 08 04:57:28 CEST 2013
+./linkdown.sh node-3 node-4 1378609048524, actual: 1378609048524
+./linkdown.sh node-3 node-4 Sun Sep 08 04:57:28 CEST 2013
+./linkup.sh node-4 node-5 1378609048760, actual: 1378609048760
+./linkup.sh node-4 node-5 Sun Sep 08 04:57:28 CEST 2013
+./linkup.sh node-3 node-5 1378609049000, actual: 1378609049000
+./linkup.sh node-3 node-5 Sun Sep 08 04:57:29 CEST 2013
+./linkdown.sh node-1 node-5 1378609049153, actual: 1378609049154
+./linkdown.sh node-1 node-5 Sun Sep 08 04:57:29 CEST 2013
+./linkdown.sh node-4 node-5 1378609049305, actual: 1378609049305
+./linkdown.sh node-4 node-5 Sun Sep 08 04:57:29 CEST 2013
+./linkdown.sh node-3 node-5 1378609049456, actual: 1378609049456
+./linkdown.sh node-3 node-5 Sun Sep 08 04:57:29 CEST 2013
+./linkup.sh node-3 node-4 1378609049688, actual: 1378609049688
+./linkup.sh node-3 node-4 Sun Sep 08 04:57:29 CEST 2013
+./linkup.sh node-1 node-4 1378609049924, actual: 1378609049924
+./linkup.sh node-1 node-4 Sun Sep 08 04:57:29 CEST 2013
+./linkup.sh node-4 node-5 1378609050168, actual: 1378609050168
+./linkup.sh node-4 node-5 Sun Sep 08 04:57:30 CEST 2013
+./linkup.sh node-2 node-4 1378609050404, actual: 1378609050404
+./linkup.sh node-2 node-4 Sun Sep 08 04:57:30 CEST 2013
+./linkdown.sh node-4 node-5 1378609050576, actual: 1378609050577
+./linkdown.sh node-4 node-5 Sun Sep 08 04:57:30 CEST 2013
+./linkdown.sh node-2 node-4 1378609050736, actual: 1378609050736
+./linkdown.sh node-2 node-4 Sun Sep 08 04:57:30 CEST 2013
+./linkdown.sh node-3 node-4 1378609050893, actual: 1378609050893
+./linkdown.sh node-3 node-4 Sun Sep 08 04:57:30 CEST 2013
+./linkdown.sh node-1 node-4 1378609051046, actual: 1378609051046
+./linkdown.sh node-1 node-4 Sun Sep 08 04:57:31 CEST 2013
+./linkup.sh node-1 node-4 1378609051287, actual: 1378609051287
+./linkup.sh node-1 node-4 Sun Sep 08 04:57:31 CEST 2013
+./linkup.sh node-1 node-3 1378609051524, actual: 1378609051524
+./linkup.sh node-1 node-3 Sun Sep 08 04:57:31 CEST 2013
+./linkdown.sh node-1 node-4 1378609051696, actual: 1378609051696
+./linkdown.sh node-1 node-4 Sun Sep 08 04:57:31 CEST 2013
+./linkdown.sh node-1 node-3 1378609051848, actual: 1378609051848
+./linkdown.sh node-1 node-3 Sun Sep 08 04:57:31 CEST 2013
+./linkup.sh node-1 node-4 1378609052084, actual: 1378609052084
+./linkup.sh node-1 node-4 Sun Sep 08 04:57:32 CEST 2013
+./linkup.sh node-2 node-5 1378609052331, actual: 1378609052331
+./linkup.sh node-2 node-5 Sun Sep 08 04:57:32 CEST 2013
+./linkdown.sh node-2 node-5 1378609052488, actual: 1378609052488
+./linkdown.sh node-2 node-5 Sun Sep 08 04:57:32 CEST 2013
+./linkup.sh node-2 node-5 1378609052723, actual: 1378609052723
+./linkup.sh node-2 node-5 Sun Sep 08 04:57:32 CEST 2013
+./linkup.sh node-3 node-5 1378609052964, actual: 1378609052964
+./linkup.sh node-3 node-5 Sun Sep 08 04:57:32 CEST 2013
+./linkdown.sh node-2 node-5 1378609053116, actual: 1378609053117
+./linkdown.sh node-2 node-5 Sun Sep 08 04:57:33 CEST 2013
+./linkdown.sh node-3 node-5 1378609053268, actual: 1378609053268
+./linkdown.sh node-3 node-5 Sun Sep 08 04:57:33 CEST 2013
+./linkdown.sh node-1 node-4 1378609053419, actual: 1378609053419
+./linkdown.sh node-1 node-4 Sun Sep 08 04:57:33 CEST 2013
+./linkup.sh node-2 node-5 1378609053684, actual: 1378609053684
+./linkup.sh node-2 node-5 Sun Sep 08 04:57:33 CEST 2013
+./linkdown.sh node-2 node-5 1378609053836, actual: 1378609053836
+./linkdown.sh node-2 node-5 Sun Sep 08 04:57:33 CEST 2013
+./linkup.sh node-2 node-3 1378609054069, actual: 1378609054069
+./linkup.sh node-2 node-3 Sun Sep 08 04:57:34 CEST 2013
+./linkup.sh node-3 node-5 1378609054300, actual: 1378609054300
+./linkup.sh node-3 node-5 Sun Sep 08 04:57:34 CEST 2013
+./linkup.sh node-1 node-2 1378609054541, actual: 1378609054541
+./linkup.sh node-1 node-2 Sun Sep 08 04:57:34 CEST 2013
+./linkdown.sh node-3 node-5 1378609054695, actual: 1378609054695
+./linkdown.sh node-3 node-5 Sun Sep 08 04:57:34 CEST 2013
+./linkup.sh node-3 node-5 1378609054928, actual: 1378609054928
+./linkup.sh node-3 node-5 Sun Sep 08 04:57:34 CEST 2013
+./linkdown.sh node-3 node-5 1378609055080, actual: 1378609055080
+./linkdown.sh node-3 node-5 Sun Sep 08 04:57:35 CEST 2013
+./linkdown.sh node-2 node-3 1378609055233, actual: 1378609055233
+./linkdown.sh node-2 node-3 Sun Sep 08 04:57:35 CEST 2013
+./linkup.sh node-2 node-3 1378609055466, actual: 1378609055466
+./linkup.sh node-2 node-3 Sun Sep 08 04:57:35 CEST 2013
+./linkup.sh node-2 node-4 1378609055704, actual: 1378609055705
+./linkup.sh node-2 node-4 Sun Sep 08 04:57:35 CEST 2013
+./linkdown.sh node-2 node-3 1378609055857, actual: 1378609055858
+./linkdown.sh node-2 node-3 Sun Sep 08 04:57:35 CEST 2013
+./linkup.sh node-1 node-3 1378609056101, actual: 1378609056101
+./linkup.sh node-1 node-3 Sun Sep 08 04:57:36 CEST 2013
+./linkdown.sh node-2 node-4 1378609056255, actual: 1378609056255
+./linkdown.sh node-2 node-4 Sun Sep 08 04:57:36 CEST 2013
+./linkdown.sh node-1 node-2 1378609056407, actual: 1378609056408
+./linkdown.sh node-1 node-2 Sun Sep 08 04:57:36 CEST 2013
+./linkup.sh node-2 node-4 1378609056648, actual: 1378609056648
+./linkup.sh node-2 node-4 Sun Sep 08 04:57:36 CEST 2013
+./linkup.sh node-1 node-4 1378609056893, actual: 1378609056893
+./linkup.sh node-1 node-4 Sun Sep 08 04:57:36 CEST 2013
+./linkdown.sh node-2 node-4 1378609057051, actual: 1378609057051
+./linkdown.sh node-2 node-4 Sun Sep 08 04:57:37 CEST 2013
+./linkdown.sh node-1 node-4 1378609057203, actual: 1378609057203
+./linkdown.sh node-1 node-4 Sun Sep 08 04:57:37 CEST 2013
+./linkup.sh node-2 node-5 1378609057440, actual: 1378609057440
+./linkup.sh node-2 node-5 Sun Sep 08 04:57:37 CEST 2013
+./linkup.sh node-3 node-5 1378609057713, actual: 1378609057714
+./linkup.sh node-3 node-5 Sun Sep 08 04:57:37 CEST 2013
+./linkdown.sh node-2 node-5 1378609057868, actual: 1378609057868
+./linkdown.sh node-2 node-5 Sun Sep 08 04:57:37 CEST 2013
+./linkdown.sh node-3 node-5 1378609058020, actual: 1378609058020
+./linkdown.sh node-3 node-5 Sun Sep 08 04:57:38 CEST 2013
+./linkdown.sh node-1 node-3 1378609058171, actual: 1378609058172
+./linkdown.sh node-1 node-3 Sun Sep 08 04:57:38 CEST 2013
+./linkup.sh node-1 node-3 1378609058405, actual: 1378609058405
+./linkup.sh node-1 node-3 Sun Sep 08 04:57:38 CEST 2013
+./linkup.sh node-3 node-4 1378609058638, actual: 1378609058638
+./linkup.sh node-3 node-4 Sun Sep 08 04:57:38 CEST 2013
+./linkdown.sh node-1 node-3 1378609058791, actual: 1378609058791
+./linkdown.sh node-1 node-3 Sun Sep 08 04:57:38 CEST 2013
+./linkup.sh node-2 node-3 1378609059036, actual: 1378609059036
+./linkup.sh node-2 node-3 Sun Sep 08 04:57:39 CEST 2013
+./linkdown.sh node-3 node-4 1378609059189, actual: 1378609059189
+./linkdown.sh node-3 node-4 Sun Sep 08 04:57:39 CEST 2013
+./linkdown.sh node-2 node-3 1378609059342, actual: 1378609059342
+./linkdown.sh node-2 node-3 Sun Sep 08 04:57:39 CEST 2013
+./linkup.sh node-2 node-3 1378609059575, actual: 1378609059576
+./linkup.sh node-2 node-3 Sun Sep 08 04:57:39 CEST 2013
+./linkup.sh node-1 node-4 1378609059820, actual: 1378609059821
+./linkup.sh node-1 node-4 Sun Sep 08 04:57:39 CEST 2013
+./linkup.sh node-2 node-5 1378609060064, actual: 1378609060064
+./linkup.sh node-2 node-5 Sun Sep 08 04:57:40 CEST 2013
+./linkup.sh node-1 node-3 1378609060329, actual: 1378609060329
+./linkup.sh node-1 node-3 Sun Sep 08 04:57:40 CEST 2013
+./linkdown.sh node-1 node-3 1378609060482, actual: 1378609060482
+./linkdown.sh node-1 node-3 Sun Sep 08 04:57:40 CEST 2013
+./linkdown.sh node-2 node-3 1378609060634, actual: 1378609060634
+./linkdown.sh node-2 node-3 Sun Sep 08 04:57:40 CEST 2013
+./linkdown.sh node-2 node-5 1378609060786, actual: 1378609060786
+./linkdown.sh node-2 node-5 Sun Sep 08 04:57:40 CEST 2013
+./linkup.sh node-1 node-3 1378609061022, actual: 1378609061022
+./linkup.sh node-1 node-3 Sun Sep 08 04:57:41 CEST 2013
+./linkdown.sh node-1 node-4 1378609061183, actual: 1378609061183
+./linkdown.sh node-1 node-4 Sun Sep 08 04:57:41 CEST 2013
+./linkup.sh node-2 node-4 1378609061419, actual: 1378609061420
+./linkup.sh node-2 node-4 Sun Sep 08 04:57:41 CEST 2013
+./linkup.sh node-2 node-5 1378609061660, actual: 1378609061660
+./linkup.sh node-2 node-5 Sun Sep 08 04:57:41 CEST 2013
+./linkup.sh node-1 node-4 1378609061907, actual: 1378609061908
+./linkup.sh node-1 node-4 Sun Sep 08 04:57:41 CEST 2013
+./linkdown.sh node-1 node-3 1378609062060, actual: 1378609062060
+./linkdown.sh node-1 node-3 Sun Sep 08 04:57:42 CEST 2013
+./linkup.sh node-4 node-5 1378609062304, actual: 1378609062304
+./linkup.sh node-4 node-5 Sun Sep 08 04:57:42 CEST 2013
+./linkdown.sh node-2 node-4 1378609062458, actual: 1378609062458
+./linkdown.sh node-2 node-4 Sun Sep 08 04:57:42 CEST 2013
+./linkdown.sh node-4 node-5 1378609062611, actual: 1378609062611
+./linkdown.sh node-4 node-5 Sun Sep 08 04:57:42 CEST 2013
+./linkup.sh node-3 node-4 1378609062856, actual: 1378609062857
+./linkup.sh node-3 node-4 Sun Sep 08 04:57:42 CEST 2013
+./linkdown.sh node-3 node-4 1378609063009, actual: 1378609063009
+./linkdown.sh node-3 node-4 Sun Sep 08 04:57:43 CEST 2013
+./linkdown.sh node-1 node-4 1378609063163, actual: 1378609063164
+./linkdown.sh node-1 node-4 Sun Sep 08 04:57:43 CEST 2013
+./linkup.sh node-1 node-5 1378609063397, actual: 1378609063397
+./linkup.sh node-1 node-5 Sun Sep 08 04:57:43 CEST 2013
+./linkdown.sh node-1 node-5 1378609063549, actual: 1378609063549
+./linkdown.sh node-1 node-5 Sun Sep 08 04:57:43 CEST 2013
+./linkdown.sh node-2 node-5 1378609063700, actual: 1378609063700
+./linkdown.sh node-2 node-5 Sun Sep 08 04:57:43 CEST 2013
+./linkup.sh node-2 node-5 1378609063944, actual: 1378609063944
+./linkup.sh node-2 node-5 Sun Sep 08 04:57:43 CEST 2013
+./linkup.sh node-2 node-4 1378609064183, actual: 1378609064184
+./linkup.sh node-2 node-4 Sun Sep 08 04:57:44 CEST 2013
+./linkdown.sh node-2 node-4 1378609064337, actual: 1378609064337
+./linkdown.sh node-2 node-4 Sun Sep 08 04:57:44 CEST 2013
+./linkup.sh node-1 node-5 1378609064584, actual: 1378609064584
+./linkup.sh node-1 node-5 Sun Sep 08 04:57:44 CEST 2013
+./linkup.sh node-3 node-5 1378609064824, actual: 1378609064824
+./linkup.sh node-3 node-5 Sun Sep 08 04:57:44 CEST 2013
+./linkdown.sh node-2 node-5 1378609064978, actual: 1378609064978
+./linkdown.sh node-2 node-5 Sun Sep 08 04:57:44 CEST 2013
+./linkup.sh node-4 node-5 1378609065220, actual: 1378609065220
+./linkup.sh node-4 node-5 Sun Sep 08 04:57:45 CEST 2013
+./linkdown.sh node-4 node-5 1378609065375, actual: 1378609065375
+./linkdown.sh node-4 node-5 Sun Sep 08 04:57:45 CEST 2013
+./linkdown.sh node-3 node-5 1378609065528, actual: 1378609065528
+./linkdown.sh node-3 node-5 Sun Sep 08 04:57:45 CEST 2013
+./linkdown.sh node-1 node-5 1378609065679, actual: 1378609065680
+./linkdown.sh node-1 node-5 Sun Sep 08 04:57:45 CEST 2013
+./linkup.sh node-3 node-4 1378609065924, actual: 1378609065924
+./linkup.sh node-3 node-4 Sun Sep 08 04:57:45 CEST 2013
+./linkdown.sh node-3 node-4 1378609066076, actual: 1378609066076
+./linkdown.sh node-3 node-4 Sun Sep 08 04:57:46 CEST 2013
+./linkup.sh node-3 node-4 1378609066324, actual: 1378609066324
+./linkup.sh node-3 node-4 Sun Sep 08 04:57:46 CEST 2013
+./linkup.sh node-2 node-4 1378609066563, actual: 1378609066564
+./linkup.sh node-2 node-4 Sun Sep 08 04:57:46 CEST 2013
+./linkup.sh node-3 node-5 1378609066820, actual: 1378609066821
+./linkup.sh node-3 node-5 Sun Sep 08 04:57:46 CEST 2013
+./linkdown.sh node-2 node-4 1378609066975, actual: 1378609066975
+./linkdown.sh node-2 node-4 Sun Sep 08 04:57:46 CEST 2013
+./linkdown.sh node-3 node-5 1378609067128, actual: 1378609067129
+./linkdown.sh node-3 node-5 Sun Sep 08 04:57:47 CEST 2013
+./linkup.sh node-2 node-3 1378609067375, actual: 1378609067376
+./linkup.sh node-2 node-3 Sun Sep 08 04:57:47 CEST 2013
+./linkdown.sh node-2 node-3 1378609067528, actual: 1378609067529
+./linkdown.sh node-2 node-3 Sun Sep 08 04:57:47 CEST 2013
+./linkdown.sh node-3 node-4 1378609067681, actual: 1378609067681
+./linkdown.sh node-3 node-4 Sun Sep 08 04:57:47 CEST 2013
+./linkup.sh node-2 node-5 1378609067921, actual: 1378609067921
+./linkup.sh node-2 node-5 Sun Sep 08 04:57:47 CEST 2013
+./linkup.sh node-3 node-4 1378609068162, actual: 1378609068162
+./linkup.sh node-3 node-4 Sun Sep 08 04:57:48 CEST 2013
+./linkup.sh node-1 node-5 1378609068409, actual: 1378609068409
+./linkup.sh node-1 node-5 Sun Sep 08 04:57:48 CEST 2013
+./linkup.sh node-4 node-5 1378609068648, actual: 1378609068648
+./linkup.sh node-4 node-5 Sun Sep 08 04:57:48 CEST 2013
+./linkdown.sh node-3 node-4 1378609068803, actual: 1378609068803
+./linkdown.sh node-3 node-4 Sun Sep 08 04:57:48 CEST 2013
+./linkdown.sh node-2 node-5 1378609068956, actual: 1378609068956
+./linkdown.sh node-2 node-5 Sun Sep 08 04:57:48 CEST 2013
+./linkdown.sh node-4 node-5 1378609069109, actual: 1378609069110
+./linkdown.sh node-4 node-5 Sun Sep 08 04:57:49 CEST 2013
+./linkup.sh node-4 node-5 1378609069348, actual: 1378609069348
+./linkup.sh node-4 node-5 Sun Sep 08 04:57:49 CEST 2013
+./linkup.sh node-1 node-3 1378609069581, actual: 1378609069582
+./linkup.sh node-1 node-3 Sun Sep 08 04:57:49 CEST 2013
+./linkup.sh node-1 node-4 1378609069820, actual: 1378609069820
+./linkup.sh node-1 node-4 Sun Sep 08 04:57:49 CEST 2013
+./linkdown.sh node-1 node-4 1378609069974, actual: 1378609069974
+./linkdown.sh node-1 node-4 Sun Sep 08 04:57:49 CEST 2013
+./linkdown.sh node-4 node-5 1378609070133, actual: 1378609070133
+./linkdown.sh node-4 node-5 Sun Sep 08 04:57:50 CEST 2013
+./linkdown.sh node-1 node-3 1378609070286, actual: 1378609070286
+./linkdown.sh node-1 node-3 Sun Sep 08 04:57:50 CEST 2013
+./linkup.sh node-1 node-4 1378609070523, actual: 1378609070524
+./linkup.sh node-1 node-4 Sun Sep 08 04:57:50 CEST 2013
+./linkup.sh node-1 node-3 1378609070762, actual: 1378609070762
+./linkup.sh node-1 node-3 Sun Sep 08 04:57:50 CEST 2013
+./linkup.sh node-4 node-5 1378609071000, actual: 1378609071001
+./linkup.sh node-4 node-5 Sun Sep 08 04:57:51 CEST 2013
+./linkup.sh node-3 node-4 1378609071236, actual: 1378609071236
+./linkup.sh node-3 node-4 Sun Sep 08 04:57:51 CEST 2013
+./linkdown.sh node-3 node-4 1378609071389, actual: 1378609071389
+./linkdown.sh node-3 node-4 Sun Sep 08 04:57:51 CEST 2013
+./linkup.sh node-2 node-4 1378609071624, actual: 1378609071624
+./linkup.sh node-2 node-4 Sun Sep 08 04:57:51 CEST 2013
+./linkdown.sh node-2 node-4 1378609071779, actual: 1378609071779
+./linkdown.sh node-2 node-4 Sun Sep 08 04:57:51 CEST 2013
+./linkdown.sh node-1 node-4 1378609071933, actual: 1378609071933
+./linkdown.sh node-1 node-4 Sun Sep 08 04:57:51 CEST 2013
+./linkdown.sh node-1 node-5 1378609072091, actual: 1378609072091
+./linkdown.sh node-1 node-5 Sun Sep 08 04:57:52 CEST 2013
+./linkdown.sh node-4 node-5 1378609072243, actual: 1378609072243
+./linkdown.sh node-4 node-5 Sun Sep 08 04:57:52 CEST 2013
+./linkup.sh node-2 node-4 1378609072484, actual: 1378609072484
+./linkup.sh node-2 node-4 Sun Sep 08 04:57:52 CEST 2013
+./linkdown.sh node-2 node-4 1378609072636, actual: 1378609072637
+./linkdown.sh node-2 node-4 Sun Sep 08 04:57:52 CEST 2013
+./linkup.sh node-1 node-5 1378609072884, actual: 1378609072884
+./linkup.sh node-1 node-5 Sun Sep 08 04:57:52 CEST 2013
+./linkup.sh node-2 node-3 1378609073161, actual: 1378609073162
+./linkup.sh node-2 node-3 Sun Sep 08 04:57:53 CEST 2013
+./linkdown.sh node-1 node-3 1378609073316, actual: 1378609073316
+./linkdown.sh node-1 node-3 Sun Sep 08 04:57:53 CEST 2013
+./linkup.sh node-2 node-5 1378609073564, actual: 1378609073564
+./linkup.sh node-2 node-5 Sun Sep 08 04:57:53 CEST 2013
+./linkdown.sh node-1 node-5 1378609073719, actual: 1378609073719
+./linkdown.sh node-1 node-5 Sun Sep 08 04:57:53 CEST 2013
+./linkdown.sh node-2 node-5 1378609073872, actual: 1378609073872
+./linkdown.sh node-2 node-5 Sun Sep 08 04:57:53 CEST 2013
+./linkup.sh node-1 node-3 1378609074109, actual: 1378609074109
+./linkup.sh node-1 node-3 Sun Sep 08 04:57:54 CEST 2013
+./linkdown.sh node-2 node-3 1378609074261, actual: 1378609074262
+./linkdown.sh node-2 node-3 Sun Sep 08 04:57:54 CEST 2013
+./linkdown.sh node-1 node-3 1378609074413, actual: 1378609074413
+./linkdown.sh node-1 node-3 Sun Sep 08 04:57:54 CEST 2013
+./linkup.sh node-2 node-5 1378609074651, actual: 1378609074651
+./linkup.sh node-2 node-5 Sun Sep 08 04:57:54 CEST 2013
+./linkup.sh node-1 node-4 1378609074892, actual: 1378609074892
+./linkup.sh node-1 node-4 Sun Sep 08 04:57:54 CEST 2013
+./linkup.sh node-3 node-5 1378609075148, actual: 1378609075148
+./linkup.sh node-3 node-5 Sun Sep 08 04:57:55 CEST 2013
+./linkdown.sh node-1 node-4 1378609075307, actual: 1378609075307
+./linkdown.sh node-1 node-4 Sun Sep 08 04:57:55 CEST 2013
+./linkdown.sh node-2 node-5 1378609075460, actual: 1378609075460
+./linkdown.sh node-2 node-5 Sun Sep 08 04:57:55 CEST 2013
+./linkup.sh node-3 node-4 1378609075704, actual: 1378609075704
+./linkup.sh node-3 node-4 Sun Sep 08 04:57:55 CEST 2013
+./linkdown.sh node-3 node-5 1378609075858, actual: 1378609075858
+./linkdown.sh node-3 node-5 Sun Sep 08 04:57:55 CEST 2013
+./linkdown.sh node-3 node-4 1378609076011, actual: 1378609076011
+./linkdown.sh node-3 node-4 Sun Sep 08 04:57:56 CEST 2013
+./linkup.sh node-1 node-2 1378609076255, actual: 1378609076255
+./linkup.sh node-1 node-2 Sun Sep 08 04:57:56 CEST 2013
+./linkdown.sh node-1 node-2 1378609076408, actual: 1378609076408
+./linkdown.sh node-1 node-2 Sun Sep 08 04:57:56 CEST 2013
+Real end time:1378609076408
