@@ -374,7 +374,7 @@ Log.info ("Added object to list");
     // Variables
     private CCNComms _connection;
     private int numRetries = 3;
-    private final long retryTimeout = 60000; // time between retries in ms (factor in sema timeout too)
+    private final long retryTimeout = 5000; // time between retries in ms (factor in sema timeout too)
     private File _file;
     private InputStream inStream;
     private OutputStream outStream;
