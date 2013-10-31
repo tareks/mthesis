@@ -391,15 +391,13 @@ class CCNdAnalyser {
 
 		    } 
 
-		    
-		    
 		    // For each node, go through every interest_to we have seen and see if there's a matching content_to on the same face. 
 		    // Then count the number of matched Interests
 		    
 		    
 		    // TODO Check if every Interest has a matching response - might not be needed - if game ends, then we have at least 1 match and everything else is a retransmission
 			
-		    // Loop over Initiator Nodes and check the first "interest_to" instance of every unique game message
+		    // Loop over Initiator Nodes and check the first "interest_from" instance of every unique game message
 		    // then find the first (should be only one) corresponding "content_to" instance on the Initiator node
 		    // get the timestamps for each and calculate the time difference
 		    
