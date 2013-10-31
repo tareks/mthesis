@@ -140,6 +140,7 @@ public class Game implements DTApp {
 	
 	if (tttState != null) {
 	    // send a terminate request
+	    // TODO: technically speaking, whoever ends the game should send this, but for now since host always wins, it should be fine.
 	    if (hostNode)
 		tttState = network.getEndGame(gameID);
 	    else network.putEndGame(gameID);
