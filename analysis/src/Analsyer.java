@@ -145,11 +145,11 @@ class CCNdAnalyser {
 	    String path = new String(e.getPath() + "/" + appLogFile);
 	    File f = new File(path);
 	    Logger.msg("Collecting node type information..");
+
+	    ArrayList<String> inodeLst = matchLines(f,1,";","-I");
+	    ArrayList<String> hnodeLst = matchLines(f,1,";","-H");
+
 	    for (Iteration i: e.getIterations()) {
-		
-		ArrayList<String> inodeLst = matchLines(f,1,";","-I");
-		ArrayList<String> hnodeLst = matchLines(f,1,";","-H");
-		
 		for (Node n: i.getNodes()) {
 		    if (hnodeLst.contains(n.getName())) {
 			// Host node
@@ -194,10 +194,11 @@ class CCNdAnalyser {
 	try {
 	    for (Experiment e: experiments) {
 		for (Iteration i: e.getIterations()) {
-		    
-		    // Find Game object(s) for every iteration - this has to be done separately
-		    // because we don't guarantee node search order
+		    Logger.msg("Finding games for iteration " + i.getNum());
+		    // Find Game object(s) for every iteration - this has to be done separately because we don't guarantee node search order
+
 		    for (Node n: i.getNodes()) {
+			Logger.msg("Path: " + n.getPath());
 			// Check Initiator nodes ccnd.log for initial Interests
 			if (n.getType() == Node.Type.Initiator) { 
 			    path = new String(n.getPath() + "/" + ccndLogFile);
@@ -272,16 +273,9 @@ class CCNdAnalyser {
 				// Associate message with this node
 				n.addMessage(m);
 			    }
-			    
-		    
-
-			    
 			}
 		    }
-		    
 		}
-		
-		// Start looking for data we need and save it to Game object
 	    }
 	    
 	}
@@ -388,7 +382,7 @@ class CCNdAnalyser {
 			    response.setInterestCount(count);
 			}
 			
-
+			
 		    } 
 
 		    // For each node, go through every interest_to we have seen and see if there's a matching content_to on the same face. 
@@ -413,15 +407,26 @@ class CCNdAnalyser {
     
     // format and print results
     public void display() {
-	System.out.println("Number of Experiments: " + experiments.size());
+	//	System.out.println("Number of Experiments: " + experiments.size());
 	for (Experiment e: experiments) {
-	    System.out.println("---------- ---------");
+	    //  System.out.println("Experiment: " + e.getName());
+	    //System.out.println("Number of Iterations: " + e.getNumIterations());
+	    /* Print number of interests */
+	    for (Iteration  i: e.getIterations()) {
+		
+		//System.out.println(" *** Iteration #" + i.getNum() + " ***");
+		
+		for (GameData g: i.getGameData()) {
+		    System.out.println(g.getNumTotalInterests());
+		}
+	    }
+	    /*	    System.out.println("---------- ---------");
 	    System.out.println("Experiment: " + e.getName());
 	    
 	    System.out.println("Number of Iterations: " + e.getNumIterations());
-	    for (Iteration  i: e.getIterations()) {
+
 		System.out.println(" *** Iteration #" + i.getNum() + " ***");
-		System.out.println("Number of Nodes: " + i.getNumNodes());
+		System.out.println(" *** Iteration #" + i.getNum() + " ***");		System.out.println("Number of Nodes: " + i.getNumNodes());
 		System.out.println("Total number of Games: " + i.getNumGames());
 		
 		int numGamesEnded = 0;
@@ -443,8 +448,8 @@ class CCNdAnalyser {
 		System.out.println("Games not completed: " + (i.getNumGames() - numGamesEnded));
 		
 	    }
-
-	}
+	    */
+	} 
     }
 
     /** 

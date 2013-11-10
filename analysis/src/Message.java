@@ -53,7 +53,8 @@ class Message {
     
     Message(String ts, String t, String f, String m) {
 
-	if (t.matches(".*interest_[to|from].*"))
+	//	if (t.matches(".*interest_[to|from].*"))
+	if (t.matches(".*interest_to.*"))
 	    type = MessageType.Interest;
 	else if (t.matches(".*content_[to|from].*")) 
 	    type = MessageType.Response;

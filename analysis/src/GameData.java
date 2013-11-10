@@ -156,7 +156,10 @@ class GameData {
     public void incNumTotalResponses() {
 	numTotalResponses++;
     }
-
+    
+    public int getNumTotalInterests() {
+	return numTotalInterests;
+    }
     
 }
 
