@@ -293,7 +293,7 @@ class CCNdAnalyser {
 	for (Experiment e: experiments) {
 	    for (Iteration i: e.getIterations()) {
 		for (Game g: i.getGames()) {
-		    
+		    Logger.msg("Analysing game: " + g.getId());
 		    // Initialize with data we already have
 		    data = new GameData(g.getId(), g.hasEnded());
 		    
@@ -345,9 +345,9 @@ class CCNdAnalyser {
 			}
 		    } // Unique Game Messages
 
-		    // Create inidividual objects so we can store info
+		    // Go through all messages on a node for a specific game 
 		    for (Node n: i.getNodes()) {
-			for (Message m: n.getMessages()) {
+			for (Message m: n.getMessagesForGame(g.getId())) {
 			    switch (m.getMessageType()) {
 			    case Interest:
 				data.addInterest(new InterestMessage(m));
@@ -409,15 +409,15 @@ class CCNdAnalyser {
     public void display() {
 	//	System.out.println("Number of Experiments: " + experiments.size());
 	for (Experiment e: experiments) {
-	    //  System.out.println("Experiment: " + e.getName());
+	    //	    System.out.println("Experiment: " + e.getName());
 	    //System.out.println("Number of Iterations: " + e.getNumIterations());
 	    /* Print number of interests */
 	    for (Iteration  i: e.getIterations()) {
 		
-		//System.out.println(" *** Iteration #" + i.getNum() + " ***");
+		//		System.out.println(" *** Iteration #" + i.getNum() + " ***");
 		
 		for (GameData g: i.getGameData()) {
-		    System.out.println(g.getNumTotalInterests());
+		    System.out.println(g.getNumTotalInterests() + "," + g.hasEnded());
 		}
 	    }
 	    /*	    System.out.println("---------- ---------");

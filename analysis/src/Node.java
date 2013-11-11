@@ -52,6 +52,17 @@ class Node {
     public ArrayList<Message> getMessages() {
 	return messages;
     }
+    
+    public ArrayList<Message> getMessagesForGame(int gameID) {
+	
+	ArrayList<Message> gameMessages = new ArrayList<Message>();
+	
+	for (Message m: messages) {
+	    if (m.getMessage().matches(".*" + gameID +".*"))
+		gameMessages.add(m);
+	}
 
+	return gameMessages;
+    }
     
 }
