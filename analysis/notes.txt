@@ -20,8 +20,8 @@
 # Class Message - { Interest, Relay, Response, Consume(to identify receipt) }, timestamp, NodeId, String
 # Class MessageType - { GameStart, GameEnd, PutMove, GetMove }, SequenceNum [ 0/1 for game/fin, and 1-5 for moves ] 
 
-## interest_from signals sent from some face on some node:  match the prefix ccnx:/uu/core/games/ttt/new/<gameid>
-## interest_to is a relay either to the ccnd instance or external face
+## interest_from means incoming Interest from from some face on some node:  match the prefix ccnx:/uu/core/games/ttt/new/<gameid>
+## interest_to is outgoing Interest on a certain face
 ## content_to signals outbound CO: match the same prefix ccnx:/uu/core/games/ttt/new/<gameid>
 ## content_from signals incoming CO: 
 
@@ -50,19 +50,23 @@ Do we have any complete games? (every interest from i-node (new) and h-node (fin
 Total time to end a game
 
 To plot histogram from an application's perspective, we need:
-- Each interest from i-nodes, how many attempts to satisfy it (note that retransmits are handled by ccnd)
--- ie. for each unique interest/request, how many copies of it were seen in all messages on the i-node that sent it.
--- Iterate over all unique interests and count:
-1) Number of matching interests found on the originating i-node
-2) number of matcing interests found on the whole network
-
-To plot histogram from a network's perspective, we need:
-Iterate over all nodes
-- for each Interest message
--- Find a corresponding content_to message from the messages array on the same face (there should be 1 content_to for every Interest, but many interests for 1 content_to)
+- Find all unique Game interests for a game.
+- For each unique Game interest, how many attempts required to satisfy each interest (note that retransmits are handled by ccnd)
+-- Look at interest_to (outgoing Interests) events and find correponding content_from (incoming COs) events on the same face only looking at i-nodes and h-nodes.
 -- Take note of timestamp for Interest and Response and calculate the difference.
 
-What about retransmissions? How do we know they were never satisfied? We just count the number of interests required for each response.
+To plot histogram from a network's perspective, we need:
+- Find all unique Game interests for a game.
+- Iterate over all nodes and look for each unique Game message
+-- Find a corresponding interest_to and content_from event from the messages array on the same face (there should be 1 content_from (CO received) for every interest_to (Interest sent)
+-- Take note of timestamp for Interest and Response and calculate the difference.
+
+What about retransmissions? How do we know they were never satisfied? 
+- We just count the number of interests required for each response.
+- Sort all message occurrences by timestamp for that node. (interest_to events)
+- The last interest_to event before we find a content_from was the one satisifed. The rest were all retransmissions.
+
+Note: it might be also possible to use interest_from and content_to pairs of events? Unsure..
 
 Definitions:
 
@@ -72,7 +76,45 @@ There are 2 ways to collect Interest information:
 * From an Application's perspective:
 - when we mean "satify" an interest, it means that the original requester gets the reponse back and not necessarily that all outstanding interests for all nodes on the network to be satisfied.
 - This approach only takes "unique game messages" into consideration and will generally show how many interests required by the Initiator to receive a response and whether a game was completed or not. If one unique game message has no response, then game can't end normally.
+- Need to monitor inodes and hnodes for interests they create and verify if there was a corresponding content_to on the same face.
+- Go through list of unique game messages, check inodes and hnodes for which was sent first and match that interest_from to a content_to on the same face on the same node.
 
 * From a network's perspective:
-- an interest is considered satisfied if there is a corresponding content_to event for an interest_to event on the same face for the same node.
+- an interest is considered satisfied if there is a corresponding content_from event for an interest_to event on the same face for the same node.
 - This helps count the total number of interests sent, how many had responses, and calculate the time to satisfy each.
+- Monitor every single interest request and match a corresponding CO. 
+- Go through each node, get list of sorted messages by timestamp, and match all interest_from events with their corresponding content_to events. Mark every occurrence found of interest_from satisified if face is matched so that the last one we find is the real match and all previous ones are retransmissions. Keep an occurrenceCount to count how many copies we found to get how many interests were sent before it was satisfied. Final interest matched can be used to calculate the time taken to satisfy the transmission.
+
+
+2013/10/28:
+- Fix code so that it uses both i-node and h-nodes as sources for interets.
+- Add more factors:
+-- Change nodes that participate in the game.
+--- More than 2 nodes play at the same time. Watch for race conditions.Have different combinations of nodes participate in games and switch around (20?).
+-- Add a wait time to the node code so that each node sleeps for a certain amount of time before it runs and randomize that.
+-- Script to randomise node numbers (last resort)
+-- Keep above separate sets of experiments.
+-- Keep number of nodes same for now. (5) 
+
+2013/11/1:
+- Run 28 experiments each 3 times.
+- Look at interest_to and content_from pairs on same face for the same node.
+- How long for original interest to propagate from the source to CO?
+
+
+2013/11/4:
+- what to collect
+-- interest_to 
+-- start with network view (for each game, how many interests are sent in total) understand load on network created by a game
+--- interest_to we see how often interests are sent on the network (plot histogram of distribution of how many interests sent per game)
+---- each game is summarised by total number of interests
+---- describe histogram (look at the sides and see if some seem to mean which completed and which didnt?)
+
+- look at number of unique game messages (interests) not satisfied / messages (interests) on all nodes on the network
+-- "interest" is actually a unique game message
+-- measure of efficiency - detours or directly to the node with the CO. 
+-- if message sent 10 times and we only see it satisfied 3 times, then there is a lot of loss
+-- each interest message we have a ratio (group them up into percentage ranges for the histogram to look at distribution over x # of messages)
+
+- for the 3 different iterations/runs, count as different experiments
+
