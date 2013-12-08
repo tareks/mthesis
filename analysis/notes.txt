@@ -111,10 +111,24 @@ There are 2 ways to collect Interest information:
 ---- describe histogram (look at the sides and see if some seem to mean which completed and which didnt?)
 
 - look at number of unique game messages (interests) not satisfied / messages (interests) on all nodes on the network
+--- For each of our unique game messages (interests only), look at total number of occurrences in a game. Check how many of them were satisfied.
 -- "interest" is actually a unique game message
 -- measure of efficiency - detours or directly to the node with the CO. 
 -- if message sent 10 times and we only see it satisfied 3 times, then there is a lot of loss
 -- each interest message we have a ratio (group them up into percentage ranges for the histogram to look at distribution over x # of messages)
 
 - for the 3 different iterations/runs, count as different experiments
+
+2013/11/23:
+- Remove experiments where we have more initiator nodes than host nodes.
+- success rate.
+-- count number of occurences (interest_to events) of a unique interest on network
+-- which of these interest_to has a content_from
+-- divide num of interests with response / total interest occurrences
+- group by interests and not by game (we dont care about game level)
+- write up the report with graphs and few sentences (describe what they show and brief interpretation of what it means)
+
+
+2013/12/9:
+- assumption: number of interests with responses = number of content_from matches across all nodes since we can't have more than one content_from for an interest
 

@@ -407,19 +407,43 @@ class CCNdAnalyser {
     
     // format and print results
     public void display() {
-	//	System.out.println("Number of Experiments: " + experiments.size());
+	
+	/** This code generates number of interests per game 
 	for (Experiment e: experiments) {
-	    //	    System.out.println("Experiment: " + e.getName());
-	    //System.out.println("Number of Iterations: " + e.getNumIterations());
-	    /* Print number of interests */
 	    for (Iteration  i: e.getIterations()) {
-		
-		//		System.out.println(" *** Iteration #" + i.getNum() + " ***");
-		
 		for (GameData g: i.getGameData()) {
 		    System.out.println(g.getNumTotalInterests() + "," + g.hasEnded());
+		    }
+	    }
+         }
+	 // Number of interests per game 	    
+	 */ 
+	
+	/** This code generates number of interests satisfied */
+	for (Experiment e: experiments) {
+	    for (Iteration  i: e.getIterations()) {
+		//		System.out.println("Iteration: " + i.getNum());
+		for (GameData g: i.getGameData()) {
+		    for (GameMessage gm: g.getGameMessages()) {
+			if (gm.getMessageType() == MessageType.Interest) {
+			    //			    System.out.print("Unique Interest: " + gm.getMessage() + " - " + gm.getNumOccurrences());
+			    GameMessage r = gm.findResponse(g.getGameMessages());
+			    if (r != null) {
+				System.out.println(gm.getNumOccurrences() + "," + r.getNumOccurrences() + "," + ((double)r.getNumOccurrences() / (double)gm.getNumOccurrences()) );
+			    } else {
+				System.out.println(gm.getNumOccurrences() + "," + 0 + "," + ((double) 0 / (double)gm.getNumOccurrences()) );
+			    }
+			}
+			
+		    }
 		}
 	    }
+	}
+
+
+	// Number of interests satisfied
+	
+	
 	    /*	    System.out.println("---------- ---------");
 	    System.out.println("Experiment: " + e.getName());
 	    
@@ -448,8 +472,9 @@ class CCNdAnalyser {
 		System.out.println("Games not completed: " + (i.getNumGames() - numGamesEnded));
 		
 	    }
-	    */
+
 	} 
+	    */
     }
 
     /** 

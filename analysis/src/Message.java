@@ -48,7 +48,7 @@ class Message {
      * content_from: content being received on a face (normally would be pushed out). There is one or more content_to events for every content_from.
      * 
      * For purposes of our logging, we only care about interest_to and 
-     * content_to events
+     * corresponding content_from events
      */
     
     Message(String ts, String t, String f, String m) {
@@ -56,7 +56,8 @@ class Message {
 	//	if (t.matches(".*interest_[to|from].*"))
 	if (t.matches(".*interest_to.*"))
 	    type = MessageType.Interest;
-	else if (t.matches(".*content_[to|from].*")) 
+	//	else if (t.matches(".*content_[to|from].*"))
+ 	else if (t.matches(".*content_from.*")) 
 	    type = MessageType.Response;
 	else 
 	    type = MessageType.Other;
@@ -119,7 +120,31 @@ class Message {
 
 	return r;
     }
-  
+
+    /**
+     * Returns a GameMessage based on message text and being a response
+     */
+    public GameMessage findResponse(ArrayList<GameMessage> msgs) {
+	
+	GameMessage r = null;
+	
+	Logger.msg ("Matching a response for: " + message);
+	
+	for (GameMessage m: msgs) {
+	    
+	    if ((m.getMessageType() == MessageType.Response)) {// && (message.matches(".*" + m.getMessage() + ".*"))) {
+		//		Logger.msg("Testing : " + m.getMessage());
+		if (m.getMessage().matches(message + ".*")) {
+		    r = m;
+		    Logger.msg("findResponse(): Found Match: " + m.getMessage());
+		    break; // we only expect one response
+		}
+	    }
+	}
+
+	return r;
+    }
+
 
     /**
      * Returns the number of matches found based on message, face
