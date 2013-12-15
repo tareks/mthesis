@@ -70,8 +70,6 @@ class GameData {
     }
     
     // Filter out unique game messages from the message list
-    // ignoring timestamp and face fields
-    // Focus on text and type
     // Normally we would expect New, Fin, 5x moves (x2) - request + response
     public void filterMessages(ArrayList<Message> messages) {
 	

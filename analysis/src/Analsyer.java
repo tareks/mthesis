@@ -408,8 +408,8 @@ class CCNdAnalyser {
     // format and print results
     public void display() {
 	
-	/** This code generates number of interests per game 
-	for (Experiment e: experiments) {
+	/** This code generates number of interests per game */
+	/*	for (Experiment e: experiments) {
 	    for (Iteration  i: e.getIterations()) {
 		for (GameData g: i.getGameData()) {
 		    System.out.println(g.getNumTotalInterests() + "," + g.hasEnded());
@@ -417,9 +417,10 @@ class CCNdAnalyser {
 	    }
          }
 	 // Number of interests per game 	    
-	 */ 
+	 */
 	
 	/** This code generates number of interests satisfied */
+	/*
 	for (Experiment e: experiments) {
 	    for (Iteration  i: e.getIterations()) {
 		//		System.out.println("Iteration: " + i.getNum());
@@ -439,7 +440,44 @@ class CCNdAnalyser {
 		}
 	    }
 	}
+	*/
 
+
+	/* Generate the satisfaction time for each Interest */
+	for (Experiment e: experiments) {
+	    for (Iteration  i: e.getIterations()) {
+		//		System.out.println("Iteration: " + i.getNum());
+		// For each game, search each node for satisfied interests
+		for (Game g: i.getGames()) {
+		    //		    System.out.println("Game: " + g.getId());
+		    for (Node n: i.getNodes()) {
+			//			System.out.println("Node: " + n.getName());
+			ArrayList<Message> messages = n.getInterestsForGame(g.getId());
+			Collections.sort(messages, new Comparator<Message>() {
+				public int compare(Message m1, Message m2) {
+				    return Long.valueOf(m1.getTimeStamp()).compareTo(Long.valueOf(m2.getTimeStamp()));
+				}			
+			    });
+
+			// Keep a list of responses we've already calculated
+			ArrayList<Message> duplicates = new ArrayList<Message>();
+			for (Message m: messages) {
+			    //			    System.out.println(m.getTimeStamp() + " " + m.getFace() + " " + m.getMessage());
+			    Message r = m.findResponse(n.getMessagesForGame(g.getId()));
+			    if ( (r != null) && (! duplicates.contains(r)) ){
+				//				System.out.println("RESPONSE: " + r.getTimeStamp() + " " + r.getFace() + " " + r.getMessage());
+				//				System.out.println("TIME: " + ( (float) (r.getTimeStamp() - m.getTimeStamp()) / 1000 ));
+				float time = (float) (r.getTimeStamp() - m.getTimeStamp()) / 1000;
+				System.out.print(time + ",");
+				duplicates.add(r);
+			    }
+			}
+		    }
+		}
+	    }
+	}
+	System.out.println();
+	// Satisfaction time per Interest
 
 	// Number of interests satisfied
 	

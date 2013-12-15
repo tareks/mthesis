@@ -1,6 +1,7 @@
 package analyser;
 
 import analyser.Message;
+import analyser.Message.MessageType;
 
 import java.util.ArrayList;
 
@@ -62,6 +63,17 @@ class Node {
 		gameMessages.add(m);
 	}
 
+	return gameMessages;
+    }
+
+    public ArrayList<Message> getInterestsForGame(int gameID) {
+	ArrayList<Message> gameMessages = new ArrayList<Message>();
+	
+	for (Message m: messages) {
+	    if ( (m.getMessageType() == MessageType.Interest) && (m.getMessage().matches(".*" + gameID +".*")))
+		gameMessages.add(m);
+	}
+	
 	return gameMessages;
     }
     

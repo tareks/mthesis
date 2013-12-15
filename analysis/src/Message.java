@@ -4,6 +4,7 @@ import analyser.util.Logger;
 
 import java.util.Comparator;
 import java.util.ArrayList;
+import java.util.Collections;
 
 class Message {
 
@@ -135,6 +136,30 @@ class Message {
 	    if ((m.getMessageType() == MessageType.Response)) {// && (message.matches(".*" + m.getMessage() + ".*"))) {
 		//		Logger.msg("Testing : " + m.getMessage());
 		if (m.getMessage().matches(message + ".*")) {
+		    r = m;
+		    Logger.msg("findResponse(): Found Match: " + m.getMessage());
+		    break; // we only expect one response
+		}
+	    }
+	}
+
+	return r;
+    }
+
+    /**
+     * Returns a Message based on message text and being a response and face
+     */
+    public Message findResponse(ArrayList<Message> msgs) {
+	
+	Message r = null;
+	
+	Logger.msg ("Matching a response for: " + message);
+	
+	for (Message m: msgs) {
+	    
+	    if ((m.getMessageType() == MessageType.Response)) {// && (message.matches(".*" + m.getMessage() + ".*"))) {
+		//		Logger.msg("Testing : " + m.getMessage());
+		if ((m.getFace() == face) && (m.getMessage().matches(message + ".*"))) {
 		    r = m;
 		    Logger.msg("findResponse(): Found Match: " + m.getMessage());
 		    break; // we only expect one response
