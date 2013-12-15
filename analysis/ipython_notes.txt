@@ -1,0 +1,25 @@
+ipython --pylab
+
+z = [ 1,2,3 ]
+plt.hist(z)
+
+plt.xlabel('Number of interests')
+plt.ylabel('Number of games')
+plt.title('Distribution of number of games per interest.')
+
+To adjust the number of bins:
+  plt.hist(z, bins=xrange(0, 900, 10))
+will plot bins starting from 0 up to 900 with a bin width of 10.
+
+plt.savefig('name-of-file.pdf')
+
+
+Interests Per Game:
+cat interest_count.raw | grep true | awk -F ',' ' { print $1 } ' > interest_for_games_completed
+for i in `cat interest_for_games_completed`; do echo -n "$i,"; done
+
+Interest response percentage:
+cat interest_response_percent.raw | awk -F ',' ' { print $3 * 100 } ' > perc
+
+for i in `cat perc`; do echo -n "$i,"; done
+plt.hist(z, bins=xrange(0, 110, 10)) 
