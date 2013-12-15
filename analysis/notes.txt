@@ -132,3 +132,7 @@ There are 2 ways to collect Interest information:
 2013/12/9:
 - assumption: number of interests with responses = number of content_from matches across all nodes since we can't have more than one content_from for an interest
 
+2013/12/15:
+- get satisfaction time for each interest and plot distribution
+-- for an 'interest_to', look for a 'content_from' on the same face on the same node and subtract timestamps.
+-- we match interests based on being on the same node and generated off the same face. the time difference is based on the last occurrence of the interest?
