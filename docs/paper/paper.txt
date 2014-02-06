@@ -1,0 +1,28 @@
+I. Abstract
+
+
+II. Introduction
+
+    The boom in user generated content along with the widespread use of social networks has created a significant increase in the amount of data being generated on a daily basis. A major contributor to this increase is the ubiquity of mobile devices that allow users to generate and consume data without being restricted to location. Despite the advances in wireless communications that allow larger coverage areas and higher transmission rates, current networks fall short in situations where there is no connectivity due to geographical limitations or when there are major disruptions that affect the infrastructure such as natural disasters or censorship. Such situations present two main challenges with regards to data distrubtion: 1) location transparency; 2) communication over intermittent connections. 
+    (Different paradigm for accessing/searching for data / location transparency)
+    The conventional method of data distrubtion involves end-to-end connection between nodes on a network to query, publish, and retrieve information. This method has shortcomings in situations where the location of nodes is dynamic due to mobility, or when nodes are not always connected to the network because of power or coverage limitations. If the node with particular data is not available on the network, the information is subsequently inaccessible due to the basic requirement of having stable end-to-end connectivity. Because of the dynamic nature of the nodes, conventional indexing methods that map data to specific location or nodes to retrieve it is not feasible. 
+    ( unreliable network connectivity / Challenged Networks)
+    Additionally, existing protocols offer unsatisfactory performance in situations where connectivity is unreliable. TCP/IP is known to perform poorly in such environments, especially because end-to-end paths between communicating nodes are often unreliable or cannot be maintained. [ref] This is particularly true for wireless networks where connectivity can be intermittent due to lack of coverage, inteference, or other mitagating factors. The nature of intermittent connectivy may vary from milliseconds to hours during often with only small windows of opportunity for information to be transferred. Networks that suffer from such issues are known as Challenged Networks.
+    (ICNs offer solutions to both issues)  
+    To address the issues of both location transarency and unreliable connectivity, network architectures under research offer a different approaches that do not rely on permanent connectivity between hosts or knowledge of their location. In contrast to today's IP-based Internet which is host-centric, Information-Centric Networks (ICN) use address naming schemes to label information that can be used to query and retrieve it from the network. In this sense, the data distribution method is abstracted from the node level and is indepdent of the source node location. All communication is carried out in terms of requesting and providing named information where replication of data is handled at the network layer. This characteristic makes ICN architectures attractive for use in a Challenged Network environment. 
+    ( NDN project as an evolution of ICNs and its applicability to ONs )
+    One of such promising projects that currently enjoys growing interest from the research community is Named Data Networking (NDN). NDN is based on principles of an ICN yet still builds upon the strengths of host-based networks [mention those strengths later]. While one aim of the NDN project is to build a foundation for the next generation of Internet architecture, it is also particularly interesting when applied to Challenged Networks. Opportunistic Networks are a subset of Challenged Networks that offer great potentional in environments where mobility and link breakage is high. NDNs flexible design promises great propects when applied to ONs. While it would theoritically provide a good platform, it is important to test and validate these claims to identify any potential issues or drawbacks and identify whether they can be fixed.  
+
+
+
+    While a number of specific Challenged Networking architectures have been proposed, this thesis aims to understand the suitability and advantages of using NDN in an Opporuntinistic Network.
+III. Problem Definition
+
+
+    
+    
+
+examples of network architectures that attempt to resolve the shortcomings of the conventional end-to-end approach based on a particular application or setting. They provide means for communication between nodes when a route between them cannot be established for sufficient time for data transmission to complete. 
+
+
+

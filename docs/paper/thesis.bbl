@@ -1,0 +1,72 @@
+\begin{thebibliography}{10}
+
+\bibitem{dirk2941}
+B.~Ahlgren, C~Dannewitz, C.~Imbrenda, D.~Kutscher, and B.~Ohlman.
+\newblock A survey of information-centric networking.
+\newblock {\em Communications Magazine, IEEE (Volume 50, Issue: 7)}, July 2012.
+
+\bibitem{rfc4838}
+V.~Cerf, S.~Burleigh, A.~Torgerson, L.~Hooke, Durst R., K.~Scott, K.~Fall, and
+  H.~Weiss.
+\newblock Delay- tolerant networking architecture.
+\newblock IETF RFC 4838 - Network Working Group, 2007.
+
+\bibitem{DTNarch}
+Kevin Fall.
+\newblock A delay-tolerant network architecture for challenged internets.
+\newblock In {\em SIGCOMM \'03 Proceedings of the 2003 conference on
+  Applications, technologies, architectures, and protocols for computer
+  communications}, pages 27 -- 34, 2003.
+
+\bibitem{hotnets}
+A.~Ghodsi, S.~Shenker, T.~Koponen, A.~Singla, B.~Raghavan, and J.~Wilcox.
+\newblock Information-centric networking: seeing the forest for the trees.
+\newblock In {\em HotNets-X Proceedings of the 10th ACM Workshop on Hot Topics
+  in Networks, SIGCOMM}, 11 2011.
+
+\bibitem{oppnets}
+C.~Huang, K.~Lan, and C.~Tsai.
+\newblock A survey of opportunistic networks.
+\newblock In {\em 22nd International Conference on Advanced Information
+  Networking and Applications - Workshops}, 2008.
+
+\bibitem{nnc}
+V.~Jacobson, D.~Smetters, J.~Thronton, M.~Plass, N.~Briggs, and R.~Braynard.
+\newblock Networking named content.
+\newblock In {\em CoNEXT '09 Proceedings of the 5th international conference on
+  Emerging networking experiments and technologies}, pages 1 -- 12, 2009.
+
+\bibitem{haggle}
+M.~Karaliopoulos and C.~Rohner.
+\newblock Trace-based performance analysis of opportunistic forwarding under
+  imperfect node cooperation.
+\newblock In {\em The 31st Annual IEEE International Conference on Computer
+  Communications: Mini-Conference}, 2012.
+
+\bibitem{bond}
+Michael~Richard Meisel.
+\newblock {\em BOND: Unifying Mobile Networks with Named Data}.
+\newblock PhD thesis, University of California, Los Angeles, 2011.
+
+\bibitem{CCNxIM}
+Palo Alto Research~Center (PARC).
+\newblock {CCN}x {I}nterest {M}essage.
+\newblock
+  http://www.ccnx.org/releases/latest/doc/technical/InterestMessage.html, July
+  2013.
+
+\bibitem{CCNxproto}
+Palo Alto Research~Center (PARC).
+\newblock {CCN}x {P}rotocol.
+\newblock http://www.ccnx.org/releases/latest/doc/technical/CCNxProtocol.html,
+  July 2013.
+
+\bibitem{ndnproj}
+L.~Zhang, D.~Estrin, J.~Burke, V.~Jacobson, J.~Thornton, D.~Smletters, Zhang.
+  B., G.~Tsudik, K.~Claffy, D.~Krioukov, D.~Massey, C.~Papadoupoulos,
+  T.~Abdelzaher, L.~Wang, P.~Crowley, and E.~Yeh.
+\newblock Named data networking (ndn) project.
+\newblock NDN, Technical Report NDN-0001,
+  http://named-data.net/techreports.html, 10 2010.
+
+\end{thebibliography}
