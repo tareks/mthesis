@@ -251,7 +251,7 @@ protocol works in a challenged networking setting, particularly with regards to 
 The experiments consist of two main nodes: a receiver node that requests a certain CCNx URI, and a
 sender node that holds data corresponding to that URI and responds to Interest requests. Additional
 nodes are added to act as relays between the two main nodes. The scenarios presented below help
-analyze CCNx Interest retransmission behavior using variations in link availability and interruption
+analyse CCNx Interest retransmission behavior using variations in link availability and interruption
 between the nodes throughout different stages in the CCNx message exchange.
 
 \section{Haggle Testbed}
@@ -798,7 +798,12 @@ To complement the basic simulations run that test CCNx behavior in a Challenged 
 implementation of TicTacToe was developed to evaluate its behavior and performance in a real
 application. The main requirements for designing such a game was that it must conform with the
 CCNx Interest-driven model and satisfy both conditions of location independence and disruption
-tolerance.
+tolerance. 
+
+The evaluation involves running an experiment using the Haggle testbed to study a number of metrics. 
+Interest re-transmission behavior and efficient is determined by analysing the number of Interests
+ required per game and the Interest satisfaction ratio. The performance is also studied by measuring 
+the satisfaction time for each Interest traversing the network.    
 
 \section{Framework Design}
 
@@ -813,31 +818,35 @@ to implement each of these functions by applying the game logic in conjunction w
 The result is a game that runs on top of CCNx without requiring much understanding from the
 developer about the details of an ICN, yet can still function in a Challenged Network setting. It should
 also be noted that while the network API used may also theoretically be used with a TCP/IP network,
-this has not been tested.
+this has not been tested. An interest message is sent over the network through the \verb!get! method presented
+ by the framework, while  a response or Content Object is delivered using the \verb!put! method. 
 
 In the simple scenario of a game of TicTacToe, there are two players: A and B which have no prior
 knowledge of each other except for being on the CCNx network at some point in space and time. There
-are also two distinct types of nodes: 1) \emph{Host} nodes that listen for new game requests, 2) \emph{Initiator} nodes
-that send new game requests. An interest message is sent over the network through the get method
-presented by the framework, while a response or Content Object is delivered using the put method.
-A is a \emph{Host} node that starts the game first, and continuously listens for Interest messages from interest
-parties in playing a new game. Player B, an \emph{Initiator} node, then starts the game and starts to send
-Interest messages that request a new game with a unique game ID. The uniqueness of the game ID is
-crucial due to the nature of the CCN. This is discussed in some more detail in section 7.5. When the
-Interests from A reach B, B creates a new game object/instance and sends it back as a Content Object
-to A. When A receives the CO, the Interest for the new game is satisfied and the game can begin.
+are also two distinct types of nodes: 
+\begin{itemize}[(1)]
+\item \emph{Host} nodes that listen for new game requests
+\item \emph{Initiator} nodes that send new game requests 
+\end{itemize}
 
-For simplicity, we assume that \emph{Host} nodes always play the first move. After A receives the game CO, a
-new request is sent for move \#1. Player B receives the Interest message and sends the response back
-followed by a new Interest for move \#2. Player A receives the CO, updates its game state accordingly,
-and selects move \#2. B then awaits a request for move \#2 from A. The nodes continue to alternate the
-use of get and put methods for moves until the game reaches a final state at which the winning node
-will send a finalize Interest message to signal that the game has been completed. The response to this
-request is the final state of the game.
+A is a \emph{Host} node that starts running the game first. A initialises a new game object, and continuously
+ listens for Interest messages from nodes interested in playing a new game. Player B, an \emph{Initiator} node, 
+then runs the game and sends Interest messages that request a new game with a unique game ID. The uniqueness of the game ID is
+crucial due to the nature of the CCN. This is discussed in some more detail in section 7.5. When the
+Interests from B reach A, A creates a new game object and sends it back as a Content Object
+to B. When B receives the CO, the Interest for the new game is satisfied and the game can begin.
+
+%% TODO add interaction diagram that shows how URIs are sent between nodes starting with new to fin
+
+For simplicity, we assume that \emph{Host} nodes always play the first move. After B receives the game CO, a
+new request is sent for move \#1. Player A receives the Interest message and sends the response back
+followed by a new Interest for move \#2. Player B receives the CO, updates its game state accordingly,
+and selects move \#2. Once B receives the request for move \#2 from A, it sends back the updated CO following by an 
+Interest for move \#3. The nodes continue to alternate the use of \verb!get! and \verb!put! methods for moves until
+ the game reaches a final state at which the winning node will send a finalize Interest message to signal
+ that the game has been completed. The response to this request is the final state of the game.
 
 A number of aspects of the design relevant to the principles of the underlying architecture are visited below in more detail.
-
-%% add diagram to show design selected??
 
 \subsection{Bootstrapping: Discovery and Initialization}
 
@@ -852,7 +861,7 @@ Interest requests with a prefix of ccnx:/uu/core/games/ttt/new. These nodes are 
 nodes. The <gameid> portion of the URI is parsed and used to label and a new game instance, which is
 then sent back to the \emph{Initiator} node. While it is theoretically possible allow 
 all nodes to perform both \emph{Initiator} and \emph{Host} roles, this was restricted to a single role per node for
-the purposes of this design.
+the purpose of this experimentation.
 
 This initialization process guarantees that opponents will eventually be located because all \emph{Initiator}
 nodes are actively advertising their requests and that the underlying architecture provides assurances
@@ -861,10 +870,10 @@ being a direct path to active \emph{Host} nodes on the network.
 
 \subsection{Addressing and Routing}
 
-An assumption is made that addressing, including ccnx URIs, is grouped by the expected location of
-that data and not by content classification. This means that during the bootstrapping process, Interests
-are only sent using \verb!ccnx:/uu/core/games/ttt/! as opposed to a \verb!ccnx:/games/ttt/! prefix. This simplifies the
-routing and forwarding mechanism as that is not the focus of this work. That prefix is added to the FIB
+An assumption is made that addressing, including ccnx URIs, is based on topological location of
+data and not by content classification. This means that Interest URIs are specified using
+\verb!ccnx:/uu/core/games/ttt/! as opposed to a \verb!ccnx:/games/ttt/! prefix.
+This simplifies the routing and forwarding mechanism as that is not the focus of this work. That prefix is added to the FIB
 on each CCNx node so that TicTacToe related Interests are propagated throughout to reachable nodes.
 
 Despite the use of this addressing scheme, nodes on the network have no prior knowledge of other
@@ -884,9 +893,10 @@ duplication and conflicts.
 \subsection{Game Logic and State}
 
 The framework is designed to support a variety of games, however, given the nature of the underlying
-ICN, turn-based games are best suited to demonstrate how tolerant the implementation is
-to network delays or disruptions. The game logic that runs on the platform will vary from one game to
-another, but still relies on basic put and get methods presented by the API.
+ICN, turn-based games are well suited to demonstrate how tolerant the implementation is
+to network delays or disruptions. This is because they have no time constraint requirements and easily fit the
+\verb!get! and \verb!put! mechanism presented by the framework. The game logic that runs on the platform will vary
+ from one game to another, but still relies on basic put and get methods presented by the API.
 
 The TicTacToe implementation is based on a standard 3x3 grid version. Each player is prompted for
 their move on a turn basis. Each time an Interest request is received in the form of
@@ -899,7 +909,7 @@ this request is ignored. Because the players take alternating turns making moves
 request for a new move from player A will not be fulfilled. Player B will keep requesting moves until a
 valid game state is returned.
 
-When the game state is evaluated to be final, a \emph{fin} request is sent which results in the game ending for
+When the game state is evaluated to be final, a \emph{fin} Interest is sent which results in the game ending for
 both players. A byproduct of this is that the \emph{new} and \emph{fin} requests can be used as markers for a game to
 retrieve and possibly replay it after it has ended. Apart from being useful for analysis, this may also be
 used by observers who are able to retrieve the cached copy of the game on the network on a move-by-
@@ -918,44 +928,50 @@ purposes.
 
 As an alternative mechanism for discovery, another proposed mechanism uses an intermediate node to
 act as a “game directory” that acts as a repository for all available games listed by participants on the
-network.
+network. This approach is suited for situations when routing is based on topological names. While it is
+presented as a viable design, it should be noted that it would be unrealistic in a Challenged Network setting
+where topology is difficult to predict. 
 
 Player A wants to let the world know that they are available to play a game. The player creates a
 Content Object, called a game content objecct, under the name ccnx:/uu/core/games/ttt/open-
 games/<random-game-id>. This Content Object contains the name under which player A wants to
 receive interests related to the game. For example,
-ContentObject name: \verb!/uu/core/games/ttt/open-games/349057804!
-Content: \verb!Player prefix=/vodafone/de/user1/ttt/349057804!
-Player A listens for interests for ccnx:/uu/core/games/ttt/open-games/349057804, and for interests to
-ccnx:/vodafone/de/user1/ttt/349057804. In an Internet or large network setting, player A may never
-receive interests for that prefix, because there are no routes that point to player A for
-ccnx:/uu/core/games/, therefore a "game directory" is used. This directory can be thought of as a
-database server of open games. Player A sends a pull request to the game directory by sending an
+\begin{descripton}
+\item[ContentObject name:] \verb!/uu/core/games/ttt/open-games/349057804!
+\item[Content:] \verb!Player prefix=/vodafone/de/user1/ttt/349057804!
+\end{description}
+
+Player A listens for interests for \verb!ccnx:/uu/core/games/ttt/open-games/349057804!, and for interests to
+\verb!ccnx:/vodafone/de/user1/ttt/349057804!. In an Internet or large network setting, player A may never
+receive interests for the latter prefix, because there are no routes that point to player A for
+\verb!ccnx:/uu/core/games/!, therefore a "game directory" is used. This directory can be thought of as a
+database server of open games. Player A sends a \verb!pull! request to the game directory by sending an
 interest such as:
 \verb!ccnx:/uu/core/games/ttt/pull-request/#/vodafone/de/user1/ttt/349057804/game-co!
 
 This interest is forwarded to the game directory. The game directory sees that this is a registration
-request, and identifies the part after the hash sign. It sends a dummy ACK content object back in
+request, and identifies the part after the hash sign. It sends a dummy \verb!ACK! content object back in
 response to the interest to signal receipt. The game directory then pulls the game content object from
 player A by sending an interest: \verb!ccnx:/vodafone/de/user1/ttt/349057804/game-co!
 
 Player A receives this interest and sends back the game content object. Note that player A cannot send it
-back directly, because the game content object is called ccnx:/uu/core/games/ttt/open-
-games/349057804, and the request was for a prefix of ccnx:/vodafone/de/frederik-hermans/.
-However, player A can still send a content object that encapsulates the game content object.
+back directly, because the game content object is called \verb!ccnx:/uu/core/games/ttt/open-games/349057804!, 
+and the request was for a prefix of \verb!ccnx:/vodafone/de/user1/!. However, player A can still
+send a content object that encapsulates the game content object.
 
 When the game directory receives the content object, it imports it to its own namespace. From then
 onward, any node on the Internet can now retrieve the game content object
 \verb!ccnx:/uu/core/games/ttt/open-games/349057804!.
 
-In a Challenged Network setting, the registration request may never be received, because player A may not have
-connectivity to the game directory. In that case, player A can still receive interests directly for the
-game content object on the \verb!ccnx:/uu/core/games/ttt/open-games/349057804! URI.
+In a Challenged Network, the original registration request may never be received, because player A may not have
+connectivity to the game directory. It is still possible, however, for player A to receive interests directly for the
+game content object on the \verb!ccnx:/uu/core/games/ttt/open-games/349057804! URI. This can only be
+considered a fallback mechanism, because the game directory is the main method for game creation.
 
 \subsubsection{Player Matching and Initialization}
 
 Player B joins the network and wants to play a game of TicTacToe. Player B sends an Interest for
-ccnx:/uu/core/games/ttt/open-games/ and gets back a game content object. It unpacks that content
+\verb!ccnx:/uu/core/games/ttt/open-games/! and gets back a game content object. It unpacks that content
 object and sends out an interest for the player prefix specified in the game content object. In the above
 example, Player B sends out an interest as follows:
 
@@ -968,7 +984,8 @@ which follows the hash sign.
 
 While this approach is more complex, it augments the ad-hoc approach with a solution for situations
 where Interest message forwarding in a large network is impractical for each node to route based on
-published content as opposed to a well defined hierarchy.
+published content as opposed to a well defined hierarchy. Because of the large dependency on a centralised game directory, 
+this design is not sutiable for a Challenged Network environment that is the focus of this experimentation. 
 
 \subsection{Interests as a notification mechanism}
 
@@ -1017,7 +1034,7 @@ for observer nodes to replay the game because requesting a cached move would req
 
 \section{Experimentation using Haggle}
 
-A set of scenarios were run to study the performance of CCNx in a challenged network environment.
+A set of experiment runs are used to study the performance of the DTGP framework based on CCNx in a Challenged Network environment.
 In all such scenarios, moves for each game are predetermined. This means that each game can be repeated
  while ensuring that it progresses and terminates in the same way for all runs. The \emph{Host} node wins in every run of the experiment. 
 
@@ -1028,9 +1045,11 @@ In all such scenarios, moves for each game are predetermined. This means that ea
 all Interests transmitted by either the \emph{Initiator} nodes or the \emph{Host} nodes. If all interests related to that
 game are satisfied, then the game is considered complete.
 
-An Interest is considered satisfied if the original request from an \emph{Initiator} node receives a response even though outstanding Interests on relay nodes have not received the a response. The list
+An Interest is considered satisfied if the original request from an \emph{Initiator} node receives a 
+response even though outstanding Interests on relay nodes may not receive a response. The list
 of \textsl{unique game messages} is traversed and checked for each \emph{Initiator} node or \emph{Host} node that there
-exists a \verb!content_from! message \textit{(inbound response)} for every \verb!interest_to! \textit{(outbound request)} message on the same face on the same node.
+exists a \verb!content_from! message \textit{(inbound response)} for every 
+\verb!interest_to! \textit{(outbound request)} message on the same face on the same node.
 
 \item[Network perspective:] This approach focuses on Interests within a game regardless of which node they are
  associated with on the network. Each Interest request seen on the network is matched to a
@@ -1049,25 +1068,25 @@ re-transmissions for each Interest as well as to calculate the Interest satisfac
 
 \subsection{Experimentation Parameters} 
 
-Based on a network of 5 nodes, 21 different scenarios were run 3 times each on the Haggle testbed
-using a trace file (see Appendix A) that simulates link disruption over an experiment run duration of 1 minute. The
-number of \emph{Initiator} and \emph{Host} nodes vary throughout the different experiment runs, however, there are always
-more \emph{Host} nodes than \emph{Initiator} nodes. This is to avoid ending up in a situation where any one new game
-request is never addressed as the resulting number of high Interest counts add unnecessary noise to the
-data being collected.
+Based on a network of 5 nodes, 21 different experiment runs were executed 3 times each on the Haggle testbed
+using a trace file (see Appendix A) that simulates link disruption over an experiment run duration of 1 minute. A
+combination of \emph{Initiator} and \emph{Host} nodes is varied throughout the different experiment runs, however, there are always
+more \emph{Host} nodes than \emph{Initiator} nodes. This is ensure all requests for new games from \emph{Initiator} nodes can be fulfilled
+by one or more \emph{Host} nodes. If this ratio is not maintained, there could be a large number of Interests that are never
+fulfilled for the entire experiment duration because of insufficient \emph{Host} nodes to fulfill them. 
 
 %% TODO get more information from Fredrik about the trace file?
 
 \noindent For each experiment run, the ccnd log is analysed for a number of metrics:
 
 \begin{itemize}
+\item \textbf{Interest Satisfaction Ratio:} The ratio is defined as the number of responses for an Interest divided
+ by the total number occurrences of that Interest in a run of an experiment.
+
 \item \textbf{Number of Interests per Game:} This metric helps understand the load on the network and the
 effects of the disruption on Interest re-transmission by analysing the number of Interest requests
 required to complete a game. Note that maintaining a high \emph{Host} to \emph{Initiator} node ratio ensures
-that all new game requests are fulfilled successfully.
-
-\item \textbf{Interest Satisfaction Rate:} The rate is defined as the number of responses for an Interest divided
- by the total number occurrences of that Interest in a run of an experiment.
+that all new game requests can be fulfilled successfully based on node connectivity.
 
 \item \textbf{Interest Satisfaction Time:} This metric provides insight into the efficiency of the network in the
 face of link disruption by looking at the time it takes to satisfy Interest requests.
@@ -1076,56 +1095,63 @@ face of link disruption by looking at the time it takes to satisfy Interest requ
 \section{Discussion}
 
 In this analysis, the focus is made on the network perspective. This allows us to study the data as a
-whole for all nodes and understand the load on the network created by a game as well as the behavior
-of CCNx on an Interest level.
+whole for all nodes and understand the load on the network created by a game as well as how efficiently
+requests are forwarded within CCNx on a per Interest level.
 
-Because all games reach a final state, there are no unanswered \textsl{unique game messages} that are generated
+Because all games in this experiment reach a final state, there are no unanswered \textsl{unique game messages} that are generated
 from the principle nodes of each scenario, whether an \emph{Initiator} node or an active \emph{Host} node. However,
 there may potentially be some unanswered requests from relay nodes.
 
-\subsubsection{Number of Interests per Game:}
+\subsubsection{Interest Satisfaction Ratio:}
 
-\includegraphics[scale=0.73]{InterestsPerGameHist.jpg}
-
-\begin{center}Figure 4.1 Histogram illustrating the distribution of Interests per game\end{center}
-
-This histogram shows the distribution of the number of Interests required to complete a game. As
-expected, there are 0 games that do not end/complete. The number of Interests required to complete a game
-for most cases is approximately 200 Interests.
-
-\subsubsection{Interest Satisfaction Rate:}
-
-The Interest satisfaction rate provides insight into the amount of overhead required for games to reach a final state in a Challenged Network environment. In the implementation, the total number of responses is divided by the the occurrences for a specific Interest. In the case where there are 0 responses for a particular Interest, then the satisfaction time is considered to be nil. This is not to be confused with the idea that the Interest is instantaneously satisfied, as in this case it is simply ignored. For example; there are 10 occurrences of \verb!ccnx:/test/1! and 2 occurrences of \verb!ccnx:/test/1/%jhASH@#!, then the satisfaction rate is (20\%) across the entire network.
+The Interest satisfaction ratio provides insight into the amount of overhead required for games to reach a final state in a Challenged Network environment. In the implementation, the total number of responses is divided by the the occurrences for a specific Interest. For example; there are 10 occurrences of \verb!ccnx:/test/1! and 4 occurrences of \verb!ccnx:/test/1/%jhASH@#!, then the satisfaction ratio is 40\% across the entire network. It should be noted that in the case where there are no responses for a particular Interest, then the satisfaction ratio is calculated to be zero. 
 
 \includegraphics[scale=0.73]{InterestSatisfactionRateHist.jpg}
 
-\begin{center}Figure 4.2 Histogram illustrating the distribution of Interest satisfaction rate\end{center}
+\begin{center}Figure 4.1 Histogram illustrating the distribution of Interest satisfaction ratio\end{center}
 
 This histogram shows the distribution of the rate at which an interest is satisfied. This is on a per-
 Interest level irrespective of how that Interest may influence a game. It appears that the general case is
 that individual interests are rarely satisfied, which correlates to the disruptive nature of the link
 configuration in the experiment trace file.
 
-While there appears to be a large amount of \emph{Interest loss}, this is not to be unexpected
-considering the nature of the challenged network environments being simulated.
+The satisfaction ratio appears to be focused around 20\% for all interests. This means that Interests in some cases may 
+need to be re-transmitted five times or more before they are satisfied. While this can be described as a large 
+amount of \emph{Interest loss}, this is not to be unexpected considering the nature of the challenged network
+ environments being simulated.
+
+\subsubsection{Number of Interests per Game:}
+
+\includegraphics[scale=0.73]{InterestsPerGameHist.jpg}
+
+\begin{center}Figure 4.2 Histogram illustrating the distribution of Interests per game\end{center}
+
+This histogram shows the distribution of the number of Interests required to complete a game. 
+Based on this experiment trace, there are no games that do not result in a final state.
+The number of Interests required to complete a game for most cases is approximately 200 Interests. 
+
+It is unclear why this is the optimal number of Interests required, but this is likely to be due to a number of factors.
+Each game requires a minimum of 7 interests to reach a final state by each \emph{Initiator} node. Based on the
+20\% satisifcation rate observed and the 5 nodes participating in the network, the number of Interests are close to
+the most prominent rates displayed in figure 4.1. Additionally, while there is no measurable impact, we believe that the link disruptions 
+in the trace file have a large impact on the number of re-transmissions required.  
+
 
 \subsubsection{Interest Satisfaction Time:}
 
 This is defined by the time it takes for a node on the network to receive a response for an Interest that it
 sent. There are 3 different methods to calculate satisfaction time for an Interest. As discussed earlier,
 Interests have no inherent state or sequence identification which makes it difficult to differentiate or
-track the interests. Note that an interest can only be identified by the message itself, the node it was
-seen on, and which face it was transmitted on.
+track the interests.\footnote{While it may be possible to use the nonce associated with Interest messages for uniqueness, this is not investigated in this study.} 
+Note that an interest can only be identified by the message itself, the node it was seen on, and which face on which it was transmitted.
 
 \begin{enumerate}
 \item Use the first occurrence of an Interest on a node as the baseline for response time calculation. This
 works under the assumption that one wants to measure how long it took to get a response from the first
 request transmitted by a node on the network.
-
 \item Use the last occurrence of an interest on a node as the baseline for response time calculation. This
 would work in the case that one assumes that the latest Interest sent by a node is the one that triggered a
 response, even though it may have not been the initial trigger. To elaborate, a previous interest cachedthe response on a relay node nearby and this final interest pulled the cached copy.
-
 \item Attempt a rather complex solution which involves tracking a Interest through every single \textsl{hop} and
 use the hop aggregates to calculate the response time. This would probably provide the most accurate
 response time for the interest that was actually satisfied, however, this approach runs into ambiguity in
@@ -1157,15 +1183,12 @@ arguably a considerable amount of time when the duration of the experiment is 60
 should be noted that some of the Interests which have a longer response time may have been ones
 triggered by relay nodes which would not necessarily have hindered game progression.
 
-\subsubsection{Interest Per Node Ratio:} 
-
-??
-%% Is this the number of interests each node on the network observes over the lifetime of the experiment?
-
 \section{Conclusion}
 
-There is usually 200 interests per game. The satisfaction rate for each interest is usually low. Despite that, the statisfaction time is still quite low which is a good trade off especially when in an Challenged Network environment.
-%% TODO - finish this
+The outcome of the experimentation meets expectations in terms of Interest re-transmission behavior and performance.
+Desite the number of moves required to reach a final state in optimal conditions are low, there is a high number of Interests observed for for each game.
+This correlates to a low Interest satisfaction ratio. Despite this, the Interest statisfaction time is low with each game completing within the experiment timeframe.
+This means that while the network might be slightly overloaded due to increased re-transmissions, the requests are prompty satisified which is a good trade-off in a Challenged Network environment.
 
 \pagebreak
 \chapter{Related Work}
@@ -1299,7 +1322,7 @@ disruption.\cite{oppnets}
 % FIXME
 It may be possible to introduce some adaptive (learning) transmission mechanism over time to avoid
 overly retransmitting Interests when we have no connectivity. This may improve the Interest
-satisfaction rate considerably. Time would not be expected to be increased dramatically? Perhaps just
+satisfaction ratio considerably. Time would not be expected to be increased dramatically? Perhaps just
 the outliers that take too long.
 
 \pagebreak
