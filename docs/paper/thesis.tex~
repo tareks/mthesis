@@ -16,17 +16,17 @@
 
 % Title
 \title{Master's Thesis:\endgraf An Investigation into the application of Content-Centric Networking within Challenged Network Environments using CCNx}
-\author{Tarek Elshaarani - tarek@tekbase.org } 
+\author{Tarek Elshaarani \{ tarek@tekbase.org \}} 
 \date{\parbox{\linewidth}{\centering
   \bigskip
   \today\endgraf
   \vspace*{7cm}
   Supervisors: \endgraf
-  \hspace*{1cm} Frederik Hermans   - frederik.hermans@it.uu.se \endgraf
-  \hspace*{1cm} Ferdrik Bjurefors  - fredrik.bjurefors@it.uu.se \endgraf
+  \hspace*{1cm} Frederik Hermans   \{ frederik.hermans@it.uu.se \} \endgraf
+  \hspace*{1cm} Ferdrik Bjurefors  \{ fredrik.bjurefors@it.uu.se \} \endgraf
   \bigskip
   Reviewer: \endgraf
-  \hspace*{1cm} Christian Rohner   - christian.rohner@it.uu.se \endgraf
+  \hspace*{1cm} Christian Rohner   \{ christian.rohner@it.uu.se \}\endgraf
   \bigskip\bigskip
   Department of Information Technology\endgraf
   Uppsala Universitet}}
@@ -56,16 +56,13 @@
 
 \pagebreak
 \chapter{Introduction}
-A boom in user-generated content along with the widespread use of social networks has created a significant increase in the amount of data generated on a daily basis. A major contributor to this increase is the ubiquity of mobile devices that allow users to generate and consume data without being restricted to location. Despite the advances in wireless communications that allow larger coverage areas and higher transmission rates, current networks fall short in situations where there is no connectivity due to geographical limitations or when there are disruptions that affect the infrastructure. Such situations present two main challenges with regards to data distribution: 1) \emph{Unreliable connectivity} 2) \emph{Location transparency}. There is a continuous effort to improve upon both factors to enhance user experience. This thesis investigates Content-Centric Networking (CCN) as one such paradigm that
+A boom in user-generated content along with the widespread use of social networks has created a significant increase in the amount of data generated on a daily basis. A major contributor to this increase is the ubiquity of mobile devices that allow users to generate and consume data without being restricted to location. Despite the advances in wireless communications that allow larger coverage areas and higher transmission rates, current networks fall short in situations where there is no connectivity due to geographical limitations or when there are disruptions that affect the infrastructure. Such situations present two main challenges with regards to data distribution: 1) Unreliable connectivity 2) Location transparency. There is a continuous effort to improve upon both factors to enhance user experience. This thesis investigates Content-Centric Networking (CCN) as one such paradigm that
 attempts to overcome these challenges.
 
 % {TCP/IP shortcomings with handling re-transmissions, and high latency/long distances}
-\paragraph{Unreliable Connectivity.}
-The conventional method of data distribution involves end-to-end connection between nodes on a network to query, publish, and retrieve information. Existing communication protocols offer unsatisfactory performance in situations where connectivity is unreliable. TCP/IP is known to perform poorly in such environments, especially because end-to-end paths between communicating nodes are often unreliable resulting in continuous interruptions.%TODO: Add reference here for this claim? 
-While TCP/IP has evolved to accommodate different types of networks and suit a variety of environments, it still is not suited for some situations when used over high latency, unreliable, or dynamic networks. This is mainly due to the basic requirement to have an end-to-end connection between hosts for data to be exchanged.
+The conventional method of data distribution involves end-to-end connection between nodes on a network to query, publish, and retrieve information. Existing communication protocols offer unsatisfactory performance in situations where connectivity is unreliable. TCP/IP is known to perform poorly in such environments, especially because end-to-end paths between communicating nodes are often unreliable resulting in continuous interruptions. [ref?] While TCP/IP has evolved to accommodate different types of networks and suit a variety of environments, it still is not suited for some situations when used over high latency, unreliable, or dynamic networks. This is mainly due to the basic requirement to have an end-to-end connection between hosts for data to be exchanged.
 
 % {Location transparency}
-\paragraph{Location transparency.}
 Another shortcoming with conventional network architectures is in situations where node location is dynamic due to mobility. If the node holding particular data is not accessible on the network at a particular instance, the information is subsequently unavailable due to the basic requirement of having stable end-to-end connectivity. Furthermore, if the node reconnects to the network from a different location, the data cannot be retrieved from the location it was previously known to be found. The dynamic nature of the nodes makes it unfeasible to use conventional indexing methods that map data to specific locations from which it can be retrieved.
 
 \section{Challenged Networks}  
@@ -75,16 +72,16 @@ architectures offer different approaches that do not rely on reliable end-to-end
 nodes or precise knowledge of their location. These alternate architectures are particularly relevant to
 one group of networks, henceforth referred to as Challenged Networks. This family of networks
 provide a set of unconventional architectures that attempt to address problems that are not offered by
-other widely deployed network architectures, namely TCP/IP-based ones. They operate in conditions
+other widely deployed network architectures, namely TCP/IP based ones. They operate in conditions
 where there is a low power requirement, sparse connectivity, frequent mobility, and more importantly,
 unpredictable link disruptions. This is particularly true for wireless networks where connectivity can be
 intermittent due to power or coverage limitations, interference resulting in re-high transmission rates,
 and other mitigating factors. The nature of intermittent connectivity may vary from milliseconds to
-hours during often with only small windows of opportunity for data to be exchanged\cite{DTNarch}. 
+hours during often with only small windows of opportunity for data to be exchanged. \cite{DTNarch}
 
 The characteristics lead to the basic issue that concerns such networks, which is the the lack of
 continuous end-to-end communication between nodes. A generally accepted approach applied to
-address this drawback is a technique commonly referred to as “store-and-forward”. This in-network caching solution takes advantage of using resources of reachable nodes
+address this drawback is a technique commonly referred to as in such network architectures as “store-and-forward”. This In-Network caching solution takes advantage of using resources of reachable nodes
 on the network as intermediaries to store data until it can be routed to the destination.
 
 % { How well does TCP/IP work in a delay tolerant environment? (Any implementation/variant that tries to do this?) mention this here? }
@@ -95,7 +92,7 @@ A number of the most prominent are introduced briefly below.
 \begin{description}
 \item[Delay Tolerant Networks:] Mainly concerned with being resilient to communication delays, high
 latency, or round trip times. One application of this network would be in inter-planetary
-communication\cite{DTNarch}\cite{rfc4838}. 
+communication. \cite{DTNarch}\cite{rfc4838}
 
 \item[Disruption Tolerant Networks:] These are similar to Delay Tolerant Networks, and commonly grouped
 with them, but are more related to prevention and recovery from link degradation and disruption. The
@@ -107,7 +104,7 @@ networks and military use.
 network makes no assumptions about reliable underlying infrastructure. They are mainly associated
 with ad-hoc wireless mobile networks where there is a high rate of mobility and unpredictable
 connectivity or coverage between nodes. Due to the lack of consistent connectivity, most
-communication is asynchronous and routed on a hop-by-hop basis using opportunistic routing
+communication is asynchronous and routed on a hop-by-hop basis using opportunity routing
 techniques. This type of network can be used to disseminate information in cases of natural disasters or
 censorship.
 \end{description}
@@ -115,7 +112,7 @@ censorship.
 \section{Information-Centric Networking}
 % {ICNs offer a solutions to both issues}
 
-One proposed paradigm that offers a solution for Challenged Networks is Information-Centric
+One proposed architecture that offers a solution for Challenged Networks is Information-Centric
 Networking. In contrast to today's IP-based networks which are mainly concerned with host-based
 addressing on the network, Information-Centric Networks (ICNs) use naming schemes to label
 information that can be queried and retrieved from the network. In this sense, the data distribution
@@ -131,63 +128,59 @@ principles. The first is that all data is represented as objects, which are mani
 subscribe operations obsoleting the importance of data locality. The second is caching is an inherent
 part of the architecture supported by all nodes in the network assisting in both the acquisition and
 dissemination of information. The third and final principle is objects, representing data, are intrinsically
-secure using cryptographic signatures created by the original publisher, which can be verified
+secure using cryptographic signatures associated created by the original publisher and can be verified
 by consumers. On the other hand, there are many more characteristics that differ between architectures.
 These include naming and name resolution, routing, caching mechanisms, Error and Flow control,
 privacy, network heterogeneity, and performance. Each of these properties is worthy of being a research
-area of its own account\cite{hotnets}. Nonetheless, ICNs are claimed to be a scalable and
+area of its own account. \cite{hotnets} Nonetheless, ICNs are claimed to be a scalable and
 cost-effective solution that may replace conventional end-to-end point networks and offer more in areas 
 where such networks are lackluster such as mobility and disruption tolerance.
 
 % { Introduce projects and NDN in specific }
-Some of the prominent ICN-based projects include 4WARD, Sail, Pursuit, Connect, and Comet\cite{bond}. 
+Some of the prominent ICN-based projects include 4WARD, Sail, Pursuit, Connect, and Comet. \cite{bond} 
 One of such ICN projects that currently enjoys growing interest from the research
 community is Named Data Networking (NDN). NDN is based on principles of an ICN, yet still builds
-upon the strengths of host-centric networks\cite{ndnproj}. 
+upon the strengths of host-centric networks. \cite{ndnproj}
 
 \subsection{Named Data Networking}
 % { NDN overview }
-As with other ICN architectures, NDN is publish/subscribe-driven using basic message units called
-Interest and Data. Interest messages represent requests for data, or Content Objects. 
-Data messages carry Content Objects as responses to Interest messages. 
-Each node on the network is considered a router, which has one or more interfaces,
-commonly referred to as faces. Each node also has the ability to store data in a
- local repository called a Content Store. The Content Store acts as a cache for Content Objects on nodes 
-that do not originally hold the data. Content Objects are referred to by a unique naming scheme consistent throughout the network and are all
-signed crytographically. Additionally, each node maintains two tables: 1) a Forwarding Information Base
+As with other ICN architectures, NDN is publish/subscribe driven using a basic message units called
+Interest and Data. Each node on the network is considered a router, which has one or more interfaces ,
+commonly referred to as faces, that may not always be active or reach other nodes. Each node also has
+the ability to store data, or Content Objects, in a local repository called a Content Store. These objects
+are referred to by a unique naming scheme consistent throughout the network and are all
+crytograhically signed. Additionally, each node maintains two tables: 1) a Forwarding Information Base
 (FIB) that maps Content Object names to faces that they can be found; mainly used for routing 2) a
 Pending Interest Table (PIT) that maps Interests to the face from which that they were received.
 
 A requester or consumer of a data controls the flow of communication and it is their responsibility to
 ensure that the required data is received correctly. The requester sends out an Interest packet on the
-network by its unique name. An intermediate node on the network that receives this packet will look
+network by it's unique name. An intermediate node on the network that receives this packet will look
 up the requested object in its local Content Store in an attempt to fulfill that request. If that object is
 found, then a Data message containing the Content Object is sent back to the over the same face. In the
 case that it is not locally cached, an entry is added to a PIT to record where the Interest message came
 from. This also helps limit the number of Interests generated on the network as only one will be
 forwarded regardless of how many are received by a single node. The node will then use the FIB to
-identify the face to route this Interest request. Because FIB entries used for routing
-can be prefix based, they allow for flexibility in terms of specifying the destination interfaces on which 
-messages are to be forwarded. It is also possible to forward a request to all available faces. 
-The Interest is forwarded over those faces until it reaches a node which can satisfy that request. 
-That node will then use the PIT to identify which face the request came from and send a Data message
- back containing the Content Object requested. Because message traversal information is not stored, 
-the return path of the Data message may not necessarily be identical to the one used by the one taken by the corresponding Interest message.
-Any intermediate nodes between that node which responds to the request and the original requester will
-store the response in their Content Store and remove the entry for that Interest from their PIT\cite{nnc}. 
+identify which face or route to use to satisfy this Interest request. Because FIB entries used for routing
+can be prefix based, they allow for flexibility in terms of identifying the destination interfaces. It is also
+possible to forward that request to all available faces. The Interest is forwarded over those faces until it
+reaches a node which can satisfy that request. That node will then use the PIT to identify which face the
+request came from and send a Data message back containing the Content Object requested. Any
+intermediate nodes between that node which responds to the request and the original requester will
+store the response in their Content Store and remove the entry for that Interest from their PIT. \cite{nnc}
 
 % { The case of NDN as a solution to Challenged Networks }
 Interest packets can be sent using multicast or broadcast mechanisms to allow for a greater search
 space. A Data packet is only sent as a response to a corresponding Interest and a node will only respond
 with one Data packet on each face for as many Interests it receives. These properties, along with
 Content Store caching, provide means that allow data to be sent returned to the requester efficiently
-from a nearby node, with resilience to mobility and link disruption.
+from the closest node, with resilience to mobility and link disruption.
 
 While one aim of the NDN project is to build a foundation for the next generation of an Internet-
 capable architecture, it is also particularly interesting when applied to Challenged Networks. While it
 would theoretically provide a good platform due to the nature of the architecture, it is important to test
 and validate these claims in order to identify potential issues or drawbacks and how they can be
-addressed\cite{ndnproj}.
+addressed. \cite{ndnproj}
 
 \pagebreak
 \chapter{Problem Definition}
@@ -359,7 +352,7 @@ data being successfully received:
  \emph{N\textsubscript{2}} requests the CCN URI \verb!ccnx:/test/1! at the application level which runs on top
 of the CCN daemon instance running on the same node. The application sends an Interest packet
 specifying the URI using the network face that is connected to the daemon. The Interest packet has a
-number of parameters, most notably its lifetime\footnote{The lifetime is not readily configurable based on the implementation code and http://www.ccnx.org/pipermail/ccnx-dev/2010-August/000249.html up to version 0.6.0).}, which was set to 4 seconds for this experiment\cite{CCNxIM}.
+number of parameters, most notably its lifetime\footnote{The lifetime is not readily configurable based on the implementation code and http://www.ccnx.org/pipermail/ccnx-dev/2010-August/000249.html up to version 0.6.0).}, which was set to 4 seconds for this experiment. \cite{CCNxIM}
 The Interest packet triggers an \verb!interest_from! event on the the local CCN daemon which results in that
 Interest being added to the local \textsl{Pending Interest Table} (PIT) as there is no existing entry. A look-up is then performed on the \textsl{Forwarding Information Base} (FIB) which returns a match for the prefix
 \verb!ccnx:/test! on a face, UDP in this experiment, that connects to the other node. The CCN daemon
@@ -1234,7 +1227,7 @@ characteristics of the network and how it behaves in certain conditions, such as
 This section looks at the broader family of Content-Centric Network protocols, of which CCNx is one
 implementation, and compares them to how other Information-Centric protocols perform in a
 Challenged Network environment. The differences discussed include data distribution mechanisms,
-naming and addressing schemes, routing, caching, and tolerance to mobility or disruption\cite{dirk2941}.
+naming and addressing schemes, routing, caching, and tolerance to mobility or disruption.\cite{dirk2941}
 
 \section{Publish-Subscribe Based Models}
 
@@ -1285,7 +1278,7 @@ on a node regardless of the connectivity state with the network. On the other ha
 subscribe models discussed all require some form of registration with a name resolution system or rely
 on a common rendezvous service. These protocols suffer greatly in this regard because direct
 connectivity can not guaranteed. This is especially true for the relocation of source nodes that must re-
-register before their information objects can be retrieved on the network\cite{dirk2941}.
+register before their information objects can be retrieved on the network.\cite{dirk2941}
 
 \section{NDN Protocols}
 
@@ -1343,7 +1336,7 @@ When a message or packet is to be sent across the network, a node will independe
 next hop based on the final destination. If such a hop is not immediately available, the forwarding
 decision is delayed until a later time. While this architecture does not guarantee speedy delivery, its
 flexible nature is well suited for environments where connectivity is unreliable, either due to delays or
-disruption\cite{oppnets}.
+disruption.\cite{oppnets}
 
 \pagebreak
 \chapter{Conclusion}

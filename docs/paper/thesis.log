@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.6-1.40.14 (TeX Live 2014/dev) (format=pdflatex 2014.1.28)  6 FEB 2014 19:13
+This is pdfTeX, Version 3.1415926-2.6-1.40.14 (TeX Live 2014/dev) (format=pdflatex 2014.1.28)  8 MAR 2014 14:11
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -70,35 +70,86 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 (/usr/share/texlive/texmf-dist/tex/latex/base/fixltx2e.sty
 Package: fixltx2e 2006/09/13 v1.1m fixes to LaTeX
 LaTeX Info: Redefining \em on input line 420.
-) (./thesis.aux)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/seqsplit/seqsplit.sty
+Package: seqsplit 2006/08/07 v0.1 Splitting long sequences (DNA, RNA, proteins,
+ etc.) 
+)
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/arabtex.sty
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/aconfig.sty
+LaTeX2e detected 
+BABEL detected
+\a@moduledate=\count90
+\a@maindate=\count91
+)
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/arabaux.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/acmd.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/afonts.sty
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/afonts2.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/ascan.sty
+(ArabTeX) scanner for code `arabtex' installed.
+(ArabTeX) input encoding set to ArabTeX standard conventions.)
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/aparse.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/awrite.sty
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/xarbsymb.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/arabskel.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/xarbskel.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/aboxes.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/arabtoks.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/arabchrs.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/aligs.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/aoutput.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/abidir.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/atrans.sty
+(ArabTeX) ZDMG transliteration.)
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/alatex.sty
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/afoot.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/abjad.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/apatch.sty
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/alists.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/asect.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/atabg.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/alocal.sty
+(ArabTeX) 3.11 local stub, 26.02.2006))
+Arabic processor `ArabTeX' [20060702 patch level 3.11s (02.07.2006)]
+(ArabTeX) ... now be patient ... )
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/utf8.sty
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/utfcode.sty
+Package: utfcode 2002/03/07  3.10a Arabic+Hebrew segment of UTF-8
+\u@lb=\count121
+\u@lq=\count122
+)
+Package: utf8 2000/06/13  3.10 UTF-8 input encoding 
+
+(ArabTeX) scanner for code UTF-8 installed.) (./thesis.aux)
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count90
-\scratchdimen=\dimen105
-\scratchbox=\box26
-\nofMPsegments=\count91
-\nofMParguments=\count92
-\everyMPshowfont=\toks16
-\MPscratchCnt=\count93
-\MPscratchDim=\dimen106
-\MPnumerator=\count94
-\makeMPintoPDFobject=\count95
-\everyMPtoPDFconversion=\toks17
+\scratchcounter=\count123
+\scratchdimen=\dimen127
+\scratchbox=\box41
+\nofMPsegments=\count124
+\nofMParguments=\count125
+\everyMPshowfont=\toks36
+\MPscratchCnt=\count126
+\MPscratchDim=\dimen128
+\MPnumerator=\count127
+\makeMPintoPDFobject=\count128
+\everyMPtoPDFconversion=\toks37
 ) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -147,36 +198,37 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 35.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 35.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 35.
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/apatch.sty
+\a@lines=\count129
+\a@Lwidth=\dimen129
+\a@displaywidth=\dimen130
 
-(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <14.4> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 35.
+(/usr/share/texlive/texmf-dist/tex/latex/arabtex/alocal.sty
+(ArabTeX) 3.11 local stub, 26.02.2006)
+(ArabTeX) version 3.11s (02.07.2006): second phase of patching)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 38.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 38.
  [1
 
 ] [2{/usr/share/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map}] [1
 
 ] [2
 
-] (./thesis.toc
+]
+(./thesis.toc
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 2.
+(Font)              <12> on input line 4.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 2.
+(Font)              <8> on input line 4.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 2.
-
-[3
+(Font)              <6> on input line 4.
+ [3
 
 ])
-\tf@toc=\write3
-\openout3 = `thesis.toc'.
+\tf@toc=\write5
+\openout5 = `thesis.toc'.
 
  [4]
 Chapter 1.
@@ -215,32 +267,37 @@ Missing character: There is no ù in font cmr12!
 File: exp1topo.jpg Graphic file (type jpg)
 
 <use exp1topo.jpg>
-Package pdftex.def Info: exp1topo.jpg used on input line 310.
+Package pdftex.def Info: exp1topo.jpg used on input line 321.
 (pdftex.def)             Requested size: 98.61818pt x 40.65176pt.
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 325.
- <exp1a_timediag.jpg, id=59, 687.56876pt x 451.6875pt>
-File: exp1a_timediag.jpg Graphic file (type jpg)
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 336.
 
-<use exp1a_timediag.jpg>
-Package pdftex.def Info: exp1a_timediag.jpg used on input line 335.
+ (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 336.
+
+<exp1a_timediag.jpg, id=59, 687.56876pt x 451.6875pt>
+File: exp1a_timediag.jpg Graphic file (type jpg)
+ <use exp1a_timediag.jpg>
+Package pdftex.def Info: exp1a_timediag.jpg used on input line 346.
 (pdftex.def)             Requested size: 378.16399pt x 248.42888pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 335--336
+Underfull \hbox (badness 10000) in paragraph at lines 346--347
 
  []
 
 [15 <./exp1topo.jpg>]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 351.
+(Font)              <5> on input line 362.
  [16 <./exp1a_timediag.jpg>]
 <exp1b_timediag.jpg, id=72, 694.595pt x 457.71pt>
 File: exp1b_timediag.jpg Graphic file (type jpg)
  <use exp1b_timediag.jpg>
-Package pdftex.def Info: exp1b_timediag.jpg used on input line 379.
+Package pdftex.def Info: exp1b_timediag.jpg used on input line 390.
 (pdftex.def)             Requested size: 382.02843pt x 251.74129pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 379--380
+Underfull \hbox (badness 10000) in paragraph at lines 390--391
 
  []
 
@@ -248,15 +305,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 379--380
 <exp1c_timediag.jpg, id=80, 715.67375pt x 461.725pt>
 File: exp1c_timediag.jpg Graphic file (type jpg)
  <use exp1c_timediag.jpg>
-Package pdftex.def Info: exp1c_timediag.jpg used on input line 421.
+Package pdftex.def Info: exp1c_timediag.jpg used on input line 432.
 (pdftex.def)             Requested size: 393.62178pt x 253.94954pt.
 
-Overfull \hbox (3.62178pt too wide) in paragraph at lines 421--422
+Overfull \hbox (3.62178pt too wide) in paragraph at lines 432--433
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 421--422
+Underfull \hbox (badness 10000) in paragraph at lines 432--433
 
  []
 
@@ -264,16 +321,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 421--422
 File: exp2topo.jpg Graphic file (type jpg)
 
 <use exp2topo.jpg>
-Package pdftex.def Info: exp2topo.jpg used on input line 486.
+Package pdftex.def Info: exp2topo.jpg used on input line 495.
 (pdftex.def)             Requested size: 79.79791pt x 61.73045pt.
  [21] <exp2a_timediag.jpg, id=91, 692.5875pt x 448.67625pt>
 File: exp2a_timediag.jpg Graphic file (type jpg)
 
 <use exp2a_timediag.jpg>
-Package pdftex.def Info: exp2a_timediag.jpg used on input line 509.
+Package pdftex.def Info: exp2a_timediag.jpg used on input line 518.
 (pdftex.def)             Requested size: 380.9243pt x 246.77269pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 509--510
+Underfull \hbox (badness 10000) in paragraph at lines 518--519
 
  []
 
@@ -281,10 +338,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 509--510
 <exp2b_timediag.jpg, id=95, 685.56125pt x 443.6575pt>
 File: exp2b_timediag.jpg Graphic file (type jpg)
  <use exp2b_timediag.jpg>
-Package pdftex.def Info: exp2b_timediag.jpg used on input line 547.
+Package pdftex.def Info: exp2b_timediag.jpg used on input line 556.
 (pdftex.def)             Requested size: 377.05984pt x 244.01237pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 547--548
+Underfull \hbox (badness 10000) in paragraph at lines 556--557
 
  []
 
@@ -293,10 +350,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 547--548
 File: exp2c_timediag.jpg Graphic file (type jpg)
 
 <use exp2c_timediag.jpg>
-Package pdftex.def Info: exp2c_timediag.jpg used on input line 593.
+Package pdftex.def Info: exp2c_timediag.jpg used on input line 602.
 (pdftex.def)             Requested size: 378.16399pt x 243.4603pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 593--594
+Underfull \hbox (badness 10000) in paragraph at lines 602--603
 
  []
 
@@ -304,42 +361,77 @@ Underfull \hbox (badness 10000) in paragraph at lines 593--594
 <exp3topo.jpg, id=113, 116.435pt x 48.18pt>
 File: exp3topo.jpg Graphic file (type jpg)
  <use exp3topo.jpg>
-Package pdftex.def Info: exp3topo.jpg used on input line 684.
+Package pdftex.def Info: exp3topo.jpg used on input line 690.
 (pdftex.def)             Requested size: 87.32602pt x 36.13489pt.
- [28 <./exp3topo.jpg>] [29] <exp4topo.jpg, id=121, 136.51pt x 81.30376pt>
+ [28]
+<exp3a_timediag.jpg, id=117, 702.625pt x 455.7025pt>
+File: exp3a_timediag.jpg Graphic file (type jpg)
+ <use exp3a_timediag.jpg>
+Package pdftex.def Info: exp3a_timediag.jpg used on input line 706.
+(pdftex.def)             Requested size: 386.44493pt x 250.63713pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 706--707
+
+ []
+
+[29 <./exp3topo.jpg> <./exp3a_timediag.jpg>]
+<exp3b_timediag.jpg, id=122, 704.6325pt x 472.76625pt>
+File: exp3b_timediag.jpg Graphic file (type jpg)
+
+<use exp3b_timediag.jpg>
+Package pdftex.def Info: exp3b_timediag.jpg used on input line 730.
+(pdftex.def)             Requested size: 387.54909pt x 260.02223pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 730--731
+
+ []
+
+[30] [31 <./exp3b_timediag.jpg>] <exp4topo.jpg, id=129, 136.51pt x 81.30376pt>
 File: exp4topo.jpg Graphic file (type jpg)
- <use exp4topo.jpg>
-Package pdftex.def Info: exp4topo.jpg used on input line 736.
+
+<use exp4topo.jpg>
+Package pdftex.def Info: exp4topo.jpg used on input line 757.
 (pdftex.def)             Requested size: 102.38223pt x 60.97765pt.
+ <exp4a_timediag.jpg, id=130, 698.61pt x 447.6725pt>
+File: exp4a_timediag.jpg Graphic file (type jpg)
 
-[30 <./exp4topo.jpg>] [31]
+<use exp4a_timediag.jpg>
+Package pdftex.def Info: exp4a_timediag.jpg used on input line 773.
+(pdftex.def)             Requested size: 384.23668pt x 246.22063pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 773--774
+
+ []
+
+[32 <./exp4topo.jpg>] [33 <./exp4a_timediag.jpg>]
+<exp4b_timediag.jpg, id=137, 700.6175pt x 474.77374pt>
+File: exp4b_timediag.jpg Graphic file (type jpg)
+
+<use exp4b_timediag.jpg>
+Package pdftex.def Info: exp4b_timediag.jpg used on input line 799.
+(pdftex.def)             Requested size: 385.3408pt x 261.12636pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 799--800
+
+ []
+
+[34 <./exp4b_timediag.jpg>] [35]
 Chapter 4.
-[32
+[36
 
-]
-Overfull \hbox (26.4342pt too wide) in paragraph at lines 844--856
-\OT1/cmr/m/n/12 nodes send out re-quests in the form of []\OT1/cmtt/m/n/12 ccnx
-:/uu/core/games/ttt/new/<gameid>\OT1/cmr/m/n/12 ,
- []
+] <dtgp_msgx.jpg, id=148, 375.4025pt x 568.1225pt>
+File: dtgp_msgx.jpg Graphic file (type jpg)
+ <use dtgp_msgx.jpg>
+Package pdftex.def Info: dtgp_msgx.jpg used on input line 873.
+(pdftex.def)             Requested size: 319.09363pt x 482.90639pt.
 
-
-Overfull \hbox (9.88335pt too wide) in paragraph at lines 844--856
-\OT1/cmr/m/n/12 sively lis-ten for In-ter-est re-quests with a pre-fix of ccnx:
-/uu/core/games/ttt/new.
- []
-
-[33]
-Overfull \hbox (18.95686pt too wide) in paragraph at lines 879--883
+[37] [38 <./dtgp_msgx.jpg>] [39]
+Overfull \hbox (18.95686pt too wide) in paragraph at lines 924--928
 []\OT1/cmr/m/n/12 As demon-strated in chap-ter 3, in-ter-val and timers that co
 n-trol re-transmission
  []
 
-[34]
-Overfull \hbox (60.96368pt too wide) in paragraph at lines 891--901
-\OT1/cmr/m/n/12 re-quest is re-ceived in the form of []\OT1/cmtt/m/n/12 ccnx:/u
-u/core/games/ttt/<gameid>/move/<moveid>\OT1/cmr/m/n/12 ,
- []
-
+[40]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ú in font cmr12!
@@ -347,102 +439,68 @@ Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ù in font cmr12!
 
-Overfull \hbox (186.44417pt too wide) in paragraph at lines 923--936
-[]\OT1/cmtt/m/n/12 /uu/core/games/ttt/open-games/349057804 \OT1/cmr/m/n/12 Con-
-tent: []\OT1/cmtt/m/n/12 Player prefix=/vodafone/de/user1/ttt/349057804
- []
-
-
-Overfull \hbox (26.68883pt too wide) in paragraph at lines 923--936
-\OT1/cmr/m/n/12 Player A lis-tens for in-ter-ests for ccnx:/uu/core/games/ttt/o
-pen-games/349057804,
- []
-
-
-Overfull \hbox (286.11072pt too wide) in paragraph at lines 923--936
-\OT1/cmr/m/n/12 rec-tory by send-ing an in-ter-est such as: []\OT1/cmtt/m/n/12 
-ccnx:/uu/core/games/ttt/pull-request/#/vodafone/de/user1/ttt/349057804/game-co 
+Underfull \hbox (badness 10000) in paragraph at lines 971--973
 
  []
 
-[35]
-Overfull \hbox (50.21382pt too wide) in paragraph at lines 937--941
-\OT1/cmr/m/n/12 player A by send-ing an in-ter-est: []\OT1/cmtt/m/n/12 ccnx:/vo
-dafone/de/user1/ttt/349057804/game-co 
- []
 
-
-Overfull \hbox (39.34433pt too wide) in paragraph at lines 947--950
-\OT1/cmr/m/n/12 trieve the game con-tent ob-ject []\OT1/cmtt/m/n/12 ccnx:/uu/co
-re/games/ttt/open-games/349057804\OT1/cmr/m/n/12 . 
- []
-
-
-Overfull \hbox (115.45006pt too wide) in paragraph at lines 962--963
-[][]\OT1/cmtt/m/n/12 ccnx:/vodafone/de/user1/ttt/349057804/start/#/twodegrees/n
-z/user2/ttt/349057804 
- []
-
-[36]
-Overfull \hbox (182.15996pt too wide) in paragraph at lines 995--1004
-\OT1/cmr/m/n/12 Player B sends out an In-ter-est mes-sage in the form of []\OT1
-/cmtt/m/n/12 ccnx:/playerA/<gameid>/move/<i>/<serialized-move>\OT1/cmr/m/n/12 .
+Underfull \hbox (badness 10000) in paragraph at lines 974--976
 
  []
 
-[37] [38]
-Overfull \hbox (14.20216pt too wide) in paragraph at lines 1039--1048
+[41] [42] [43]
+Overfull \hbox (14.20216pt too wide) in paragraph at lines 1091--1100
 []\OT1/cmr/m/n/12 An in-ter-est is con-sid-ered sat-is-fied if there is a cor-r
-e-spond-ing []\OT1/cmtt/m/n/12 content_from
+e-spond-ing \OT1/cmtt/m/n/12 content_from
  []
 
-[39] <InterestsPerGameHist.jpg, id=153, 537.00626pt x 406.51875pt>
-File: InterestsPerGameHist.jpg Graphic file (type jpg)
-
-<use InterestsPerGameHist.jpg>
-Package pdftex.def Info: InterestsPerGameHist.jpg used on input line 1088.
-(pdftex.def)             Requested size: 392.0113pt x 296.75621pt.
-
-Overfull \hbox (2.0113pt too wide) in paragraph at lines 1088--1089
-[] 
- []
-
-[40 <./InterestsPerGameHist.jpg>]
-<InterestSatisfactionRateHist.jpg, id=157, 537.00626pt x 404.51125pt>
+[44] [45]
+<InterestSatisfactionRateHist.jpg, id=177, 537.00626pt x 404.51125pt>
 File: InterestSatisfactionRateHist.jpg Graphic file (type jpg)
 
 <use InterestSatisfactionRateHist.jpg>
 Package pdftex.def Info: InterestSatisfactionRateHist.jpg used on input line 11
-00.
+42.
 (pdftex.def)             Requested size: 392.0113pt x 295.29076pt.
 
-Overfull \hbox (19.63612pt too wide) in paragraph at lines 1100--1101
+Overfull \hbox (19.63612pt too wide) in paragraph at lines 1142--1143
 [][] 
  []
 
-[41 <./InterestSatisfactionRateHist.jpg>] [42]
-<InterestResponseTimeHist.jpg, id=165, 539.01375pt x 404.51125pt>
+[46] <InterestsPerGameHist.jpg, id=181, 537.00626pt x 406.51875pt>
+File: InterestsPerGameHist.jpg Graphic file (type jpg)
+
+<use InterestsPerGameHist.jpg>
+Package pdftex.def Info: InterestsPerGameHist.jpg used on input line 1158.
+(pdftex.def)             Requested size: 392.0113pt x 296.75621pt.
+
+Overfull \hbox (2.0113pt too wide) in paragraph at lines 1158--1159
+[] 
+ []
+
+[47 <./InterestSatisfactionRateHist.jpg>] [48 <./InterestsPerGameHist.jpg>]
+<InterestResponseTimeHist.jpg, id=189, 539.01375pt x 404.51125pt>
 File: InterestResponseTimeHist.jpg Graphic file (type jpg)
 
 <use InterestResponseTimeHist.jpg>
-Package pdftex.def Info: InterestResponseTimeHist.jpg used on input line 1145.
+Package pdftex.def Info: InterestResponseTimeHist.jpg used on input line 1204.
 (pdftex.def)             Requested size: 393.47676pt x 295.29076pt.
 
-Overfull \hbox (21.10158pt too wide) in paragraph at lines 1145--1146
+Overfull \hbox (21.10158pt too wide) in paragraph at lines 1204--1205
 [][] 
  []
 
-[43 <./InterestResponseTimeHist.jpg>] [44]
+[49] [50 <./InterestResponseTimeHist.jpg>] [51]
 Chapter 5.
-[45
+[52
 
-] [46] [47] [48]
+] [53] [54] [55]
 Chapter 6.
-[49
+[56
 
-]
+] [57]
 Chapter 7.
-[50
+[58
 
 ] (./thesis.bbl
 Underfull \hbox (badness 2343) in paragraph at lines 52--57
@@ -456,7 +514,7 @@ Overfull \hbox (13.7958pt too wide) in paragraph at lines 52--57
 ge.html,
  []
 
-[51
+[59
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 59--63
@@ -469,33 +527,112 @@ Overfull \hbox (7.89032pt too wide) in paragraph at lines 59--63
 html,
  []
 
-) [52] [53
+) [60] [61
 
-] [54] [55] [56] [57] [58] (./thesis.aux) ) 
+] [62] [63] [64] [65] [66] (./thesis.aux)
+
+ *File List*
+  report.cls    2007/10/19 v1.4h Standard LaTeX document class
+  size12.clo    2007/10/19 v1.4h Standard LaTeX file (size option)
+enumerate.sty    1999/03/05 v3.00 enumerate extensions (DPC)
+  natbib.sty    2010/09/13 8.31b (PWD, AO)
+graphicx.sty    1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+  keyval.sty    1999/03/16 v1.13 key=value parser (DPC)
+graphics.sty    2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+    trig.sty    1999/03/16 v1.09 sin cos tan (DPC)
+graphics.cfg    2010/04/23 v1.9 graphics configuration of TeX Live
+  pdftex.def    2011/05/27 v0.06d Graphics/color for pdfTeX
+infwarerr.sty    2010/04/08 v1.3 Providing info/warning/error messages (HO)
+ ltxcmds.sty    2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+fixltx2e.sty    2006/09/13 v1.1m fixes to LaTeX
+seqsplit.sty    2006/08/07 v0.1 Splitting long sequences (DNA, RNA, proteins, e
+tc.) 
+ arabtex.sty    2003/08/22  3.11 ArabTeX main module
+ arabaux.sty    2003/05/21  3.11 auxiliary macros for ArabTeX
+    acmd.sty    2003/08/20  3.11 Arabic command processing 
+  afonts.sty    1995/11/16  3.04 define Naskh font 
+ afonts2.sty    1998/10/19  3.10 define Naskh fonts for LaTeX2e
+   ascan.sty    2003/08/22  3.11 standard ZDMG input encoding 
+  aparse.sty    2003/05/26  3.11 get syllables 
+  awrite.sty    2003/06/05  3.11 build output word 
+xarbsymb.sty    1998/07/15  3.07 symbolic output encoding 
+arabskel.sty    2000/06/04  3.10 character skeleton definitions 
+xarbskel.sty    1999/07/17  3.09 character skeleton definitions 
+  aboxes.sty    2003/05/28  3.11 build output boxes
+arabtoks.sty    1999/07/17  3.09 ArabTeX CS token definitions 
+arabchrs.sty    1998/07/11  3.07 letter token definitions 
+   aligs.sty    2003/05/26  3.11 compute ligatures
+ aoutput.sty    2000/06/04  3.10 build output lines
+  abidir.sty    2003/08/22  3.11 bidirectional linebreaking
+  atrans.sty    2003/06/14  3.11 generate the transliteration 
+  alatex.sty    2003/05/04  3.11 ArabTeX extensions for LaTeX 
+   afoot.sty    2003/05/12  3.11 ArabTeX footnotes
+   abjad.sty    2003/04/26  3.11 abjad numerals 
+  apatch.sty    2006/07/02  3.11s last minute patches 
+  alists.sty    2003/04/26  3.11 inverted list macros
+   asect.sty    2003/04/26  3.11 section macros for Arabic
+   atabg.sty    1997/01/21  3.05 LaTeX tabbing macros for Arabic
+    utf8.sty    2000/06/13  3.10 UTF-8 input encoding 
+ utfcode.sty    2002/03/07  3.10a Arabic+Hebrew segment of UTF-8
+supp-pdf.mkii
+pdftexcmds.sty    2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO)
+ifluatex.sty    2010/03/01 v1.3 Provides the ifluatex switch (HO)
+   ifpdf.sty    2011/01/30 v2.3 Provides the ifpdf switch (HO)
+epstopdf-base.sty    2010/02/09 v2.5 Base part for package epstopdf
+  grfext.sty    2010/08/19 v1.1 Manage graphics extensions (HO)
+kvdefinekeys.sty    2011/04/07 v1.3 Define keys (HO)
+kvoptions.sty    2011/06/30 v3.11 Key value format for package options (HO)
+kvsetkeys.sty    2012/04/25 v1.16 Key value parser (HO)
+etexcmds.sty    2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+epstopdf-sys.cfg    2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+  apatch.sty    2006/07/02  3.11s last minute patches 
+exp1topo.jpg    Graphic file (type jpg)
+  omscmr.fd    1999/05/25 v2.5h Standard LaTeX font definitions
+exp1a_timediag.jpg    Graphic file (type jpg)
+exp1b_timediag.jpg    Graphic file (type jpg)
+exp1c_timediag.jpg    Graphic file (type jpg)
+exp2topo.jpg    Graphic file (type jpg)
+exp2a_timediag.jpg    Graphic file (type jpg)
+exp2b_timediag.jpg    Graphic file (type jpg)
+exp2c_timediag.jpg    Graphic file (type jpg)
+exp3topo.jpg    Graphic file (type jpg)
+exp3a_timediag.jpg    Graphic file (type jpg)
+exp3b_timediag.jpg    Graphic file (type jpg)
+exp4topo.jpg    Graphic file (type jpg)
+exp4a_timediag.jpg    Graphic file (type jpg)
+exp4b_timediag.jpg    Graphic file (type jpg)
+dtgp_msgx.jpg    Graphic file (type jpg)
+InterestSatisfactionRateHist.jpg    Graphic file (type jpg)
+InterestsPerGameHist.jpg    Graphic file (type jpg)
+InterestResponseTimeHist.jpg    Graphic file (type jpg)
+  thesis.bbl
+ ***********
+
+ ) 
 Here is how much of TeX's memory you used:
- 2027 strings out of 495034
- 28517 string characters out of 6181677
- 84676 words of memory out of 5000000
- 5211 multiletter control sequences out of 15000+600000
+ 4349 strings out of 495034
+ 50632 string characters out of 6181677
+ 129643 words of memory out of 5000000
+ 7432 multiletter control sequences out of 15000+600000
  11102 words of font info for 39 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 37i,8n,23p,911b,254s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl12.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on thesis.pdf (60 pages, 517568 bytes).
+ 38i,8n,23p,1112b,258s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmsl12.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmti8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt
+10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb
+>
+Output written on thesis.pdf (68 pages, 709116 bytes).
 PDF statistics:
- 259 PDF objects out of 1000 (max. 8388607)
- 170 compressed objects within 2 object streams
+ 290 PDF objects out of 1000 (max. 8388607)
+ 188 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 66 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 91 words of extra memory for PDF output out of 10000 (max. 10000000)
 
