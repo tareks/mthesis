@@ -18,6 +18,11 @@ Kevin Fall.
   Applications, technologies, architectures, and protocols for computer
   communications}, pages 27 -- 34, 2003.
 
+\bibitem{tcpbreak}
+S.~Farrell, V.~Cahill, D.~Geraghty, and I.~Humphreys.
+\newblock {When TCP Breaks: Delay- and Disruption-Tolerant Networking}.
+\newblock {\em Internet Computing, IEEE (Volume 10, Issue: 4)}, September 2006.
+
 \bibitem{hotnets}
 A.~Ghodsi, S.~Shenker, T.~Koponen, A.~Singla, B.~Raghavan, and J.~Wilcox.
 \newblock Information-centric networking: seeing the forest for the trees.
@@ -60,6 +65,13 @@ Palo Alto Research~Center (PARC).
 \newblock {CCN}x {P}rotocol.
 \newblock http://www.ccnx.org/releases/latest/doc/technical/CCNxProtocol.html,
   July 2013.
+
+\bibitem{haggletrc}
+C.~Rohner, F.~Bjurefors, P.~Gunningberg, and L.~McNamara.
+\newblock Making the most of your contacts: Transfer ordering in data-centric
+  opportunistic networks.
+\newblock In {\em ACM MobiOpp Workshop on Mobile Opportunistic Networks
+  (MobiOpp) '12}, 2012.
 
 \bibitem{ndnproj}
 L.~Zhang, D.~Estrin, J.~Burke, V.~Jacobson, J.~Thornton, D.~Smletters, Zhang.
