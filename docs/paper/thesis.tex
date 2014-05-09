@@ -9,6 +9,7 @@
 \usepackage{arabtex}   % for acks
 \usepackage{utf8}      % for arabic
 \usepackage{atbegshi}  % to skip first page
+\usepackage{amsmath}   % for displaymath \text
 
 % The preamble begins here.
 
@@ -42,9 +43,9 @@
 \pagebreak
 \chapter*{Abstract}
 
-Information Centric Network (ICN) architectures offer a viable alternative to conventional TCP/IP designs to cope with the disruptive nature of Challenged Network environments. They aim to address the challenges of unreliable connectivity and location transparency to present a delay- and disruption-tolerant solution. This thesis introduces Named Data Networking (NDN), a prominent ICN architecture, that uses a publish/subscribe-driven model and relies on two main message units for communication, called Interests and Content Objects. Instead of a host-based model for data retrieval, an addressing scheme based on named data is utilized. The naming of data allows for retrieval of data from the network without the knowledge of individual hosts. 
+Information Centric Network (ICN) architectures offer a viable design to cope with the disruptive nature of Challenged Network environments. They aim to address the challenges of unreliable connectivity and location transparency to present a delay- and disruption-tolerant solution. Named Data Networking (NDN), a prominent ICN architecture, uses a publish/subscribe-driven model and relies on two main message units for communication, called Interests and Content Objects. Instead of a host-based model for data retrieval, an addressing scheme based on named data is utilized. The naming of data allows for retrieval of data from the network without the knowledge of individual hosts. 
 
-This thesis studies CCNx as an implementation of a Content-Centric Networking protocol that inherits key characteristics from NDN. We study the behavior of of CCNx using the Haggle testbed to simulate a simple disruptive network environment. We then develop a delay/disruption-tolerant framework based on CCNx and build an implementation of the game Tic-Tac-Toe using that framework. The framework design is presented with an analysis into various alternatives that were considered. A more complex five-node experiment with link disruption is performed using the framework to evaluate CCNx in a real world scenario. We conclude that CCNx is a good contender for use in Challenged Networks.
+This thesis studies NDN behavior in a disruptive network environment. More specifically, we use CCNx as an implementation of a Content-Centric Networking protocol that inherits key characteristics from NDN. We study the behavior of of CCNx using the Haggle testbed to simulate a simple disruptive network environment. We develop a delay/disruption-tolerant framework based on CCNx and implment the game Tic-Tac-Toe using that framework. The framework design is presented with an analysis into various alternatives that were considered. A more complex five-node experiment with link disruption is performed using the framework to evaluate CCNx in a real world scenario. We conclude that CCNx is good at handling disruptions associated with Challenged Networks.
 
 
 
@@ -1136,21 +1137,22 @@ there may potentially be some unanswered requests from relay nodes.
 
 \subsection{Interest Satisfaction Ratio}
 
-The Interest satisfaction ratio provides insight into the amount of overhead required for games to reach a final state in a Challenged Network environment. In the implementation, the total number of responses is divided by the the occurrences for a specific Interest. For example, assume there are 10 occurrences of an Interest, \verb!ccnx://test/1!, and 4 occurrences of a Content Object, \verb!ccnx://test/1/%jhASH@#!. The satisfaction ratio is calculated to be 40\% across the entire network. It should be noted that in the case where there are no responses for a particular Interest, then the satisfaction ratio is calculated to be zero. 
+The Interest satisfaction ratio provides insight into the amount of overhead required for games to reach a final state in a Challenged Network environment. In the implementation, the total number of responses is divided by the the occurrences for a specific Interest. For example, assume there are ten occurrences of an Interest, \verb!ccnx://test/1!, and four occurrences of a Content Object, \verb!ccnx://test/1/%jhASH@#!. The satisfaction ratio is calculated to be 40\% across the entire network. It should be noted that in the case where there are no responses for a particular Interest, then the satisfaction ratio is calculated to be zero. 
 
 \includegraphics[scale=0.73]{InterestSatisfactionRateHist.jpg}
 
 \begin{center}Figure 6.1 Histogram illustrating the distribution of Interest satisfaction ratio\end{center}
 
 This histogram shows the distribution of the rate at which an interest is satisfied. This is on a per-Interest 
-level irrespective of how that Interest may influence a game. It appears that the general case is
-that individual interests are rarely satisfied, which correlates to the disruptive nature of the link
-configuration in the experiment trace file.
+level irrespective of how that Interest may influence a game. 
 
-The satisfaction ratio appears to be focused around 20\% for all interests. This means that Interests in some cases may 
+The satisfaction ratio is concentrated around 20\% for all interests. This means that Interests may 
 need to be re-transmitted five times or more before they are satisfied. While this can be described as a large 
 amount of \emph{Interest loss}, this is not to be unexpected considering the nature of the challenged network
- environments being simulated.
+ environments being simulated. The ratio also indicates that there is a considerable number of Interests sent
+on the network that are never satisfied. These are likely to include Interests that were sent to nodes that 
+did not have corresponding objects which consequently expired before they were satisfied. 
+
 
 \subsection{Number of Interests per Game}
 
@@ -1160,13 +1162,29 @@ amount of \emph{Interest loss}, this is not to be unexpected considering the nat
 
 This histogram shows the distribution of the number of Interests required to complete a game. 
 Based on this experiment trace, there are no games that do not result in a final state.
-The number of Interests required to complete a game for most cases is approximately 200 Interests. 
+The number of Interests required to complete a game in most cases is around 200 Interests. This number is not
+absolute due to the differences in link disruptions from one experiment to the other.
 
-It is unclear why this is the optimal number of Interests required, but this is likely to be due to a number of factors.
-Each game requires a minimum of seven interests to reach a final state by each \emph{Initiator} node. Based on the
-20\% satisfaction rate observed and the five nodes participating in the network, the number of Interests is close to
-the most prominent rates displayed in figure 6.1. Additionally, while there is no measurable impact, we believe that the link disruptions in the trace file have a large impact on the number of re-transmissions required.  
-%% TODO discuss this number discrepancy with Frederik
+The number of Interests is a result of a number of variables multiplied by each other:
+
+\begin{itemize}
+\item \textbf{Basic Interests:} Seven basic messages are required per game to reach a final state. This includes the messages required to initiate the game, communicate the moves, and end the game. This is a constant in this set of experiments.
+\item \textbf{Number of nodes:} There are five nodes in each experiment. This is a constant in this set of experiments.
+\item \textbf{Number of Node transmissions:} This indicates the number of transmissions required per node per Interest. This will vary depending on connectivity between nodes. As connectivity becomes scarce, the number of transmissions increase. It is important to note that this is not consistent for all Interests in a game and as such is taken as a guide.
+\item \textbf{Links to other nodes:} For each transmission, an Interest is sent over each face to reachable nodes. While this may vary per experiment, it is typically four. It is possible that in some cases a node might not have discovered all other nodes on the network and thus send less than four.
+\end{itemize}
+
+The following calculation provides an estimate to the number of Interests per game assuming four links with no re-transmissions required. This can be considered an optimal case scenario.
+
+\begin{displaymath} 7 \times 5 \times 4 \times 1 = 140\ \text{Interests per game} \end{displaymath}
+
+Assuming at least one re-transmission on all nodes, the result would be as follows:
+
+\begin{displaymath} 7 \times 5 \times 4 \times 2 = 280\ \text{Interests per game} \end{displaymath}
+
+While these figures are estimates, they show that the lowest number of Interests per game is close to 140 as illustrated by the left side of the histogram. The right side of the histogram shows that there may be cases where Interests required three or even four re-transmissions to be satisfied. Based on the discussion in section 6.2.1, this amount of re-transmission is not unexpected. 
+
+The histogram shows that for a relatively large number of cases, the number of Interests associated per game is close to 200. This number implies that there is at least one re-transmission per game in most cases. This is not terribly inefficient, however, it should be noted that the Interests are sent on all available faces on a particular node as reflected in the calculations above. This provides some guarantee that an Interest will reach as many nodes as possible and as a result have a high chance of being satisfied despite the high number of Interests that will timeout in the process. While in this particular set of experiments, the network was possible to flood in such a manner to reach all nodes, it may not be the case in a different topology or scenario. In such cases, it is expected that the number of re-transmissions would increase to compensate for the lack of reachability between nodes.
 
 \subsection{Interest Satisfaction Time}
 
@@ -1355,7 +1373,7 @@ game of Tic-Tac-Toe under similar conditions. The analysis helped identify some 
 running CCNx in a more practical application.
 
 The results from the experiments in Chapter 4 demonstrated that CCNx can handle link disruptions well. With inherent CCNx re-transmission
-disabled to create a controlled environment with two nodes, it is the responsibility of the application requesting information to ensure that messages are received. Due to the nature of the network, there is no way to verify that Interest messages have been received by the other node except for when the corresponding Content Object is received by the same node that sent the Interest. With the introduction of a relay node, the efficiency increases because the intermediate nodes allow for both a better window of opportunity for message transmission as well as an enhancement of the caching mechanism inherent on each node on the network. We believe that the introduction of further relay nodes will further enhance the performance. We also believe that if the re-transmission timers on each node were shortened, it would reduce the amount of time taken for an Interest to be satisfied. In contrast to a TCP/IP, the experiments highlight that no end-to-end connectivity is required for data retrieval. They also proved that the data need not be retrieved for one particular node, which reinforces the advantage of the location transparency in CCNx.
+disabled to create a controlled environment with two nodes, it is the responsibility of the application requesting information to ensure that messages are received. Due to the nature of the network, there is no way to verify that Interest messages have been received by the other node except for when the corresponding Content Object is received by the same node that sent the Interest. With the introduction of a relay node, the efficiency increases because the intermediate nodes allow for both a better window of opportunity for message transmission as well as an enhancement of the caching mechanism inherent on each node on the network. We believe that the introduction of further relay nodes will further enhance the performance. The results also show that if the Interest re-transmission times on each node are shortened, the amount of time taken for an Interest to be satisfied is reduced. In contrast to a TCP/IP, the experiments highlight that no end-to-end connectivity is required for data retrieval. They also proved that the data need not be retrieved for one particular node, which reinforces the advantage of the location transparency in CCNx.
 
 In Chapter 5, Tic-Tac-Toe was implemented on top of a framework that was developed based on CCNx. This allowed for further experimentation in a more complex network with more nodes. The inherent CCNx re-transmission mechanism was unhindered in this experiment. The results show that there is a large amount of Interest re-transmission required to cope with the link disruption on the network. Despite this, the satisfaction time for each Interest is still quite low. The results from Chapter 4 and Chapter 5 lead us to believe that CCNx could be applied in real world applications where such an architecture would be advantageous. In cases where connectivity is intermittent and predictable, such as bus routes, CCNx could excel when re-transmission variables are appropriately configured.
 

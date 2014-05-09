@@ -46,11 +46,11 @@
 \contentsline {section}{\numberline {6.2}Discussion}{50}
 \contentsline {subsection}{\numberline {6.2.1}Interest Satisfaction Ratio}{50}
 \contentsline {subsection}{\numberline {6.2.2}Number of Interests per Game}{52}
-\contentsline {subsection}{\numberline {6.2.3}Interest Satisfaction Time}{52}
-\contentsline {section}{\numberline {6.3}Conclusion}{54}
-\contentsline {chapter}{\numberline {7}Related Work}{56}
-\contentsline {section}{\numberline {7.1}Publish-Subscribe Based Models}{56}
-\contentsline {section}{\numberline {7.2}NDN Protocols}{58}
-\contentsline {section}{\numberline {7.3}Opportunistic Network Protocols}{59}
-\contentsline {chapter}{\numberline {8}Conclusion}{60}
-\contentsline {chapter}{\numberline {9}Future Work}{62}
+\contentsline {subsection}{\numberline {6.2.3}Interest Satisfaction Time}{54}
+\contentsline {section}{\numberline {6.3}Conclusion}{55}
+\contentsline {chapter}{\numberline {7}Related Work}{57}
+\contentsline {section}{\numberline {7.1}Publish-Subscribe Based Models}{57}
+\contentsline {section}{\numberline {7.2}NDN Protocols}{59}
+\contentsline {section}{\numberline {7.3}Opportunistic Network Protocols}{60}
+\contentsline {chapter}{\numberline {8}Conclusion}{61}
+\contentsline {chapter}{\numberline {9}Future Work}{63}
