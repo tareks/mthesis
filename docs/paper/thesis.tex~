@@ -9,6 +9,7 @@
 \usepackage{arabtex}   % for acks
 \usepackage{utf8}      % for arabic
 \usepackage{atbegshi}  % to skip first page
+\usepackage{amsmath}   % for displaymath \text
 
 % The preamble begins here.
 
@@ -1175,11 +1176,11 @@ The number of Interests is a result of a number of variables multiplied by each 
 
 The following calculation provides an estimate to the number of Interests per game assuming four links with no re-transmissions required. This can be considered an optimal case scenario.
 
-\begin{displaymath} 7 \times 5 \times 4 \times 1 = 140 \text{Interests per game} \end{displaymath}
+\begin{displaymath} 7 \times 5 \times 4 \times 1 = 140\ \text{Interests per game} \end{displaymath}
 
 Assuming at least one re-transmission on all nodes, the result would be as follows:
 
-\begin{displaymath} 7 \times 5 \times 4 \times 2 = 280 \text{Interests per game} \end{displaymath}
+\begin{displaymath} 7 \times 5 \times 4 \times 2 = 280\ \text{Interests per game} \end{displaymath}
 
 While these figures are estimates, they show that the lowest number of Interests per game is close to 140 as illustrated by the left side of the histogram. The right side of the histogram shows that there may be cases where Interests required three or even four re-transmissions to be satisfied. Based on the discussion in section 6.2.1, this amount of re-transmission is not unexpected. 
 
