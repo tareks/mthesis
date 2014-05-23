@@ -1,0 +1,253 @@
+Will process:
+./experiment1a-1400713758
+./experiment1b-1400716441
+./experiment1c-1400719708
+./experiment2a-1400814245
+./experiment2b-1400725691
+./experiment2c-1400728431
+Iterations:
+./experiment1a-1400713758/1
+./experiment1a-1400713758/2
+./experiment1a-1400713758/3
+./experiment1a-1400713758/4
+./experiment1a-1400713758/5
+./experiment1a-1400713758/6
+./experiment1a-1400713758/7
+./experiment1a-1400713758/8
+./experiment1a-1400713758/9
+./experiment1a-1400713758/10
+Number of interests sent: 1
+Time taken for successful interest: 19 ms
+Time to fulfill request from first Interest: 19 ms
+Number of interests sent: 1
+Time taken for successful interest: 16 ms
+Time to fulfill request from first Interest: 16 ms
+Number of interests sent: 1
+Time taken for successful interest: 13 ms
+Time to fulfill request from first Interest: 13 ms
+Number of interests sent: 1
+Time taken for successful interest: 13 ms
+Time to fulfill request from first Interest: 13 ms
+Number of interests sent: 1
+Time taken for successful interest: 16 ms
+Time to fulfill request from first Interest: 16 ms
+Number of interests sent: 1
+Time taken for successful interest: 17 ms
+Time to fulfill request from first Interest: 17 ms
+Number of interests sent: 1
+Time taken for successful interest: 11 ms
+Time to fulfill request from first Interest: 11 ms
+Number of interests sent: 1
+Time taken for successful interest: 14 ms
+Time to fulfill request from first Interest: 14 ms
+Number of interests sent: 1
+Time taken for successful interest: 18 ms
+Time to fulfill request from first Interest: 18 ms
+Number of interests sent: 1
+Time taken for successful interest: 18 ms
+Time to fulfill request from first Interest: 18 ms
+Iterations:
+./experiment1b-1400716441/1
+./experiment1b-1400716441/2
+./experiment1b-1400716441/3
+./experiment1b-1400716441/4
+./experiment1b-1400716441/5
+./experiment1b-1400716441/6
+./experiment1b-1400716441/7
+./experiment1b-1400716441/8
+./experiment1b-1400716441/9
+./experiment1b-1400716441/10
+Number of interests sent: 2
+Time taken for successful interest: 14 ms
+Time to fulfill request from first Interest: 8015 ms
+Number of interests sent: 2
+Time taken for successful interest: 14 ms
+Time to fulfill request from first Interest: 8016 ms
+Number of interests sent: 2
+Time taken for successful interest: 11 ms
+Time to fulfill request from first Interest: 8013 ms
+Number of interests sent: 2
+Time taken for successful interest: 65 ms
+Time to fulfill request from first Interest: 8066 ms
+Number of interests sent: 2
+Time taken for successful interest: 14 ms
+Time to fulfill request from first Interest: 8015 ms
+Number of interests sent: 2
+Time taken for successful interest: 13 ms
+Time to fulfill request from first Interest: 8015 ms
+Number of interests sent: 2
+Time taken for successful interest: 13 ms
+Time to fulfill request from first Interest: 8014 ms
+Number of interests sent: 2
+Time taken for successful interest: 13 ms
+Time to fulfill request from first Interest: 8014 ms
+Number of interests sent: 2
+Time taken for successful interest: 13 ms
+Time to fulfill request from first Interest: 8014 ms
+Number of interests sent: 2
+Time taken for successful interest: 12 ms
+Time to fulfill request from first Interest: 8013 ms
+Iterations:
+./experiment1c-1400719708/1
+./experiment1c-1400719708/2
+./experiment1c-1400719708/3
+./experiment1c-1400719708/4
+./experiment1c-1400719708/5
+./experiment1c-1400719708/6
+./experiment1c-1400719708/7
+./experiment1c-1400719708/8
+./experiment1c-1400719708/9
+./experiment1c-1400719708/10
+Number of interests sent: 2
+Time taken for successful interest: 7 ms
+Time to fulfill request from first Interest: 8008 ms
+Number of interests sent: 2
+Time taken for successful interest: 5 ms
+Time to fulfill request from first Interest: 8006 ms
+Number of interests sent: 2
+Time taken for successful interest: 6 ms
+Time to fulfill request from first Interest: 8007 ms
+Number of interests sent: 2
+Time taken for successful interest: 7 ms
+Time to fulfill request from first Interest: 8008 ms
+Number of interests sent: 2
+Time taken for successful interest: 8 ms
+Time to fulfill request from first Interest: 8009 ms
+Number of interests sent: 2
+Time taken for successful interest: 5 ms
+Time to fulfill request from first Interest: 8006 ms
+Number of interests sent: 2
+Time taken for successful interest: 5 ms
+Time to fulfill request from first Interest: 8006 ms
+Number of interests sent: 2
+Time taken for successful interest: 5 ms
+Time to fulfill request from first Interest: 8006 ms
+Number of interests sent: 2
+Time taken for successful interest: 8 ms
+Time to fulfill request from first Interest: 8009 ms
+Number of interests sent: 2
+Time taken for successful interest: 11 ms
+Time to fulfill request from first Interest: 8012 ms
+Iterations:
+./experiment2a-1400814245/1
+./experiment2a-1400814245/2
+./experiment2a-1400814245/3
+./experiment2a-1400814245/4
+./experiment2a-1400814245/5
+./experiment2a-1400814245/6
+./experiment2a-1400814245/7
+./experiment2a-1400814245/8
+./experiment2a-1400814245/9
+./experiment2a-1400814245/10
+Number of interests sent: 1
+Time taken for successful interest: 21 ms
+Time to fulfill request from first Interest: 21 ms
+Number of interests sent: 1
+Time taken for successful interest: 19 ms
+Time to fulfill request from first Interest: 19 ms
+Number of interests sent: 1
+Time taken for successful interest: 22 ms
+Time to fulfill request from first Interest: 22 ms
+Number of interests sent: 1
+Time taken for successful interest: 21 ms
+Time to fulfill request from first Interest: 21 ms
+Number of interests sent: 1
+Time taken for successful interest: 24 ms
+Time to fulfill request from first Interest: 24 ms
+Number of interests sent: 1
+Time taken for successful interest: 21 ms
+Time to fulfill request from first Interest: 21 ms
+Number of interests sent: 1
+Time taken for successful interest: 20 ms
+Time to fulfill request from first Interest: 20 ms
+Number of interests sent: 1
+Time taken for successful interest: 23 ms
+Time to fulfill request from first Interest: 23 ms
+Number of interests sent: 1
+Time taken for successful interest: 22 ms
+Time to fulfill request from first Interest: 22 ms
+Number of interests sent: 1
+Time taken for successful interest: 23 ms
+Time to fulfill request from first Interest: 23 ms
+Iterations:
+./experiment2b-1400725691/1
+./experiment2b-1400725691/2
+./experiment2b-1400725691/3
+./experiment2b-1400725691/4
+./experiment2b-1400725691/5
+./experiment2b-1400725691/6
+./experiment2b-1400725691/7
+./experiment2b-1400725691/8
+./experiment2b-1400725691/9
+./experiment2b-1400725691/10
+Number of interests sent: 2
+Time taken for successful interest: 17 ms
+Time to fulfill request from first Interest: 8018 ms
+Number of interests sent: 2
+Time taken for successful interest: 20 ms
+Time to fulfill request from first Interest: 8021 ms
+Number of interests sent: 2
+Time taken for successful interest: 19 ms
+Time to fulfill request from first Interest: 8020 ms
+Number of interests sent: 2
+Time taken for successful interest: 18 ms
+Time to fulfill request from first Interest: 8019 ms
+Number of interests sent: 2
+Time taken for successful interest: 20 ms
+Time to fulfill request from first Interest: 8021 ms
+Number of interests sent: 2
+Time taken for successful interest: 20 ms
+Time to fulfill request from first Interest: 8020 ms
+Number of interests sent: 2
+Time taken for successful interest: 19 ms
+Time to fulfill request from first Interest: 8020 ms
+Number of interests sent: 2
+Time taken for successful interest: 20 ms
+Time to fulfill request from first Interest: 8021 ms
+Number of interests sent: 2
+Time taken for successful interest: 18 ms
+Time to fulfill request from first Interest: 8019 ms
+Number of interests sent: 2
+Time taken for successful interest: 18 ms
+Time to fulfill request from first Interest: 8019 ms
+Iterations:
+./experiment2c-1400728431/1
+./experiment2c-1400728431/2
+./experiment2c-1400728431/3
+./experiment2c-1400728431/4
+./experiment2c-1400728431/5
+./experiment2c-1400728431/6
+./experiment2c-1400728431/7
+./experiment2c-1400728431/8
+./experiment2c-1400728431/9
+./experiment2c-1400728431/10
+Number of interests sent: 2
+Time taken for successful interest: 8 ms
+Time to fulfill request from first Interest: 8009 ms
+Number of interests sent: 2
+Time taken for successful interest: 7 ms
+Time to fulfill request from first Interest: 8008 ms
+Number of interests sent: 2
+Time taken for successful interest: 7 ms
+Time to fulfill request from first Interest: 8008 ms
+Number of interests sent: 2
+Time taken for successful interest: 8 ms
+Time to fulfill request from first Interest: 8009 ms
+Number of interests sent: 2
+Time taken for successful interest: 6 ms
+Time to fulfill request from first Interest: 8007 ms
+Number of interests sent: 2
+Time taken for successful interest: 7 ms
+Time to fulfill request from first Interest: 8008 ms
+Number of interests sent: 2
+Time taken for successful interest: 8 ms
+Time to fulfill request from first Interest: 8009 ms
+Number of interests sent: 2
+Time taken for successful interest: 9 ms
+Time to fulfill request from first Interest: 8010 ms
+Number of interests sent: 2
+Time taken for successful interest: 8 ms
+Time to fulfill request from first Interest: 8009 ms
+Number of interests sent: 2
+Time taken for successful interest: 7 ms
+Time to fulfill request from first Interest: 8008 ms

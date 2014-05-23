@@ -1,0 +1,767 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2014-05-21T23:36:20</date>
+  <millis>1400715380518</millis>
+  <sequence>0</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>thoth.CCNComms</class>
+  <method>createConnection</method>
+  <thread>10</thread>
+  <message>Connecting to CCN network...</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:20</date>
+  <millis>1400715380949</millis>
+  <sequence>1</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>loadKeyStore</method>
+  <thread>10</thread>
+  <message>Loading CCN key store from /home/user/.ccnx/.ccnx_keystore...last modified 1337760068000(ms).</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:20</date>
+  <millis>1400715380950</millis>
+  <sequence>2</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>readKeyStore</method>
+  <thread>10</thread>
+  <message>Loading CCN key store...</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381023</millis>
+  <sequence>3</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>loadKeyStore</method>
+  <thread>10</thread>
+  <message>Loaded CCN key store from /home/user/.ccnx/.ccnx_keystore...version 2012-05-23 08:01:08.0 ms: 1337760068000</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381025</millis>
+  <sequence>4</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>loadValuesFromKeystore</method>
+  <thread>10</thread>
+  <message>Loading key store file:/home/user/.ccnx/.ccnx_keystore version 2012-05-23 08:01:08.0 version component %FD%04%FB%C9%94%40%00 millis 1337760068000</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381064</millis>
+  <sequence>5</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>loadValuesFromKeystore</method>
+  <thread>10</thread>
+  <message>Default key ID for user user: LiVIyb2Zi9EvLI0gm69HgRCyuv+mC90+w9O/xSkBUB4=</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381118</millis>
+  <sequence>6</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.SecureKeyCache</class>
+  <method>loadKeyStore</method>
+  <thread>10</thread>
+  <message>KeyCache: loading signing key LiVIyb2Zi9EvLI0gm69HgRCyuv+mC90+w9O/xSkBUB4=, remembering public key in public key cache.</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381128</millis>
+  <sequence>7</sequence>
+  <logger>ccnx.AccessControl</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.SecureKeyCache</class>
+  <method>addMyPrivateKey</method>
+  <thread>10</thread>
+  <message>SecureKeyCache: adding my private key 2e2548c9bd998bd12f2c8d209baf478110b2baffa60bdd3ec3d3bfc52901501e</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381129</millis>
+  <sequence>8</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>loadValuesFromConfiguration</method>
+  <thread>10</thread>
+  <message>loadValuesFromConfiguration: attempting to load configuration from /home/user/.ccnx/ccnx_config.bin</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381129</millis>
+  <sequence>9</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>loadValuesFromConfiguration</method>
+  <thread>10</thread>
+  <message>loadValuesFromConfiguration: configuration file /home/user/.ccnx/ccnx_config.bin does not exist.</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381129</millis>
+  <sequence>10</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>loadSavedSecureKeyCache</method>
+  <thread>10</thread>
+  <message>Not loading key cache in response to user configuration variable.</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381159</millis>
+  <sequence>11</sequence>
+  <logger>ccnx.NetManager</logger>
+  <level>WARNING</level>
+  <class>org.ccnx.ccn.impl.CCNNetworkManager</class>
+  <method>&lt;init&gt;</method>
+  <thread>10</thread>
+  <message>NetworkManager 1: Non-standard CCN agent port 6001 per property ccn.agent.port</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381160</millis>
+  <sequence>12</sequence>
+  <logger>ccnx.NetManager</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.CCNNetworkManager</class>
+  <method>&lt;init&gt;</method>
+  <thread>10</thread>
+  <message>NetworkManager 1: Contacting CCN agent at localhost:6001</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381170</millis>
+  <sequence>13</sequence>
+  <logger>ccnx.NetManager</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.CCNNetworkChannel</class>
+  <method>&lt;init&gt;</method>
+  <thread>10</thread>
+  <message>NetworkChannel 1: Starting up CCNNetworkChannel using TCP.</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381170</millis>
+  <sequence>14</sequence>
+  <logger>ccnx.NetManager</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.CCNNetworkChannel</class>
+  <method>open</method>
+  <thread>10</thread>
+  <message>NetworkChannel 1: open()</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381184</millis>
+  <sequence>15</sequence>
+  <logger>ccnx.NetManager</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.CCNNetworkChannel</class>
+  <method>open</method>
+  <thread>10</thread>
+  <message>NetworkChannel 1: Contacting CCN agent at localhost:6001 on local port 58962</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381185</millis>
+  <sequence>16</sequence>
+  <logger>ccnx.NetManager</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.CCNHandle</class>
+  <method>&lt;init&gt;</method>
+  <thread>10</thread>
+  <message>CCNHandle 1: Handle is now open</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381189</millis>
+  <sequence>17</sequence>
+  <logger>ccnx.NetManager</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.CCNNetworkManager</class>
+  <method>run</method>
+  <thread>11</thread>
+  <message>NetworkManager 1: CCNNetworkManager processing thread started for port: 6001</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381219</millis>
+  <sequence>18</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.PublicKeyCache</class>
+  <method>getPublicKeyObject</method>
+  <thread>10</thread>
+  <message>Retrieved key alNrhyDB+TDjdLncLnq5mbnKNzZcRJ0/ou8bHZAkNJA= using locator NAME: /%C1.M.S.localhost/%C1.M.SRV/ccnd/KEY/%C1.M.K%00jSk%87%20%C1%F90%E3t%B9%DC.z%B9%99%B9%CA76%5CD%9D%3F%A2%EF%1B%1D%90%244%90/%FD%057%D3%85%11%5D.</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381220</millis>
+  <sequence>19</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.PublicKeyCache</class>
+  <method>getPublicKeyObject</method>
+  <thread>10</thread>
+  <message>Retrieved key alNrhyDB+TDjdLncLnq5mbnKNzZcRJ0/ou8bHZAkNJA= using locator NAME: /%C1.M.S.localhost/%C1.M.SRV/ccnd/KEY/%C1.M.K%00jSk%87%20%C1%F90%E3t%B9%DC.z%B9%99%B9%CA76%5CD%9D%3F%A2%EF%1B%1D%90%244%90/%FD%057%D3%85%11%5D - got /%C1.M.S.localhost/%C1.M.SRV/ccnd/KEY/%C1.M.K%00jSk%87%20%C1%F90%E3t%B9%DC.z%B9%99%B9%CA76%5CD%9D%3F%A2%EF%1B%1D%90%244%90/%FD%057%D3%85%11%5D/%00</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381230</millis>
+  <sequence>20</sequence>
+  <logger>ccnx.IO</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNAbstractInputStream</class>
+  <method>&lt;init&gt;</method>
+  <thread>10</thread>
+  <message>CCNAbstractInputStream: /%C1.M.S.localhost/%C1.M.SRV/ccnd/KEY/%C1.M.K%00jSk%87%20%C1%F90%E3t%B9%DC.z%B9%99%B9%CA76%5CD%9D%3F%A2%EF%1B%1D%90%244%90/%FD%057%D3%85%11%5D segment 0</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381231</millis>
+  <sequence>21</sequence>
+  <logger>ccnx.Pipeline</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNAbstractInputStream</class>
+  <method>startPipeline</method>
+  <thread>10</thread>
+  <message>PIPELINE: starting pipelining</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381231</millis>
+  <sequence>22</sequence>
+  <logger>ccnx.Pipeline</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNAbstractInputStream</class>
+  <method>startPipeline</method>
+  <thread>10</thread>
+  <message>PIPELINE: BaseName for pipeline: /%C1.M.S.localhost/%C1.M.SRV/ccnd/KEY/%C1.M.K%00jSk%87%20%C1%F90%E3t%B9%DC.z%B9%99%B9%CA76%5CD%9D%3F%A2%EF%1B%1D%90%244%90/%FD%057%D3%85%11%5D base name: /%C1.M.S.localhost/%C1.M.SRV/ccnd/KEY/%C1.M.K%00jSk%87%20%C1%F90%E3t%B9%DC.z%B9%99%B9%CA76%5CD%9D%3F%A2%EF%1B%1D%90%244%90/%FD%057%D3%85%11%5D</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381231</millis>
+  <sequence>23</sequence>
+  <logger>ccnx.Pipeline</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNAbstractInputStream</class>
+  <method>startPipeline</method>
+  <thread>10</thread>
+  <message>PIPELINE: we already have the first segment...  start from there: /%C1.M.S.localhost/%C1.M.SRV/ccnd/KEY/%C1.M.K%00jSk%87%20%C1%F90%E3t%B9%DC.z%B9%99%B9%CA76%5CD%9D%3F%A2%EF%1B%1D%90%244%90/%FD%057%D3%85%11%5D/%00</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381232</millis>
+  <sequence>24</sequence>
+  <logger>ccnx.Pipeline</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNAbstractInputStream</class>
+  <method>startPipeline</method>
+  <thread>10</thread>
+  <message>PIPELINE: we already have the last segment...  don't need to pipeline (returning)</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381235</millis>
+  <sequence>25</sequence>
+  <logger>ccnx.Pipeline</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNAbstractInputStream</class>
+  <method>seek</method>
+  <thread>10</thread>
+  <message>PIPELINE: in seek(0) currentSegment 0</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381236</millis>
+  <sequence>26</sequence>
+  <logger>ccnx.Pipeline</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNAbstractInputStream</class>
+  <method>tell</method>
+  <thread>10</thread>
+  <message>PIPELINE: in tell() currentSegment 0</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381236</millis>
+  <sequence>27</sequence>
+  <logger>ccnx.Pipeline</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNAbstractInputStream</class>
+  <method>skip</method>
+  <thread>10</thread>
+  <message>PIPELINE: in skip(0) currentSegment 0</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381268</millis>
+  <sequence>28</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.PublicKeyCache</class>
+  <method>getPublicKeyObject</method>
+  <thread>10</thread>
+  <message>Retrieved public key using name: /%C1.M.S.localhost/%C1.M.SRV/ccnd/KEY/%C1.M.K%00jSk%87%20%C1%F90%E3t%B9%DC.z%B9%99%B9%CA76%5CD%9D%3F%A2%EF%1B%1D%90%244%90/%FD%057%D3%85%11%5D</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381268</millis>
+  <sequence>29</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.PublicKeyCache</class>
+  <method>getPublicKey</method>
+  <thread>10</thread>
+  <message>Retrieved key alNrhyDB+TDjdLncLnq5mbnKNzZcRJ0/ou8bHZAkNJA= from network with locator NAME: /%C1.M.S.localhost/%C1.M.SRV/ccnd/KEY/%C1.M.K%00jSk%87%20%C1%F90%E3t%B9%DC.z%B9%99%B9%CA76%5CD%9D%3F%A2%EF%1B%1D%90%244%90/%FD%057%D3%85%11%5D!</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381270</millis>
+  <sequence>30</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.config.PlatformConfiguration</class>
+  <method>&lt;clinit&gt;</method>
+  <thread>10</thread>
+  <message>BC provider: BC</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381283</millis>
+  <sequence>31</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.config.PlatformConfiguration</class>
+  <method>&lt;clinit&gt;</method>
+  <thread>10</thread>
+  <message>Provider info: BouncyCastle Security Provider v1.43 version: 1.43</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381284</millis>
+  <sequence>32</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.config.PlatformConfiguration</class>
+  <method>&lt;clinit&gt;</method>
+  <thread>10</thread>
+  <message>java.vm.name = OpenJDK 64-Bit Server VM</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381338</millis>
+  <sequence>33</sequence>
+  <logger>ccnx.IO</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.CCNFlowControl</class>
+  <method>addNameSpace</method>
+  <thread>10</thread>
+  <message>Flow controller addNameSpace: added namespace: /ccnx.org/Users/user/Keys/%C1.M.K%00.%25H%C9%BD%99%8B%D1%2F%2C%8D%20%9B%AFG%81%10%B2%BA%FF%A6%0B%DD%3E%C3%D3%BF%C5%29%01P%1E/%FD%04%FB%C9%94%40%00</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381338</millis>
+  <sequence>34</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>getKeyLocator</method>
+  <thread>10</thread>
+  <message>getKeyLocator: returning locator KEY: LiVIyb2Zi9EvLI0gm69HgRCyuv+mC90+w9O/xSkBUB4= for key LiVIyb2Zi9EvLI0gm69HgRCyuv+mC90+w9O/xSkBUB4=</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381347</millis>
+  <sequence>35</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.KeyManager</class>
+  <method>publishKey</method>
+  <thread>10</thread>
+  <message>publishKey: key not previously published, making new key object /ccnx.org/Users/user/Keys/%C1.M.K%00.%25H%C9%BD%99%8B%D1%2F%2C%8D%20%9B%AFG%81%10%B2%BA%FF%A6%0B%DD%3E%C3%D3%BF%C5%29%01P%1E with version 2012-05-23 08:01:08.0 displayed as %FD%04%FB%C9%94%40%00</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381350</millis>
+  <sequence>36</sequence>
+  <logger>ccnx.IO</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNAbstractOutputStream</class>
+  <method>&lt;init&gt;</method>
+  <thread>10</thread>
+  <message>CCNAbstractOutputStream: /ccnx.org/Users/user/Keys/%C1.M.K%00.%25H%C9%BD%99%8B%D1%2F%2C%8D%20%9B%AFG%81%10%B2%BA%FF%A6%0B%DD%3E%C3%D3%BF%C5%29%01P%1E/%FD%04%FB%C9%94%40%00 blocksize is 4096</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381351</millis>
+  <sequence>37</sequence>
+  <logger>ccnx.IO</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNAbstractOutputStream</class>
+  <method>startWrite</method>
+  <thread>10</thread>
+  <message>CCNAbstractOutputStream: startWrite -- searching for keys.</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381363</millis>
+  <sequence>38</sequence>
+  <logger>ccnx.AccessControl</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.profiles.security.access.AccessControlManager</class>
+  <method>keysForOutput</method>
+  <thread>10</thread>
+  <message>keysForOutput: found an acm: (null)</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381371</millis>
+  <sequence>39</sequence>
+  <logger>ccnx.IO</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNOutputStream</class>
+  <method>flushToNetwork</method>
+  <thread>10</thread>
+  <message>flush: outputting to the segmenter, baseName /ccnx.org/Users/user/Keys/%C1.M.K%00.%25H%C9%BD%99%8B%D1%2F%2C%8D%20%9B%AFG%81%10%B2%BA%FF%A6%0B%DD%3E%C3%D3%BF%C5%29%01P%1E/%FD%04%FB%C9%94%40%00 basenameindex %00; 162 bytes written, holding back 162 flushing final blocks? false.</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381371</millis>
+  <sequence>40</sequence>
+  <logger>ccnx.IO</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNOutputStream</class>
+  <method>flushToNetwork</method>
+  <thread>10</thread>
+  <message>HEADER: CCNOutputStream: flushToNetwork: new _baseNameIndex 0</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381371</millis>
+  <sequence>41</sequence>
+  <logger>ccnx.IO</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNOutputStream</class>
+  <method>flushToNetwork</method>
+  <thread>10</thread>
+  <message>flush: outputting to the segmenter, baseName /ccnx.org/Users/user/Keys/%C1.M.K%00.%25H%C9%BD%99%8B%D1%2F%2C%8D%20%9B%AFG%81%10%B2%BA%FF%A6%0B%DD%3E%C3%D3%BF%C5%29%01P%1E/%FD%04%FB%C9%94%40%00 basenameindex %00; 162 bytes written, holding back 0 flushing final blocks? true.</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381394</millis>
+  <sequence>42</sequence>
+  <logger>ccnx.IO</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNOutputStream</class>
+  <method>flushToNetwork</method>
+  <thread>10</thread>
+  <message>HEADER: CCNOutputStream: flushToNetwork: new _baseNameIndex 1</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381394</millis>
+  <sequence>43</sequence>
+  <logger>ccnx.IO</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.io.CCNOutputStream</class>
+  <method>close</method>
+  <thread>10</thread>
+  <message>CCNOutputStream close: /ccnx.org/Users/user/Keys/%C1.M.K%00.%25H%C9%BD%99%8B%D1%2F%2C%8D%20%9B%AFG%81%10%B2%BA%FF%A6%0B%DD%3E%C3%D3%BF%C5%29%01P%1E/%FD%04%FB%C9%94%40%00</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381400</millis>
+  <sequence>44</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.KeyManager</class>
+  <method>publishKey</method>
+  <thread>10</thread>
+  <message>Published key Sun RSA public key, 1024 bits
+  modulus: 130989939244263952393454507795442341068484885620381906842885146870045118778695530060460706918134899441684566861199992623418102388296435926444021152953550325434669616547798077613891900102482339301491761685404456240155055361186991460935462637821922475482264122737393069299782646365619887931938402619808588614113
+  public exponent: 65537 to name /ccnx.org/Users/user/Keys/%C1.M.K%00.%25H%C9%BD%99%8B%D1%2F%2C%8D%20%9B%AFG%81%10%B2%BA%FF%A6%0B%DD%3E%C3%D3%BF%C5%29%01P%1E/%FD%04%FB%C9%94%40%00 with key locator NAME: /ccnx.org/Users/user/Keys/%C1.M.K%00.%25H%C9%BD%99%8B%D1%2F%2C%8D%20%9B%AFG%81%10%B2%BA%FF%A6%0B%DD%3E%C3%D3%BF%C5%29%01P%1E/%FD%04%FB%C9%94%40%00 KEY:bh5934rr6cbq4nip390jenkf08gmatfv9gbrkvc7ktvokkg2k0u; ephemeral digest %2B%07%26%BB%8D%29%3E%D1%E8%20%EF%2F%95f%82%7D6%DA%BC%20Q%C0%DD%8A%19%D4%3F%3F%B3%BBP~.</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381403</millis>
+  <sequence>45</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>publishKey</method>
+  <thread>10</thread>
+  <message>publishKey: published key LiVIyb2Zi9EvLI0gm69HgRCyuv+mC90+w9O/xSkBUB4=
+ under specified key name /ccnx.org/Users/user/Keys/%C1.M.K%00.%25H%C9%BD%99%8B%D1%2F%2C%8D%20%9B%AFG%81%10%B2%BA%FF%A6%0B%DD%3E%C3%D3%BF%C5%29%01P%1E/%FD%04%FB%C9%94%40%00
+ key locator: NAME: /ccnx.org/Users/user/Keys/%C1.M.K%00.%25H%C9%BD%99%8B%D1%2F%2C%8D%20%9B%AFG%81%10%B2%BA%FF%A6%0B%DD%3E%C3%D3%BF%C5%29%01P%1E/%FD%04%FB%C9%94%40%00 KEY:bh5934rr6cbq4nip390jenkf08gmatfv9gbrkvc7ktvokkg2k0u</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381404</millis>
+  <sequence>46</sequence>
+  <logger>ccnx.Keys</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.security.keys.BasicKeyManager</class>
+  <method>publishKey</method>
+  <thread>10</thread>
+  <message>publishKey: storing key locator LiVIyb2Zi9EvLI0gm69HgRCyuv+mC90+w9O/xSkBUB4= for key NAME: /ccnx.org/Users/user/Keys/%C1.M.K%00.%25H%C9%BD%99%8B%D1%2F%2C%8D%20%9B%AFG%81%10%B2%BA%FF%A6%0B%DD%3E%C3%D3%BF%C5%29%01P%1E/%FD%04%FB%C9%94%40%00 KEY:bh5934rr6cbq4nip390jenkf08gmatfv9gbrkvc7ktvokkg2k0u</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381404</millis>
+  <sequence>47</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>thoth.CCNComms</class>
+  <method>createConnection</method>
+  <thread>10</thread>
+  <message>Connected to alNrhyDB+TDjdLncLnq5mbnKNzZcRJ0/ou8bHZAkNJA= over TCP.</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381407</millis>
+  <sequence>48</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>thoth.DTNode</class>
+  <method>PowerOn</method>
+  <thread>10</thread>
+  <message>Our public key is: LiVIyb2Zi9EvLI0gm69HgRCyuv+mC90+w9O/xSkBUB4=</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381408</millis>
+  <sequence>49</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>thoth.DTNode</class>
+  <method>PowerOn</method>
+  <thread>10</thread>
+  <message>Our public key fingerprint is: c3d3bfc52901501e</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381416</millis>
+  <sequence>50</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>thoth.DTNode.BeaconGenerator</class>
+  <method>run</method>
+  <thread>12</thread>
+  <message>Starting beacon thread..</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381418</millis>
+  <sequence>51</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>thoth.DTNode</class>
+  <method>waitForTestbedSync</method>
+  <thread>10</thread>
+  <message>Waiting for synchronization signal..</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381418</millis>
+  <sequence>52</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>thoth.DTNode.BeaconGenerator</class>
+  <method>run</method>
+  <thread>12</thread>
+  <message>Sent ready signal to server.</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381577</millis>
+  <sequence>53</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>thoth.DTNode</class>
+  <method>waitForTestbedSync</method>
+  <thread>10</thread>
+  <message>Got synchronization signal, good to go!</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:21</date>
+  <millis>1400715381577</millis>
+  <sequence>54</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>thoth.DTNode</class>
+  <method>PowerOn</method>
+  <thread>10</thread>
+  <message>NODE is in RECEIVER MODE</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:22</date>
+  <millis>1400715382578</millis>
+  <sequence>55</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>thoth.CCNComms</class>
+  <method>sendRequest</method>
+  <thread>10</thread>
+  <message>Interest text: /test/1: </message>
+</record>
+<record>
+  <date>2014-05-21T23:36:30</date>
+  <millis>1400715390579</millis>
+  <sequence>56</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>thoth.CCNComms</class>
+  <method>sendRequest</method>
+  <thread>10</thread>
+  <message>Interest text: /test/1: </message>
+</record>
+<record>
+  <date>2014-05-21T23:36:30</date>
+  <millis>1400715390592</millis>
+  <sequence>57</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>thoth.CCNComms.ReceiverListener</class>
+  <method>handleContent</method>
+  <thread>11</thread>
+  <message>Received data response for Interest: /test/1: </message>
+</record>
+<record>
+  <date>2014-05-21T23:36:30</date>
+  <millis>1400715390592</millis>
+  <sequence>58</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>thoth.DTNode</class>
+  <method>sendRequests</method>
+  <thread>10</thread>
+  <message>Writing ContentObject to file...</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:30</date>
+  <millis>1400715390593</millis>
+  <sequence>59</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>thoth.DTNode</class>
+  <method>sendRequests</method>
+  <thread>10</thread>
+  <message>Write complete to rcvdfile.512</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:30</date>
+  <millis>1400715390593</millis>
+  <sequence>60</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>thoth.CCNComms</class>
+  <method>closeConnection</method>
+  <thread>10</thread>
+  <message>Killing network connection ...</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:30</date>
+  <millis>1400715390593</millis>
+  <sequence>61</sequence>
+  <logger>ccnx.NetManager</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.CCNNetworkManager</class>
+  <method>shutdown</method>
+  <thread>10</thread>
+  <message>NetworkManager 1: Shutdown requested</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:30</date>
+  <millis>1400715390594</millis>
+  <sequence>62</sequence>
+  <logger>ccnx.NetManager</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.CCNNetworkChannel</class>
+  <method>close</method>
+  <thread>10</thread>
+  <message>NetworkChannel 1: close(false)</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:30</date>
+  <millis>1400715390594</millis>
+  <sequence>63</sequence>
+  <logger>ccnx.NetManager</logger>
+  <level>INFO</level>
+  <class>org.ccnx.ccn.impl.CCNNetworkManager</class>
+  <method>run</method>
+  <thread>11</thread>
+  <message>NetworkManager 1: Shutdown complete for port: 6001</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:30</date>
+  <millis>1400715390595</millis>
+  <sequence>64</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>thoth.CCNComms</class>
+  <method>closeConnection</method>
+  <thread>10</thread>
+  <message>Disconnected.</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:30</date>
+  <millis>1400715390595</millis>
+  <sequence>65</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>thoth.DTNode</class>
+  <method>PowerOn</method>
+  <thread>10</thread>
+  <message>Number of Interests to fulfill request: 2</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:30</date>
+  <millis>1400715390595</millis>
+  <sequence>66</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>thoth.DTNode</class>
+  <method>PowerOn</method>
+  <thread>10</thread>
+  <message>Time to fulfill request for successful Interest: 13 milliseconds.</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:30</date>
+  <millis>1400715390595</millis>
+  <sequence>67</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>thoth.DTNode</class>
+  <method>PowerOn</method>
+  <thread>10</thread>
+  <message>Time to fulfill request from first Interest: 8015 milliseconds.</message>
+</record>
+<record>
+  <date>2014-05-21T23:36:30</date>
+  <millis>1400715390596</millis>
+  <sequence>68</sequence>
+  <logger>ccnx.Default</logger>
+  <level>INFO</level>
+  <class>thoth.DTNode</class>
+  <method>main</method>
+  <thread>10</thread>
+  <message>Exiting..</message>
+</record>
+</log>

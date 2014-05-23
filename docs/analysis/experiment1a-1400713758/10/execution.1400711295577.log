@@ -1,0 +1,6 @@
+Real start time:1400713664224
+./linkup.sh node-1 node-2 1400713664487, actual: 1400713664487
+./linkup.sh node-1 node-2 Thu May 22 01:07:44 CEST 2014
+./linkdown.sh node-1 node-2 1400713694374, actual: 1400713694374
+./linkdown.sh node-1 node-2 Thu May 22 01:08:14 CEST 2014
+Real end time:1400713694374

@@ -1,0 +1,14 @@
+All ccnd instances run on port 6001 for simplicity. ccnd instances are connected using UDP.
+Applications may connect to their respective ccnd instances through UDP or TCP (shouldn't affect behavior on the network).
+
+Also, outside this directory:
+- Change ../scripts/upload_file_to_node.sh to ~/.ccnx/ so that it's picked up by ccnd on startup.
+- Change ../scripts/collect_logs.sh to pulled the following log files:
+-- ccnd.log : ccnd log with CCND_DEBUG=-1
+-- ccn_log : application logging and output
+
+
+Currently, warmup time allows for applications to start up. Must be close enough to avoid applications running before scenario starts.  
+
+
+All .jar files are under /usr/local/haggle/ccnx/lib/

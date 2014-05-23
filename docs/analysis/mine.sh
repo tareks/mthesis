@@ -71,3 +71,4 @@ for x in $EXPDIRLIST; do
     # echo -e "TOTALTIMEARRAY:${TOTALTIMEARRAY[@]}"
     echo "${TOTALTIMEARRAY[@]}" | awk ' BEGIN {FS=" "} { count=NF;max=min=$1;sum=0; for (i=1; i<=NF; i++) { if ($i>max) max=$i; if ($i<min) min=$i; sum+=$i} }  END { print ENVIRON["EXPNAME"]":TOTALTIME SUMMARY(ms): Minimum=" min ", Maximum="max ", Average="sum/count } ' | tee -a $REPORT_NAME
 done
+
