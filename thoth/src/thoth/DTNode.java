@@ -93,10 +93,11 @@ public class DTNode {
 	requestFulfilledTime = -1;
 	numRequestFulfilled = -1;
 	totalTimeToFulfillRequest = -1;
-	
-	try {
-	    long totalRequestStartTime = System.currentTimeMillis();
 
+	try {
+	    Thread.sleep(1000); // if we're sending wait a bit to make sure receiver is up
+	    long totalRequestStartTime = System.currentTimeMillis();
+	    
 	    for (int i=1; i <= numRequests; i++) {
 		// start requestFulfillmentTimer
 		long requestStartTime = System.currentTimeMillis();
@@ -228,7 +229,7 @@ Log.info ("Added object to list");
 //	    beaconThread.interrupt();
 	
 	    Log.info("Got synchronization signal, good to go!");
-	    Thread.currentThread().sleep(1000);
+	    //	    Thread.currentThread().sleep(100);
 	    
 	    socket.close();
 	}
