@@ -1,56 +1,56 @@
-\contentsline {chapter}{\numberline {1}Introduction}{5}
-\contentsline {paragraph}{Unreliable Connectivity}{5}
-\contentsline {paragraph}{Location transparency}{5}
-\contentsline {section}{\numberline {1.1}Challenged Networks}{6}
-\contentsline {section}{\numberline {1.2}Information-Centric Networking}{7}
-\contentsline {subsection}{\numberline {1.2.1}Named Data Networking}{8}
-\contentsline {chapter}{\numberline {2}Problem Definition and Thesis Contributions}{10}
-\contentsline {chapter}{\numberline {3}A Brief Introduction to CCNx}{12}
-\contentsline {paragraph}{Message Exchange}{13}
-\contentsline {paragraph}{Data Delivery}{13}
-\contentsline {paragraph}{Naming and Addressing}{14}
-\contentsline {chapter}{\numberline {4}Evaluating NDN Performance in a Challenged Network}{15}
-\contentsline {section}{\numberline {4.1}Haggle Testbed}{15}
-\contentsline {section}{\numberline {4.2}Notes on Data Collection}{16}
-\contentsline {section}{\numberline {4.3}CCNx Interest Re-transmission Behaviour}{17}
-\contentsline {subsection}{\numberline {4.3.1}Experiment 1: Network with two nodes and one link}{17}
-\contentsline {subsubsection}{Scenario 1a: No link disruptions}{18}
-\contentsline {subsubsection}{Scenario 1b: Link interruption before request is sent}{19}
-\contentsline {subsubsection}{Scenario 1c: Link interruption after request is sent}{21}
-\contentsline {subsubsection}{Conclusion}{23}
-\contentsline {subsection}{\numberline {4.3.2}Experiment 2: Network with three nodes and two links}{24}
-\contentsline {subsubsection}{Scenario 2a: No link disruptions}{24}
-\contentsline {subsubsection}{Scenario 2b: Link disruption before request is sent}{26}
-\contentsline {subsubsection}{Scenario 2c: Link disruption after request is sent}{27}
-\contentsline {subsubsection}{Conclusion}{29}
-\contentsline {section}{\numberline {4.4}DTNx: Enhanced Re-transmission}{30}
-\contentsline {subsection}{\numberline {4.4.1}Experiment 3: Network with two nodes and one link}{31}
-\contentsline {subsubsection}{Scenario 3a: Default CCNx behaviour}{31}
-\contentsline {subsubsection}{Scenario 3b: CCNx with DTNx on all nodes}{33}
-\contentsline {subsection}{\numberline {4.4.2}Experiment 4: Network with three nodes and two links}{34}
-\contentsline {subsubsection}{Scenario 4a: Default CCNx behaviour}{35}
-\contentsline {subsubsection}{Scenario 4b: CCNx with DTNx on all nodes}{36}
-\contentsline {subsection}{\numberline {4.4.3}Conclusion}{37}
-\contentsline {chapter}{\numberline {5}A real application: Delay/Disruption Tolerant Game Platform (DTGP)}{39}
-\contentsline {section}{\numberline {5.1}Framework Design}{40}
-\contentsline {subsection}{\numberline {5.1.1}Bootstrapping: Discovery and Initialization}{42}
-\contentsline {subsection}{\numberline {5.1.2}Addressing and Routing}{42}
-\contentsline {subsection}{\numberline {5.1.3}Game Logic and State}{43}
-\contentsline {section}{\numberline {5.2}Design alternatives}{44}
-\contentsline {subsection}{\numberline {5.2.1}Discovery through a centralized directory}{44}
-\contentsline {subsubsection}{Player Matching and Initialization}{45}
-\contentsline {subsection}{\numberline {5.2.2}Interests as a notification mechanism}{46}
-\contentsline {subsection}{\numberline {5.2.3}Poll driven communication}{46}
-\contentsline {chapter}{\numberline {6}DTGP Experimentation Using the Haggle Testbed}{48}
-\contentsline {section}{\numberline {6.1}Experimentation Parameters}{49}
-\contentsline {section}{\numberline {6.2}Discussion}{50}
-\contentsline {subsection}{\numberline {6.2.1}Interest Satisfaction Ratio}{50}
-\contentsline {subsection}{\numberline {6.2.2}Number of Interests per Game}{52}
-\contentsline {subsection}{\numberline {6.2.3}Interest Satisfaction Time}{54}
-\contentsline {section}{\numberline {6.3}Conclusion}{55}
-\contentsline {chapter}{\numberline {7}Related Work}{57}
-\contentsline {section}{\numberline {7.1}Publish-Subscribe Based Models}{57}
-\contentsline {section}{\numberline {7.2}NDN Protocols}{59}
-\contentsline {section}{\numberline {7.3}Opportunistic Network Protocols}{60}
-\contentsline {chapter}{\numberline {8}Conclusion}{61}
-\contentsline {chapter}{\numberline {9}Future Work}{63}
+\contentsline {chapter}{\numberline {1}Introduction}{9}
+\contentsline {paragraph}{Unreliable Connectivity}{9}
+\contentsline {paragraph}{Location transparency}{9}
+\contentsline {section}{\numberline {1.1}Challenged Networks}{10}
+\contentsline {section}{\numberline {1.2}Information-Centric Networking}{11}
+\contentsline {subsection}{\numberline {1.2.1}Named Data Networking}{12}
+\contentsline {chapter}{\numberline {2}Problem Definition and Thesis Contributions}{14}
+\contentsline {chapter}{\numberline {3}A Brief Introduction to CCNx}{16}
+\contentsline {paragraph}{Message Exchange}{17}
+\contentsline {paragraph}{Data Delivery}{17}
+\contentsline {paragraph}{Naming and Addressing}{18}
+\contentsline {chapter}{\numberline {4}Evaluating NDN Performance in a Challenged Network}{19}
+\contentsline {section}{\numberline {4.1}Haggle Testbed}{19}
+\contentsline {section}{\numberline {4.2}Notes on Data Collection}{20}
+\contentsline {section}{\numberline {4.3}CCNx Interest Re-transmission Behavior}{21}
+\contentsline {subsection}{\numberline {4.3.1}Experiment 1: Network with two nodes and one link}{21}
+\contentsline {subsubsection}{Scenario 1a: No link disruptions}{22}
+\contentsline {subsubsection}{Scenario 1b: Link interruption before request is sent}{23}
+\contentsline {subsubsection}{Scenario 1c: Link interruption after request is sent}{25}
+\contentsline {subsubsection}{Conclusion}{27}
+\contentsline {subsection}{\numberline {4.3.2}Experiment 2: Network with three nodes and two links}{28}
+\contentsline {subsubsection}{Scenario 2a: No link disruptions}{28}
+\contentsline {subsubsection}{Scenario 2b: Link disruption before request is sent}{30}
+\contentsline {subsubsection}{Scenario 2c: Link disruption after request is sent}{31}
+\contentsline {subsubsection}{Conclusion}{33}
+\contentsline {section}{\numberline {4.4}DTNx: Enhanced Re-transmission}{34}
+\contentsline {subsection}{\numberline {4.4.1}Experiment 3: Network with two nodes and one link}{35}
+\contentsline {subsubsection}{Scenario 3a: Default CCNx behavior}{35}
+\contentsline {subsubsection}{Scenario 3b: CCNx with DTNx on all nodes}{37}
+\contentsline {subsection}{\numberline {4.4.2}Experiment 4: Network with three nodes and two links}{38}
+\contentsline {subsubsection}{Scenario 4a: Default CCNx behavior}{39}
+\contentsline {subsubsection}{Scenario 4b: CCNx with DTNx on all nodes}{40}
+\contentsline {subsection}{\numberline {4.4.3}Conclusion}{41}
+\contentsline {chapter}{\numberline {5}A real application: Delay/Disruption Tolerant Game Platform (DTGP)}{43}
+\contentsline {section}{\numberline {5.1}Framework Design}{44}
+\contentsline {subsection}{\numberline {5.1.1}Bootstrapping: Discovery and Initialization}{46}
+\contentsline {subsection}{\numberline {5.1.2}Addressing and Routing}{46}
+\contentsline {subsection}{\numberline {5.1.3}Game Logic and State}{47}
+\contentsline {section}{\numberline {5.2}Design alternatives}{48}
+\contentsline {subsection}{\numberline {5.2.1}Discovery through a centralized directory}{48}
+\contentsline {subsubsection}{Player Matching and Initialization}{49}
+\contentsline {subsection}{\numberline {5.2.2}Interests as a notification mechanism}{50}
+\contentsline {subsection}{\numberline {5.2.3}Poll driven communication}{50}
+\contentsline {chapter}{\numberline {6}DTGP Experimentation Using the Haggle Testbed}{52}
+\contentsline {section}{\numberline {6.1}Experimentation Parameters}{53}
+\contentsline {section}{\numberline {6.2}Discussion}{54}
+\contentsline {subsection}{\numberline {6.2.1}Interest Satisfaction Ratio}{54}
+\contentsline {subsection}{\numberline {6.2.2}Number of Interests per Game}{56}
+\contentsline {subsection}{\numberline {6.2.3}Interest Satisfaction Time}{58}
+\contentsline {section}{\numberline {6.3}Conclusion}{59}
+\contentsline {chapter}{\numberline {7}Related Work}{61}
+\contentsline {section}{\numberline {7.1}Publish-Subscribe Based Models}{61}
+\contentsline {section}{\numberline {7.2}NDN Protocols}{63}
+\contentsline {section}{\numberline {7.3}Opportunistic Network Protocols}{64}
+\contentsline {chapter}{\numberline {8}Conclusion}{65}
+\contentsline {chapter}{\numberline {9}Future Work}{67}

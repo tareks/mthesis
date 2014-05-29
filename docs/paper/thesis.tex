@@ -11,17 +11,16 @@
 \usepackage{atbegshi}  % to skip first page
 \usepackage{amsmath}   % for displaymath \text
 
-% The preamble begins here.
-
 % Custom macros
 
+% The preamble begins here.
 % Title
 \title{Master's Thesis:\endgraf An Investigation into the application of Content-Centric Networking within Challenged Network Environments using CCNx}
 \author{Tarek Elshaarani - tarek@tekbase.org } 
 \date{\parbox{\linewidth}{\centering
   \bigskip
   \today\endgraf
-  \vspace*{7cm}
+  \vspace*{4cm}
   Supervisors: \endgraf
   \hspace*{1cm} Frederik Hermans   - frederik.hermans@it.uu.se \endgraf
   \hspace*{1cm} Ferdrik Bjurefors  - fredrik.bjurefors@it.uu.se \endgraf
@@ -36,41 +35,46 @@
 \begin{document}             % End of preamble and beginning of text.
 \maketitle
 
-%% TODO: Fix formatting - numbers according to https://www.it.uu.se/edu/exjobb/master/rapporten
+%% Formatting according to https://www.it.uu.se/edu/exjobb/master/rapporten
 
 % Blank page to please the formatting gods.
+\pagebreak
+\chapter*{}
+\setcounter{page}{2}
 
 \pagebreak
 \chapter*{Abstract}
 
-Information Centric Network (ICN) architectures offer a viable design to cope with the disruptive nature of Challenged Network environments. They aim to address the challenges of unreliable connectivity and location transparency to present a delay- and disruption-tolerant solution. Named Data Networking (NDN), a prominent ICN architecture, uses a publish/subscribe-driven model and relies on two main message units for communication, called Interests and Content Objects. Instead of a host-based model for data retrieval, an addressing scheme based on named data is utilized. The naming of data allows for retrieval of data from the network without the knowledge of individual hosts. 
+Information Centric Network (ICN) architectures offer a viable design to cope with the disruptive nature of Challenged Network environments. They aim to address the challenges of unreliable connectivity and location transparency to offer a delay- and disruption-tolerant solution. Named Data Networking (NDN), a prominent ICN architecture, uses a publish/subscribe-driven model and relies on two main message units for communication, called Interests and Content Objects. Instead of a host-based model for data retrieval, an addressing scheme based on named data is utilized. The naming of data allows for retrieval of data from the network without the knowledge of individual hosts.
 
-This thesis studies NDN behavior in a disruptive network environment. More specifically, we use CCNx as an implementation of a Content-Centric Networking protocol that inherits key characteristics from NDN. We study the behavior of of CCNx using the Haggle testbed to simulate a simple disruptive network environment. We develop a delay/disruption-tolerant framework based on CCNx and implment the game Tic-Tac-Toe using that framework. The framework design is presented with an analysis into various alternatives that were considered. A more complex five-node experiment with link disruption is performed using the framework to evaluate CCNx in a real world scenario. We conclude that CCNx is good at handling disruptions associated with Challenged Networks.
-
+This thesis studies NDN behavior in a disruptive network environment. More specifically, we use CCNx as an implementation of a Content-Centric Networking protocol that inherits key characteristics from NDN. We study the behavior of CCNx using the Haggle testbed to simulate a simple disruptive network environment. We develop a delay/disruption-tolerant framework based on CCNx and implement the game Tic-Tac-Toe using that framework. The framework design is presented with an analysis into various alternatives that were considered. A more complex five-node experiment with link disruption is performed using the framework to evaluate CCNx in a real world scenario. We conclude that CCNx is good at handling disruptions associated with Challenged Networks.
 
 
 % Another blank page because you can never waste enough paper.
+\pagebreak
+\chapter*{}
 
 \pagebreak
-\chapter*{Acknowledgements}
+\chapter*{Acknowledgments}
 
-%
-% TODO: Remember to add Acknowledgements.
-% 
-%
-% In memory of 25 January 2011, 30 June 2012, and other victorious days to come.
+I must thank my parents for their continuous support through challenging times. Special thanks go to Frederik Hermans and Fredrik Bjurefors for their help without this thesis would not be complete.
+
+\bigskip\bigskip
+
+%\begin{center}In fond memory of 25 January 2011 and 30 June 2012.
 %\setcode{utf8}
 %\< عيش ؛ حرية ؛ عدالة اجتماعية >
-%
+%\end{center}
 
 \tableofcontents
 
 % Another blank page to force text to start on an odd number (because even numbers are evil).
-
+\pagebreak
+\chapter*{}
 
 \pagebreak
 \chapter{Introduction}
-A boom in user-generated content along with the widespread use of social networks has created a significant increase in the amount of data generated on a daily basis. A major contributor to this increase is the ubiquity of mobile devices that allow users to generate and consume data without being restricted to location. Despite the advances in wireless communications that allow larger coverage areas and higher transmission rates, current networks fall short in situations where there is no connectivity due to geographical limitations or when there are disruptions that affect the infrastructure. Such situations present two main challenges with regards to data distribution: 1) \emph{Unreliable connectivity} 2) \emph{Location transparency}. There is a continuous effort to improve upon both factors to enhance user experience. This thesis investigates Content-Centric Networking (CCN) as one such paradigm that
+A boom in user-generated content along with the widespread use of social networks has created a significant increase in the amount of data generated on a daily basis. A major contributor to this increase is the ubiquity of mobile devices that allow users to generate and consume data without being restricted to location. Despite the advances in wireless communications that allow for larger coverage areas and higher transmission rates, current networks fall short in situations where there is no connectivity due to geographical limitations or when there are disruptions that affect the infrastructure. Such situations present two main challenges with regards to data distribution: 1) \emph{Unreliable connectivity} 2) \emph{Location transparency}. There is an ongoing effort to improve upon both factors to enhance user experience. This thesis investigates Content-Centric Networking (CCN) as one such paradigm that
 attempts to overcome these challenges.
 
 % {TCP/IP shortcomings with handling re-transmissions, and high latency/long distances}
@@ -80,13 +84,13 @@ While TCP/IP has evolved to accommodate different types of networks and suit a v
 
 % {Location Transparency}
 \paragraph{Location transparency}
-Another shortcoming with conventional network architectures is in situations where node location is dynamic due to mobility. If the node holding particular data is not accessible on the network at a particular instance, the information is subsequently unavailable due to the basic requirement of having stable end-to-end connectivity. Furthermore, if the node reconnects to the network from a different location, the data cannot be retrieved from the location it was previously known to be found. The dynamic nature of the nodes makes it unfeasible to use conventional indexing methods that map data to specific locations from which it can be retrieved.
+Another shortcoming with conventional network architectures is in situations where node location is dynamic due to mobility. If the node holding particular data is not accessible on the network at a particular instance, the information is subsequently unavailable due to the lack of stable end-to-end connectivity. Furthermore, if the node reconnects to the network from a different location, the data cannot be retrieved from the location it was previously known to be found. The dynamic nature of the nodes makes it unfeasible to apply conventional indexing methods that map data to specific locations from which it can be retrieved.
 
 \section{Challenged Networks}  
 
 To address the issues of both intermittent connectivity and location transparency, experimental network
 architectures offer different approaches that do not rely on reliable end-to-end connectivity between
-nodes or precise knowledge of their location. These alternative architectures are particularly relevant to
+nodes or precise knowledge of their location. These alternate architectures are particularly relevant to
 one group of networks, henceforth referred to as Challenged Networks. This family of networks
 provide a set of unconventional architectures that attempt to address problems that are not offered by
 other widely deployed network architectures, namely TCP/IP-based ones. They operate in conditions
@@ -98,19 +102,19 @@ hours during often with only small windows of opportunity for data to be exchang
 
 The characteristics lead to the basic issue that concerns such networks, which is the the lack of
 continuous end-to-end communication between nodes. A generally accepted approach applied to
-address this drawback is a technique commonly referred to as “store-and-forward”. This in-network caching solution takes advantage of using resources of reachable nodes on the network as intermediaries to store data until it can be routed to the destination.
+address this drawback is a technique commonly referred to as \emph{store-and-forward}. This in-network caching solution takes advantage of using resources of reachable nodes on the network as intermediaries to store data until it can be routed to the destination.
 
 While they follow those general guidelines, there are several types of Challenged Networks that
 address various issues slightly differently than the others and each are a topic of research on their own.
 A number of the most prominent are introduced briefly below.
 
 \begin{description}
-\item[Delay Tolerant Networks:] Mainly concerned with being resilient to communication delays, high
+\item[Delay Tolerant Networks:] They are mainly concerned with being resilient to communication delays, high
 latency, or round trip times. One application of this network would be in inter-planetary
 communication\cite{DTNarch}\cite{rfc4838}. 
 
 \item[Disruption Tolerant Networks:] These are similar to Delay Tolerant Networks, and commonly grouped
-with them, but are more related to prevention and recovery from link degradation and disruption. The
+with them, but are more focused on prevention and recovery from link degradation and disruption. The
 nodes on the network must be able to both reconnect from link failures as well as recover from
 potential data loss or inconsistency if transfer is interrupted. This may be applicable to high availability
 networks and military use\cite{DTNarch}.
@@ -128,7 +132,7 @@ censorship\cite{oppnets}.
 % {ICNs offer a solutions to both issues}
 
 One proposed paradigm that offers a solution for Challenged Networks is Information-Centric
-Networking. In contrast to today's IP-based networks which are mainly concerned with host-based
+Networking. In contrast to IP-based networks which are mainly concerned with host-based
 addressing on the network, Information-Centric Networks (ICNs) use naming schemes to label
 information that can be queried and retrieved from the network. In this sense, the data distribution
 method is abstracted from the node level to an information level and is independent of its location.
@@ -163,8 +167,8 @@ As with other ICN architectures, NDN is publish/subscribe-driven using basic mes
 Interest and Data. Interest messages represent requests for data, or Content Objects. 
 Data messages carry Content Objects as responses to Interest messages. 
 Each node on the network is considered a router, which has one or more interfaces,
-commonly referred to as faces. Each node also has the ability to store data in a
- local repository called a Content Store. The Content Store acts as a cache for Content Objects on nodes 
+commonly referred to as \textit{faces}. Each node also has the ability to store data in a
+ local repository called a Content Store. The Content Store also acts as a cache for Content Objects on nodes 
 that do not originally hold the data. Content Objects are referred to by a unique naming scheme consistent throughout the network and are all
 signed crytographically. Additionally, each node maintains two tables: 1) a Forwarding Information Base
 (FIB) that maps Content Object names to faces that they can be found; mainly used for routing 2) a
@@ -195,19 +199,18 @@ with one Data packet on each face for as many Interests it receives. These prope
 Content Store caching, provide means that allow data to be sent returned to the requester efficiently
 from a nearby node, with resilience to mobility and link disruption.
 
-While one aim of the NDN project is to build a foundation for the next generation of an Internet-
-capable architecture, it is also particularly interesting when applied to Challenged Networks. While it
+While one aim of the NDN project is to build a foundation for the next generation of an Internet-capable
+ architecture, it is also particularly interesting when applied to Challenged Networks. While it
 would theoretically provide a good platform due to the nature of the architecture, it is important to test
-and validate these claims in order to identify potential issues or drawbacks and how they can be
-addressed\cite{ndnproj}.
+and validate these claims in order to have a better understanding of the characteristics that make it successful\cite{ndnproj}.
 
 \pagebreak
 \chapter{Problem Definition and Thesis Contributions}
 
 %{ What this thesis does }
 The fundamental principle of Information-Centric Networks not relying on end-to-end connectivity
-raises a claim that they are a viable contender for use with the perturbed nature of
-Challenged Networks. This thesis aims to understand the behaviour as well as evaluate the performance of
+raises a claim that they are a viable contender for use within the perturbed nature of
+Challenged Networks. This thesis aims to understand the behavior as well as evaluate the performance of
  the Named Data Networking (NDN) architecture in the context of Challenged Networks, with a particular focus 
 on its disruption tolerance capabilities. Experimentation focuses on scenarios in which end-to-end connectivity between 
 the producers and consumers of information is unreliable as a result of link disruption, for example, due to mobility. 
@@ -219,8 +222,8 @@ The questions posed below guide the structure of the work presented in this thes
 
 \vspace{1em}
 % Simple experiments to understand re-transmission 
-\noindent\textbf{\textsl{How do link disruptions affect CCNx behaviour?}} \par
-CCNx behaviour is studied by running a set of simple experiments that simulate link disruption scenarios
+\noindent\textbf{\textsl{How do link disruptions affect CCNx behavior?}} \par
+CCNx behavior is studied by running a set of simple experiments that simulate link disruption scenarios
 to observe the effect on request and response messages exchanged between nodes. This allows for a better understanding 
 of the messaging protocol and how re-transmission operates. The experiments highlight the importance of caching as
 an inherent feature of CCNx. They also illustrate the effects on performance as a result of introducing relay nodes
@@ -230,10 +233,9 @@ as well as increasing the re-transmission rate. This work is presented in Chapte
 % DTGP & TicTacToe over NDN
 \noindent\textsl{\textbf{How can an application be designed on top of CCNx to tolerate link disruption?}} \par
 CCNx is used as a foundation for a multi-player game platform (DTGP) that is designed to suit a Challenged Network environment. 
-The understanding of message re-transmission behaviour from Chapter 4 is applied to the design of the platform. A Tic-Tac-Toe implementation 
+The understanding of message re-transmission behavior from Chapter 4 is applied to the design of the platform. A Tic-Tac-Toe implementation 
 that runs on top of the platform is presented as a sample turn-based game. Key design factors for the platform including
-node discovery, addressing, and game state representation are discussed in Chapter 5. A number of alternative designs that were investigated 
-during the design process are also discussed.
+node discovery, addressing, and game state representation are discussed in Chapter 5. A number of other designs that were investigated during the design process are also discussed.
 
 \vspace{1em}
 \noindent\textsl{\textbf{How does a delay-tolerant application behave with link disruptions?}} \par
@@ -253,30 +255,28 @@ minimal cryptographic footprint that is inherent to the protocol and is ignored 
 CCNx is a Content-Centric Networking transport protocol based on blocks of named data\cite{CCNxproto}. CCNx is also regarded as an architecture on which delay/disruption-tolerant applications can be built upon. CCNx follows the basic principles of ICNs in that it abstracts location by identifying data instead of hosts on the network. Nodes that are a part of a CCNx network also function as routers that forward requests and data as appropriate. It is based upon basic NDN principles introduced in section 1.2.1. Throughout this thesis, CCNx\footnote{CCNx version 0.6.0 is used for all experimentation.} is used to evaluate the claims of how well NDN may perform in a Challenged Network setting. The key CCNx constructs are introduced below as they are referenced throughout the remainder of this document\cite{CCNxproto}.
 
 \begin{description}
-\item[Node:] Describes an entity on the network that may communicate with others using the CCNx protocol. A node will run both an application as well as a CCNx daemon (CCNd) that implements the protocol itself and manages low-level communication.
+\item[Node:] Describes an entity on the network that may communicate with others using the CCNx protocol. A node will run one or more applications as well as a CCNx daemon (CCNd) that implements the protocol itself and manages low-level communication.
 
-\item[Face:] An interface on a node that can be used to send or receive data. On a physical level, this may correspond to various antennas or network interfaces that allow access to other nodes over different communication mediums. Logically, different faces are assigned to as communication gateways for applications and to specify network routes to to other nodes.
+\item[Face:] An interface on a node that can be used to send or receive data. On a physical level, this may correspond to various antennas or network interfaces that allow access to other nodes over different communication mediums. Logically speaking, different faces are assigned as communication gateways for applications and to specify network routes to other nodes.
 
 \item[Interest Message:] This is the basic construct used by the CCNx protocol to designate requests for data. The message is specified as a URI in the form: \verb!ccnx://data/xyz!. 
 
-\item[Content Object:] This is the basic construct used by the CCNx protocol to designate data responses to Interest Messages. A Content Object is encoded and signed by the node that sends it. A Content Object corresponds to one and only one Interest Message that is consistent throughout the network.
+\item[Content Object:] This is the basic construct used by the CCNx protocol to designate data responses to Interest messages. A Content Object is encoded and signed by the node that sends it. A Content Object corresponds to one and only one Interest Message that is consistent throughout the network.
 
 \item[Content Store:] A local cache on each node on the CCNx network that allows faster retrieval of data as well as contributes to the in-network caching properties of the architecture.
 
 \item[Prefix:] Commonly referred to as a \emph{CCNx Prefix}, this identifies an entire or partial CCNx URI. Prefixes are used to match an Interest to its corresponding Content Object.
 
-\item[Forwarding Information Base (FIB):] A data structure that maintains a mapping of CCNx prefixes and outbound faces on which they can be reached on. This table is populated over time as nodes on the network observe Interest Message requests fulfilled by Content Objects.
+\item[Forwarding Information Base (FIB):] A data structure that maintains a mapping of CCNx prefixes and the outbound faces on which they can be reached. This table is populated over time as nodes on the network observe Interests fulfilled by Content Objects.
 
-\item[Pending Interest Table (PIT):] A data structure that maintains a list of Interest Messages received by the node it resides on. The list is used to track requests that have not yet been satisfied.
+\item[Pending Interest Table (PIT):] A data structure that maintains a list of Interests received by the node it resides on. The list is used to track requests that have not yet been satisfied.
 
 \end{description}
 
-\noindent Additionally, a number of factors particularly relevant to CCNx behaviour as it is used throughout this thesis are introduced.
+\noindent Additionally, a number of factors particularly relevant to CCNx behavior as it is used throughout this thesis are introduced below.
 
-\paragraph{Message Exchange} Interest and Data messages are the only forms of communication among nodes
-with Content Objects encapsulating the data. Those two messages are used by CCNx for various purposes during node start up, 
-identification, and security. Throughout this thesis, much of the message exchange is considered spurious and the focus is only
- on message interaction that affects the outcome of the experiment. 
+\paragraph{Message Exchange} Interests and Content Objects are the only forms of communication between nodes.
+Those two messages are used by CCNx for various purposes during node start up, identification, and security. Throughout this thesis, much of the message exchange is considered spurious and the focus is only on message interaction that affects the outcome of the experiment. 
 
 \paragraph{Data Delivery} While it can run using layer 2 broadcast or multicast delivery, CCNx also
 runs on top of UDP or TCP for experimental purposes. For the purposes of the experiments presented, UDP is used to
@@ -290,20 +290,20 @@ that stores that data or acts as an intermediate router to it.
 \pagebreak
 \chapter{Evaluating NDN Performance in a Challenged Network}
 
-A number of simple experiments using CCNx were conducted in order to identify its behaviour in a Challenged Network environment, particularly with regards to Interest re-transmission. The experiments are designed around two main nodes: a \emph{receiver node} that requests a certain CCNx URI, and a \emph{sender node} that listens for and replies with Content Objects that match a particular prefix corresponding to locally stored data. Additional nodes are added to act as relays between the two main nodes. These intermediate nodes have no applications running on them except for the CCNx daemon. Once the receiver node receives the data it requests, the experiment is terminated. In each case, Interest satisfaction response times are measured and presented at the end of the experiment.
+A number of simple experiments using CCNx were conducted in order to identify its behavior in a Challenged Network environment, particularly with regards to Interest re-transmission. The experiments are designed around two main nodes: a \emph{receiver node} that requests a certain CCNx URI, and a \emph{sender node} that listens for and replies with Content Objects that match a particular prefix corresponding to locally stored data. Additional nodes are added to act as relays between the two main nodes. These intermediate nodes have no applications running on them except for the CCNx daemon. Once the receiver node receives the data it requests, the experiment is terminated. In each case, Interest satisfaction response times are measured and presented at the end of the experiment.
 
-The experiments presented in this chapter help understand CCNx Interest re-transmission behaviour using variations in link availability and interruption between the nodes throughout different stages in the CCNx message exchange.
+The experiments presented in this chapter help understand CCNx Interest re-transmission behavior using variations in link availability and interruption between the nodes throughout different stages in the CCNx message exchange.
 
 \section{Haggle Testbed}
 
-To facilitate the simulation of link disruptions, the Haggle testbed \cite{haggle} is used. 
+To facilitate the simulation of link disruptions, the Haggle testbed\cite{haggle} is used. 
 This testbed allows the specification of intervals during which links between specific nodes are either up or down. The application running on each node will then react to the state of the network. While it is out of scope of this document to go into detail of how
-the testbed is designed, a number of modifications were made that are worth mentioning as they had a considerable effect on accuracy and consistency of the results collected and behaviour observed.
+the testbed is designed, a number of modifications were made that are worth mentioning as they had a considerable effect on accuracy and consistency of the results collected and behavior observed.
 
 \begin{description}
 \item[Threading:] Early attempts to run the experiments on the testbed resulted in inconsistent results due to
 synchronization issues between the testbed components, namely the two main nodes and the testbed
-driver. To resolve this, a control thread was added to the testbed driver to provide a centralized launch
+driver application. To resolve this, a control thread was added to the testbed driver code to provide a centralized launch
 mechanism amongst all nodes participating in an experiment. After each node completes its
 initialization, it sends a beacon back to the testbed driver. When the testbed driver accounts for all nodes participating 
 in that specific experiment, it broadcasts a “start” signal to those nodes. When each node receives this signal, 
@@ -323,20 +323,20 @@ specifying different applications or configuration files for on each node.
 
 \section{Notes on Data Collection}
 The intervals measured include all CCNx protocol activities, including key retrieval and content object
-verification, beyond the initial registration of the application with its CCND instance. The time
+verification, beyond the initial registration of the application with its CCNd instance. The time
 involved in cryptographic activity is inherently absolved from the comparison by being included in all
 measurements.
 
 Due to the characteristics of the underlying testbed, the measured response times for the experiments 
-may deviate from the norm in certain situations. The discrepencies are mainly a result of synchronization
+may deviate from the norm in certain situations. The discrepancies are mainly a result of synchronization
 issues between the nodes that are running as virtual machines on the same physical hardware. This makes it 
 difficult to control precise execution times and may introduce minor drifts with clocks that influence data
 collection, especially with the short time frames used within the experiments. The code running on the nodes has
 been tuned to better handle these synchronization issues, albeit not perfectly. Despite these imperfections, the 
-discrepencies are minor and can be treated as outliers as they no real impact on the total time of Interest success,
+discrepancies are minor and can be treated as outliers as they no real impact on the total time of Interest success,
 especially when an Interest must be re-transmitted.
  
-\section{CCNx Interest Re-transmission Behaviour}
+\section{CCNx Interest Re-transmission Behavior}
 
 \subsection{Experiment 1: Network with two nodes and one link}
 
@@ -365,15 +365,15 @@ nodes. Figure 4.1 illustrates the topology of the network. The following scenari
 
 \subsubsection{Scenario 1a: No link disruptions}
 
-This scenario involves no link interruptions or disconnections. It establishes a baseline for delays to be expected under non-impaired network conditions. The receiver (\emph{N\textsubscript{2}})requests information from the sender (\emph{N\textsubscript{1}}). It is expected that the first Interest is immediately satisfied.
+This scenario involves no link interruptions or disconnections. It establishes a baseline for delays to be expected under non-impaired network conditions. The receiver (\emph{N\textsubscript{2}}) requests information from the sender (\emph{N\textsubscript{1}}). It is expected that the first Interest is immediately satisfied.
 
 \noindent\includegraphics[scale=0.55]{exp1a_timediag.jpg}\newline
 \begin{center}Figure 4.2 Experiment (1a) Link between nodes is always up\end{center}
 
 \vspace*{1\baselineskip}\noindent\emph{Observations:}
 
-Based on a number of 10 runs, the experiment runs yield the expected end result of the data being received
-based on the first Interest (\emph{i\textsubscript{1}}). The following information shows response times for the requested
+Based on a number of 10 runs, the scenario yields the expected end result of the data being received
+with a single Interest (\emph{i\textsubscript{1}}). The following information shows response times for the requested
 data being successfully received:
 
 \begin{center}\textsl{Minimum=11, Maximum=19, Average=15.5 (milliseconds)}\end{center}
@@ -395,7 +395,7 @@ queries its PIT, which results in no matches. The FIB is then checked for the sa
 At this point, the file is cached as a Content Object in the Content Store on  \emph{N\textsubscript{1}}. A
 \verb!consume! event followed by a \verb!content_to! event results in the Content Object being sent over the network. The data packet is received on \emph{N\textsubscript{2}}'s daemon and processed through a \verb!content_from! event on the daemon. A look-up is performed in the PIT and a match is found because of the earlier Interest sent by \emph{N\textsubscript{2}}. A \verb!consume! event sends the matching Content Object to the application face interested in the prefix. Finally, a \verb!content_to! event signals that the application reads the data from the local CCN daemon Content Store into memory and writing it to disk to conclude the transfer.
 
-The experiment demonstrates the behaviour of two CCNx nodes in the absence of link disruptions. An average retrieval time of 15.5 milliseconds was recorded.
+The experiment demonstrates the behavior of two CCNx nodes in the absence of link disruptions. An average retrieval time of 15.5 milliseconds was recorded.
 
 \subsubsection{Scenario 1b: Link interruption before request is sent}
 
@@ -408,13 +408,13 @@ the first Interest being sent from \emph{N\textsubscript{2}} to be lost and forc
 
 \vspace*{1\baselineskip}\noindent\emph{Observations:}
 
-Based on a number of 10 runs, the experiments yield the expected end result of the data being received
+Based on a number of 10 runs, the scenario yields the expected end result of the data being received
 based on the second Interest. The following information shows response times for the requested
 data being successfully received:
 \begin{center}\textsl{Minimum=8013, Maximum=8066, Average=8019.5 (milliseconds)}\end{center}
 
 These times are noticeably longer than the ones from experiment 1b. The result recorded is a combination of the timeout period for
-the first Interest, the retry interval, and the successful Interest response time.
+the first Interest, the retry interval, and the successful Interest response time. This total retrieval time observed also includes any additional time required to minimize synchronization issues between the applications.
 
 In addition, the following times identify the response time for the (second) successful Interest:
 \begin{center}\textsl{Minimum=11, Maximum=65, Average=18.2 (milliseconds)}\end{center}
@@ -423,20 +423,20 @@ Interest.
 
 \vspace*{1\baselineskip}\noindent\emph{Analysis:}
 
- \emph{N\textsubscript{2}} starts in the same manner it did for experiment 1a as shown in figure 4.3. It requests the CCN URI
+ \emph{N\textsubscript{2}} starts in the same manner it did for scenario 1a as shown in figure 4.3. It requests the CCN URI
 \verb!ccnx://test/1! at the application level. A match is not found in the local Content Store or the PIT, so
 the Interest is added to PIT for the lifetime of the that Interest. 
 The FIB is then searched and a match is found for that prefix. The Interest is sent over the network and
 the daemon awaits a response. Because the connection between the two nodes is down at this point in
 time, the Interest never reaches  \emph{N\textsubscript{1}}. After a lifetime of 4 seconds, an \verb!interest_expiry!
- event is triggered signalling the end of the lifetime and corresponding entry is removed from the PIT.
+ event is triggered signaling the end of the lifetime and corresponding entry is removed from the PIT.
 
 The application on \emph{N\textsubscript{2}} is designed to retry the requests 3 times with a retry interval of 4 seconds in
 between attempts. After it timeouts from the first Interest, it waits for the user specified retry
 interval and sends another request. The second time an Interest is sent, the link between the two
 nodes is up and the Interest reaches \emph{N\textsubscript{1}}. On \emph{N\textsubscript{1}}, the CCN daemon receives the Interest and follows the same steps outlined in scenario 1a until the data is received. 
 
-While the total retrieval time is higher to account for the first lost Interest, the response time for the second Internest is similar to the one recorded in scenario 1a. In this case, we observe a higher maximum retrievel time for the successful Interest, but this is likely to be attributed to the node synchronization discrepencies discussed earlier and can be largely ignored.
+While the total retrieval time is higher to account for the first lost Interest, the average response time for the second Interest is similar to the one recorded in scenario 1a. In this case, we observe a higher maximum retrieval time for the successful Interest, but this is likely to be attributed to the node synchronization discrepancies discussed earlier and can be largely ignored.
 
 \subsubsection{Scenario 1c: Link interruption after request is sent}
 
@@ -447,14 +447,14 @@ This scenario tests Interest re-transmission by the receiving node (\emph{N\text
 
 \vspace*{1\baselineskip}\noindent\emph{Observations:}
 
-Based on a number of 10 runs, the experiments yield the expected end result of the data being received
+Based on a number of 10 runs, the scenario yields the expected end result of the data being received
 based on the second Interest. The following information shows response times for the requested
 data being successfully received:
 
 \begin{center}\textsl{Minimum=8006, Maximum=8012, Average=8007.7 (milliseconds)}\end{center}
 
 These times are similar to the ones observed in scenario 1b due to the Interest lifetime expiry,
-retry delay, and second Interest.
+retry delay, and second Interest being the main contributing factors.
 
 In addition, the following times identify the response time for the (second) successful Interest:
 
@@ -464,7 +464,7 @@ These retrieval times are slightly shorter than the ones recorded in scenarios 1
 
 \vspace*{1\baselineskip}\noindent\emph{Analysis:}
 
-In this scenario, \emph{N\textsubscript{2}} behaves the same way as it did in experiments 1a and 1b. Figure 4.4 illustrates when the Interests
+In this scenario, \emph{N\textsubscript{2}} behaves the same way as it did in scenarios 1a and 1b. Figure 4.4 illustrates when the Interests
 are sent throughout the timeline of the experiment. A request is made for the CCN URI by the application which triggers an Interest that is sent over the network. In this case, the link between the two nodes is up when the Interest is received by \emph{N\textsubscript{1}}, 
 however, the link drops before a response in the form of a Content Object is sent back.
 
@@ -482,18 +482,14 @@ directly to the Content Store and is sent back over the network without interven
 application reducing the response time. This explains the faster retrieval time for the successful
 Interest than in the previous scenarios.
 
-%%\subsubsection{Experiment (1d): Link interruption during data transmission}
-%% TODO: REMOVE THIS and add in discussion?
-%% Insert time action diagram here?
-%% \begin{center}Figure 3.x Interest transmission over the duration of the experiment\end{center}
-
 \subsubsection{Conclusion}
 
-Throughout the simple experiments conducted with a single link connecting 2 nodes, it can be
-concluded that the CCN daemon does not submit Interest messages other than those expressed by the
-application driving the requests. When Interests are lost or not satisfied due to transmission errors, it is
+Throughout the simple experiments conducted with a single link connecting two nodes, it can be
+concluded that the CCNx daemon does not submit Interest messages other than those expressed by the
+application driving the requests. This follows the experiment design so that Interests can be studied individually. 
+When Interests are lost or not satisfied due to transmission errors, it is
 the responsibility of the application to send another Interest until valid data is received. It is
-important to note that although the CCN daemon does not attempt to re-transmit Interests itself, it does
+important to note that although the CCNx daemon does not attempt to re-transmit Interests itself, it does
 provide the capability of validating data being received by matching it to the Interest information as
 well as originating Content Object.
 
@@ -533,7 +529,7 @@ the sender (\emph{N\textsubscript{1}}). It is expected that the response data is
 
 \vspace*{1\baselineskip}\noindent\emph{Observations:}
 
-Based on a number of 10 runs, the experiments yield the expected end result of the data being received
+Based on a number of 10 runs, the scenario yields the expected end result of the data being received
 based on the first Interest. The following information shows response times for the requested
 data to be successfully received by (\emph{N\textsubscript{2}}):
 
@@ -555,7 +551,7 @@ which is locally served by the node, which is consequently retrieved from the ap
 over the network. The data first arrives at \emph{R} where it is cached in its Content Store.
 The PIT entry for that Interest is removed as it has been satisfied and the data is relayed back to  \emph{N\textsubscript{2}}.
 
-This process is very similar to experiment 1a when there are no disconnections or interruptions
+This process is very similar to scenario 1a when there are no disconnections or interruptions
 between two nodes. The only exception is the additional relaying operation that is performed by \emph{R}. 
 The introduction of an additional node results in a slightly longer retrieval time than in scenario 1a which can be attributed to the additional network hop required through the relay node.
 
@@ -570,7 +566,7 @@ four seconds. It is expected that more than one Interest will be sent before the
 
 \vspace*{1\baselineskip}\noindent\emph{Observations:}
 
-Based on a number of 10 runs, the experiments show that two interests are required to successfully
+Based on a number of 10 runs, the scenario shows that two interests are required to successfully
 complete the request. The following information shows the total time for the requested data to be
 successfully received by  \emph{N\textsubscript{2}}:
 
@@ -633,7 +629,7 @@ Interest leaves \emph{N\textsubscript{2}}, the connection between \emph{N\textsu
 
 Because the Interest reaches \emph{R}, it is added to its PIT and based on the FIB forwarded to \emph{N\textsubscript{1}}.
 \emph{N\textsubscript{1}} then sends the data back to \emph{R}, which attempts to send the data back to \emph{N\textsubscript{2}} but
-fails due to the link being down. The PIT entry expires on all 3 nodes, but the Content Object
+fails due to the link being down. The PIT entry expires on all three nodes, but the Content Object
 remains cached in the Content Store of both \emph{R} and \emph{N\textsubscript{1}}.
 
 After the Interest retry interval (5 seconds) elapses, \emph{N\textsubscript{2}} will send another Interest. When this
@@ -650,10 +646,9 @@ less network hop to fulfill the request.
 \subsubsection{Conclusion}
 
 Similar to the observations from experiment 1, we confirm that the application is responsible to ensure that Interests are
-re-transmitted as required to fulfill requests. The behaviour of the relay node confirms that CCNx does
-not interfere with Interest re-transmission. It also highlights the advantages of caching Content Objects
+re-transmitted as required to fulfill requests. The behavior of the relay node confirms that CCNx does not interfere with Interest re-transmission in this particular setup. It also highlights the advantages of caching Content Objects
 in the local Content Store which is an important advantage in a Delay/Disruption-Tolerant environment.
-Additionally, the experiments show that the introduction of a relay node did not negatively impact performance.
+Additionally, the experiments show that the introduction of a relay node did not negatively impact performance by a large margin.
 
 It should be noted that in a network with more relay nodes, we would expect the performance would be similar since re-
 transmitted Interests would be satisfied by the closest node on the network. In a Delay/Disruption-Tolerant setting,
@@ -681,12 +676,7 @@ introduced, it will re-transmit all unsatisfied Interests every five seconds. Re
 Interest stops when the corresponding Content Object is received. A timeout value of 
 three minutes is chosen\footnote{A three minute timeout was chosen as it exceeds the time frame of the experiment.} to avoid endless re-transmission. In a real-life application, the Interest re-transmission interval and the re-transmission timeout value would be dependent on network properties such as connectivity patterns and the cost Interest transmission.
 
-%% Do we really need to mention the next paragraph?
-One implementation note that should be mentioned is that due to the inability to control the Interest lifetime
- in the current CCNx implementation, each Interest expression is cancelled three seconds after it is sent on
- both the application and DTNx in order to avoid further automated re-transmission from the CCNx daemon and
- ensure that only one Interest is sent at a time. This workaround has no effect on results as it is consistent 
-throughout all experiments.
+One implementation note that should be mentioned is that although CCNx has a built-in re-transmission feature, this was disabled in the same way it was for experiments 1 and 2. This allows us to observe the effects of introducing DTNx without additional CCNx generated Interests influencing the results.
 
 Observations for experiments 3 and 4 will mainly focus on the effects of DTNx rather than delve into
 re-transmission details already described for experiments 1 and 2.
@@ -708,7 +698,7 @@ Figure 4.9 Experiment 3 Network Topology
 \item \textsl{Size of data:} 512 bytes
 \end{itemize}
 
-\subsubsection{Scenario 3a: Default CCNx behaviour}
+\subsubsection{Scenario 3a: Default CCNx behavior}
 
 This scenario is similar to scenario 1a except for a longer intervals between Interests sent by the application requesting data. The connection between the node is lost directly after an Interest is transmitted by \emph{N\textsubscript{2}}. The connection is re-established towards the end of the experiment timeline. Because there is no direct connectivity between both nodes until the end of the experiment, it is expected that a response will not be received until then. 
 
@@ -717,7 +707,7 @@ This scenario is similar to scenario 1a except for a longer intervals between In
 
 \vspace*{1\baselineskip}\noindent\emph{Observations:}
 
-Based on a number of 10 runs, the results show that 3 Interests are required for the request to be
+Based on a number of 10 runs, the results show that three Interests are required for the request to be
 satisfied. Figure 4.10 maps the Interests sent with the connectivity between the nodes throughout the timeline of the experiment. 
 The following measurements show the total time for the request data to be successfully received by \emph{N\textsubscript{2}}:
 
@@ -755,11 +745,11 @@ successful interest is also noticeably lower.
 
 \vspace*{1\baselineskip}\noindent\emph{Analysis:}
 
-Similar to the first scenario, the first Interest from \emph{N\textsubscript{2}\textsuperscript{'}} reaches \emph{N\textsubscript{1}\textsuperscript{'}} and is cached locally. Between the first and second Interest sent by \emph{N\textsubscript{2}\textsuperscript{'}}, the DTNx instance on \emph{N\textsubscript{2}\textsuperscript{'}} is continuously sending additional Interests every five seconds. This results in the data being retrieved from \emph{N\textsubscript{1}\textsuperscript{'}} and cached locally on \emph{N\textsubscript{2}\textsuperscript{'}} without the application being aware of it. When the second Interest is sent by the application, it can be retrieved directly from the local Content Store on \emph{N\textsubscript{2}\textsuperscript{'}}. This scenario requires ones less Interest to be sent by \emph{N\textsubscript{2}\textsuperscript{'}} than in experiment 3a because by the time the application sends a second Interest, the data is already locally cached and can be retrieved without relying on the network connection being available.
+Similar to the first scenario, the first Interest from \emph{N\textsubscript{2}\textsuperscript{'}} reaches \emph{N\textsubscript{1}\textsuperscript{'}} and is cached locally. Between the first and second Interest sent by \emph{N\textsubscript{2}\textsuperscript{'}}, the DTNx instance on \emph{N\textsubscript{2}\textsuperscript{'}} is continuously sending additional Interests every five seconds. This results in the data being retrieved from \emph{N\textsubscript{1}\textsuperscript{'}} and cached locally on \emph{N\textsubscript{2}\textsuperscript{'}} without the application being aware of it. When the second Interest is sent by the application, it can be retrieved directly from the local Content Store on \emph{N\textsubscript{2}\textsuperscript{'}}. This scenario requires ones less Interest to be sent by \emph{N\textsubscript{2}\textsuperscript{'}} than in scenario 3a because by the time the application sends a second Interest, the data is already locally cached and can be retrieved without relying on the network connection being available.
 
 \subsection{Experiment 4: Network with three nodes and two links}
 
-This experiment is similar to experiment 3 except for the addition for a third node which acts as a CCNx relay node, \emph{N\textsubscript{R}}, between the sender, \emph{N\textsubscript{1}}, and receiver, \emph{N\textsubscript{2}} nodes. The timeline of the experiment is also slightly modified to accommodate the additional link. While scenario 4a tests normal CCNx behaviour, scenario 4b adds DTNx to each of the nodes on the network to gauge its effect. The prime symbol (\emph{\textsuperscript{'}}) indicates that DTNx is running on the node. Both scenarios 4a and 4b use the same Haggle testbed trace file that dictates link disruptions. Figure 4.12 illustrates the network topology for experiment 4.
+This experiment is similar to experiment 3 except for the addition for a third node which acts as a CCNx relay node, \emph{N\textsubscript{R}}, between the sender, \emph{N\textsubscript{1}}, and receiver, \emph{N\textsubscript{2}} nodes. The timeline of the experiment is also slightly modified to accommodate the additional link. While scenario 4a tests normal CCNx behavior, scenario 4b adds DTNx to each of the nodes on the network to gauge its effect. The prime symbol (\emph{\textsuperscript{'}}) indicates that DTNx is running on the node. Both scenarios 4a and 4b use the same Haggle testbed trace file that dictates link disruptions. Figure 4.12 illustrates the network topology for experiment 4.
 
 \begin{center}
 \includegraphics[scale=0.75]{exp4topo.jpg}\newline
@@ -768,9 +758,9 @@ Figure 4.12 Experiment 4 Network Topology
 
 \noindent The parameters used for this experiment are identical to the ones used in experiment 3.
 
-\subsubsection{Scenario 4a: Default CCNx behaviour}
+\subsubsection{Scenario 4a: Default CCNx behavior}
 
-This scenario tests CCNx behaviour in a network with three nodes, one being a relay node. The connection between \emph{N\textsubscript{2}} and \emph{R} is referred to as \emph{Link 1}, while the one between \emph{N\textsubscript{1}} and \emph{R} is referred to as \emph{Link 2}. Figure 4.13 shows the connectivity between nodes throughout the experiment as well as when Interests generated by \emph{N\textsubscript{2}} are sent.
+This scenario tests CCNx behavior in a network with three nodes, one being a relay node. The connection between \emph{N\textsubscript{2}} and \emph{R} is referred to as \emph{Link 1}, while the one between \emph{N\textsubscript{1}} and \emph{R} is referred to as \emph{Link 2}. Figure 4.13 shows the connectivity between nodes throughout the experiment as well as when Interests generated by \emph{N\textsubscript{2}} are sent.
 
 \noindent\includegraphics[scale=0.55]{exp4a_timediag.jpg}\newline
 \begin{center}Figure 4.13 Re-transmission of Interests generated by \emph{N\textsubscript{2}}\end{center} 
@@ -828,8 +818,8 @@ Although the experiments present a simplified view of connectivity in a controll
 \pagebreak
 \chapter{A real application: Delay/Disruption Tolerant Game Platform (DTGP)}
 
-To complement the basic simulations run that test CCNx behaviour in a Challenged Network setting, an
-implementation of Tic-Tac-Toe was developed to evaluate its behaviour and performance in a real
+To complement the basic simulations run that test CCNx behavior in a Challenged Network setting, an
+implementation of Tic-Tac-Toe was developed to evaluate its behavior and performance in a real
 application. Tic-Tac-Toe is a two player turn-based game in which players place a mark (normally either X or O)
  on a 3x3 grid in an attempt to complete three of the same mark symbol in a row. 
 The main requirements for designing such a game was that it must conform with the
@@ -841,7 +831,7 @@ In section 5.1, the design of the DTGP framework is introduced with an in-depth 
 addressing, and game state handling. Section 5.2 introduces a number of alternative designs for various aspects 
 of the framework with justification as to why they were not chosen. 
 
-Chapter 6 describes experimentation conducted to evaluate the framework by running the Tic-Tac-Toe implementation on the Haggle testbed. Interest re-transmission behaviour and efficiency is determined by analyzing the number of Interests required per game and the Interest satisfaction ratio. The performance is also studied by measuring the satisfaction time for each Interest traversing the network.    
+Chapter 6 describes experimentation conducted to evaluate the framework by running the Tic-Tac-Toe implementation on the Haggle testbed. Interest re-transmission behavior and efficiency is determined by analyzing the number of Interests required per game and the Interest satisfaction ratio. The performance is also studied by measuring the satisfaction time for each Interest traversing the network.    
 
 \section{Framework Design}
 
@@ -899,7 +889,7 @@ the form of \texttt{\seqsplit{ccnx://uu/core/games/ttt/new/<gameid>}}, where \te
 unique pseudo-random number. The \emph{Initiator} nodes have no control over which \emph{Host} nodes they are 
 matched with as this is purely ad-hoc, based on a first-come-first-serve basis. The uniqueness of the \texttt{<gameid>}
  important to avoid potential conflicts between other games on the network. Nodes active on the network that want to
- play Tic-Tac-Toe passively listen for Interests with a prefix of \texttt{\seqsplit{ccnx://uu/core/games/ttt/new}}. These nodes are referred to as \emph{Host} nodes. The <gameid> portion of the URI is parsed and used to label and a new game instance, which is
+ play Tic-Tac-Toe passively listen for Interests with a prefix of \texttt{\seqsplit{ccnx://uu/core/games/ttt/new}}. These nodes are referred to as \emph{Host} nodes. The \verb!<gameid>! portion of the URI is parsed and used to label and a new game instance, which is
 then sent back to the \emph{Initiator} node. While it is theoretically possible allow 
 all nodes to perform both \emph{Initiator} and \emph{Host} roles, this was restricted to a single role per node for
 the purpose of this experimentation.
@@ -958,13 +948,13 @@ There are a number of other designs that were considered, but not implemented or
 provided below for reference as they try to take advantage of the CCNx protocol differently. These
 alternatives are presented but were not part of the experimentation as they either do not strictly adhere
 to the CCNx principles of using Interest messages for requesting information and Content Objects for
-supplying responses or introduced complexity that made it difficult impractical for experimentation
+supplying responses or introduced complexity that made it impractical for experimentation
 purposes.
 
 \subsection{Discovery through a centralized directory}
 
-As an alternative mechanism for discovery, another proposed mechanism uses an intermediate node to
-act as a “game directory” that acts as a repository for all available games listed by participants on the
+As an alternative mechanism for discovery, one proposed mechanism uses an intermediate node to
+serve as a “game directory” that acts as a repository for all available games listed by participants on the
 network. This approach is suited for situations when routing is based on topological names. While it is
 presented as a viable design, it should be noted that it would be unrealistic in a Challenged Network setting
 where topology is difficult to predict. 
@@ -984,16 +974,16 @@ interest such as:
 \texttt{\seqsplit{ccnx://uu/core/games/ttt/pull-request/\#/vodafone/de/user1/ttt/349057804/game-co}}
 
 This interest is forwarded to the game directory. The game directory sees that this is a registration
-request, and identifies the part after the hash sign. It sends a dummy \verb!ACK! content object back in
+request, and identifies the part after the hash sign. It sends a dummy \verb!ACK! Content Object back in
 response to the interest to signal receipt. The game directory then pulls the game object from
 player A by sending an interest: \texttt{\seqsplit{ccnx://vodafone/de/user1/ttt/349057804/game-co}}
 
 Player A receives this interest and sends back the game content object. Note that player A cannot send it
 back directly, because the game content object is called \texttt{\seqsplit{ccnx://uu/core/games/ttt/open-games/349057804}}, 
 and the request was for a prefix of \texttt{\seqsplit{ccnx://vodafone/de/user1/}}. However, player A can still
-send a content object that encapsulates the game content object.
+send a Content Object that encapsulates the game content object.
 
-When the game directory receives the content object, it imports it to its own namespace. From then
+When the game directory receives the Content Object, it imports it to its own namespace. From then
 onward, any node on the Internet can now retrieve the game content object
 \texttt{\seqsplit{ccnx://uu/core/games/ttt/open-games/349057804}}.
 
@@ -1005,8 +995,8 @@ considered a fallback mechanism, because the game directory is the main method f
 \subsubsection{Player Matching and Initialization}
 
 Player B joins the network and wants to play a game of Tic-Tac-Toe. Player B sends an Interest for
-\texttt{\seqsplit{ccnx://uu/core/games/ttt/open-games/}} and gets back a game content object. It unpacks that content
-object and sends out an interest for the player prefix specified in the game content object. In the above
+\texttt{\seqsplit{ccnx://uu/core/games/ttt/open-games/}} and gets back a game content object. It unpacks that Content
+Object and sends out an interest for the player prefix specified in the game content object. In the above
 example, Player B sends out an interest as follows:
 
 \texttt{\seqsplit{ccnx://vodafone/de/user1/ttt/349057804/start/\#/twodegrees/nz/user2/ttt/349057804}}
@@ -1044,7 +1034,7 @@ Assume that a discovery mechanism is used for two players to identify one anothe
 host for the game and player B makes the first move. Player B sends out an Interest message in the
 form of \texttt{\seqsplit{ccnx://playerA/<gameid>/move/<i>/<serialized-move>}}. This message specifies the move only 
 as opposed to the entire game state. Player A replies with a Content Object that includes the game state
-with Player B's move applied to it as well as its own subsequent. When Player B
+with Player B's move applied to it as well as its own subsequent move. When Player B
 receives that Content Object, a decision is made based on the new state. Player B's new move is then sent 
 in a new Interest message in the form of \texttt{\seqsplit{ccnx://playerA/<gameid>/move/<i+1>/<serialized-move>}}. 
 Player A will again apply this move to the game state, decide on a new move, and send a Content
@@ -1086,13 +1076,13 @@ exists a \verb!content_from! message \textit{(inbound response)} for every
  associated with on the network. Each Interest seen on the network is matched to a
 corresponding response.
 
-An interest is considered satisfied if there is a corresponding \verb!content_from! (inbound response) event
-for an \verb!interest_to! (outbound request) event on the same face for the same node, regardless of the type
+An interest is considered satisfied if there is a corresponding \verb!content_from! \textit{(inbound response)} event
+for an \verb!interest_to! \textit{(outbound request)} event on the same face for the same node, regardless of the type
 of node. On each node, the list of all messages sent and received are traversed and sorted by timestamp.
-Each \verb!interest_to! (outbound request) event is then matched with a \verb!content_from! (inbound response)
+Each \verb!interest_to! (outbound request) event is then matched with a \verb!content_from! \textit{(inbound response)}
 response event on the same face. Due to the nature of the experiment, it is common to have a one to
-many relationship between \verb!content_from! (inbound response) and \verb!interest_to! (outbound request) events. This is because it is likely that some of the outbound requests are lost. Consequently, the last matched
-\verb!interest_to! (outbound request) occurrence from the sorted list is considered to be the actual match for
+many relationship between \verb!content_from! \textit{(inbound response)} and \verb!interest_to! \textit{(outbound request)} events. This is because it is likely that some of the outbound requests are lost. Consequently, the last matched
+\verb!interest_to! \textit{(outbound request)} occurrence from the sorted list is considered to be the actual match for
 the response and all other matches are re-transmissions. This is important to both count the number of
 re-transmissions for each Interest as well as to calculate the Interest satisfaction time.
 \end{description}
@@ -1107,7 +1097,6 @@ by one or more \emph{Host} nodes. If this ratio is not maintained, there could b
 fulfilled for the entire experiment duration because of insufficient \emph{Host} nodes to fulfill them. 
 
 The haggle testbed trace file used is a one hour truncated version of a ten hour HCMM:SO trace file. It is generated using a simulation of three clusters with five nodes in each that use a Markov model to determine if a link should be up or down at each step in time, depending on the existing state of the link\cite{haggletrc}.
-%% TODO might need to fix this paragraph up
 
 \noindent For each experiment run, the CCNd log is analyzed for a number of metrics:
 
@@ -1221,7 +1210,7 @@ being a basic principle of a CCN.
 
 \begin{center}Figure 6.3 Histogram illustrating the distribution of individual Interest satisfaction time on a logarithmic scale\end{center}
 
-The histogram shows that the majority of Interests on the network are satisfied within 200 milliseconds
+The histogram shows that the majority of Interests on the network are satisfied within 500 milliseconds
 and most just under a few milliseconds. This is likely to be due to the constant caching of responses
 throughout the network when a window of opportunity arises for communication between nodes when
 the links are up. This highlights efficiency in the network despite the disruptions that regularly take
@@ -1234,7 +1223,7 @@ triggered by relay nodes which would not necessarily have hindered game progress
 
 \section{Conclusion}
 
-The outcome of the experimentation meets expectations in terms of Interest re-transmission behaviour and performance.
+The outcome of the experimentation meets expectations in terms of Interest re-transmission behavior and performance.
 Despite the number of moves required to reach a final state in optimal conditions are low, there is a high number of Interests observed for for each game.
 This correlates to a low Interest satisfaction ratio. Despite this, the Interest satisfaction time is low with each game completing within the experiment timeframe.
 This means that while the network might be slightly overloaded due to increased re-transmissions, the requests are promptly satisfied which is a good trade-off in a Challenged Network environment.
@@ -1278,7 +1267,7 @@ mechanisms. They are based on a flat naming scheme used for their addressing mec
 exception of NetInf which is purely flat, the other models use a hierarchical name resolution system
 similar to the Internet's DNS architecture and make use of Bloom filters for improved look-up
 performance. The CCN hierarchical prefix aggregation model is inherent in the architecture of the
-protocol which offers advantages in terms of routing performance scalability on larger scaled networks.
+protocol which offers advantages in terms of routing performance scalability on larger scaled networks\cite{dirk2941}.
 
 %[caching]
 \emph{In-network caching} is an inherent characteristic shared between the models. The request driven models
@@ -1296,7 +1285,7 @@ bandwidth capacity.
 Disruption tolerance and mobility are two of the areas that CCNs stand out compared to the other
 publish-subscribe models. In a Challenged Network environment where connectivity is sparse, location
 transparency with respect to other nodes on the network is a crucial factor. CCNs inherently support
-this behaviour through the strategy layer that allows communication over any of the available interfaces
+this behavior through the strategy layer that allows communication over any of the available interfaces
 on a node regardless of the connectivity state with the network. On the other hand, the publish-
 subscribe models discussed all require some form of registration with a name resolution system or rely
 on a common rendezvous service. These protocols suffer greatly in this regard because direct
@@ -1306,7 +1295,7 @@ register before their information objects can be retrieved on the network\cite{d
 \section{NDN Protocols}
 
 Being a subset of ICNs, NDN based protocols share a lot of common properties with CCNs.
-\textbf{BOND} \cite{bond} is a broadcast protocol which is based on named data and is independent of the
+BOND \cite{bond} is a broadcast protocol which is based on named data and is independent of the
 level of connectivity or mobility between nodes on the network. This is similar to CCNx in that it
 attempts to utilize any available communications link to reach other nodes.
 
@@ -1325,11 +1314,11 @@ decision on whether to forward or not is based on a distance metric between the 
 requesting node. Nodes that are too far away are ineligible. Eligible nodes compete on whether to send
 the data based on a randomly based delay metric to avoid collision. Each packet sent on the network is
 identified by a nonce which is used to decide on whether it should respond to that request packet seen
-on the network or ignore it. This is similar to strategy and suppression rules that CCNx employs to
-control how responses are sent by nodes on the network and avoid response duplication. One difference
+on the network or ignore it. This is similar to the strategy and suppression rules that CCNx employs to
+control how responses are sent by nodes on the network and to avoid response duplication. One difference
 with flow control is how BOND nodes will explicitly acknowledge receipt of data packets to avoid
-unnecessary data being sent to the requesting node after it's request is satisfied. CCNx avoids this
-mechanism and replies on the requesting node to ignore duplicate packets.
+unnecessary data being sent to the requesting node after its request is satisfied. CCNx avoids this
+mechanism and relies on the requesting node to ignore duplicate packets.
 
 BOND classifies connectivity into connected and disconnected networks which affect its mode
 of operation. Nodes will react differently if they detect that they are in a disconnected network. When
@@ -1366,17 +1355,17 @@ disruption\cite{oppnets}.
 
 This work investigated the effects of using a Content-Centric Network in a Challenged Network environment. CCNx was the chosen
 CCN implementation to use along with the Haggle testbed to simulate loss of connectivity between nodes. Experiments were
-conducted to study the Interest re-transmission as a result of link disruption in simple network topologies. The
+conducted to study Interest re-transmission as a result of link disruption in simple network topologies. The
 information learned from those experiments were then applied for a more complex analysis that involved running a
-game of Tic-Tac-Toe under similar conditions. The analysis helped identify some aspects of the behaviour and performance of
+game of Tic-Tac-Toe under similar conditions. The analysis helped identify some aspects of the behavior and performance of
 running CCNx in a more practical application.
 
 The results from the experiments in Chapter 4 demonstrated that CCNx can handle link disruptions well. With inherent CCNx re-transmission
 disabled to create a controlled environment with two nodes, it is the responsibility of the application requesting information to ensure that messages are received. Due to the nature of the network, there is no way to verify that Interest messages have been received by the other node except for when the corresponding Content Object is received by the same node that sent the Interest. With the introduction of a relay node, the efficiency increases because the intermediate nodes allow for both a better window of opportunity for message transmission as well as an enhancement of the caching mechanism inherent on each node on the network. We believe that the introduction of further relay nodes will further enhance the performance. The results also show that if the Interest re-transmission times on each node are shortened, the amount of time taken for an Interest to be satisfied is reduced. In contrast to a TCP/IP, the experiments highlight that no end-to-end connectivity is required for data retrieval. They also proved that the data need not be retrieved for one particular node, which reinforces the advantage of the location transparency in CCNx.
 
-In Chapter 5, Tic-Tac-Toe was implemented on top of a framework that was developed based on CCNx. This allowed for further experimentation in a more complex network with more nodes. The inherent CCNx re-transmission mechanism was unhindered in this experiment. The results show that there is a large amount of Interest re-transmission required to cope with the link disruption on the network. Despite this, the satisfaction time for each Interest is still quite low. The results from Chapter 4 and Chapter 5 lead us to believe that CCNx could be applied in real world applications where such an architecture would be advantageous. In cases where connectivity is intermittent and predictable, such as bus routes, CCNx could excel when re-transmission variables are appropriately configured.
+In Chapter 5, Tic-Tac-Toe was implemented on top of a framework that was developed based on CCNx. This allowed for further experimentation in a more complex network with more nodes. The inherent CCNx re-transmission mechanism was unhindered in this experiment. The results show that there is a large amount of Interest re-transmission required to cope with the link disruption on the network. Despite this, the satisfaction time in most cases for each Interest is still quite low. The results from Chapter 4 and Chapter 5 lead us to believe that CCNx could be applied in real world applications where such an architecture would be advantageous. In cases where connectivity is intermittent and predictable, such as bus routes, CCNx could excel when re-transmission variables are appropriately configured.
 
-Overall, we believe that content-centric networking is a good contender for use within Challenged Network environments. While much experimentation is still required to fine-tune variables involved, its inherent properties overcome many of the shortcomings of traditional TCP/IP networks. 
+Overall, we believe that content-centric networking is a good contender for use within Challenged Network environments. While more experimentation is still required to fine-tune variables involved, its inherent properties overcome many of the shortcomings of traditional TCP/IP networks. 
 
 \pagebreak
 \chapter{Future Work}
@@ -1384,14 +1373,14 @@ Overall, we believe that content-centric networking is a good contender for use 
 Additional experimentation and analysis is necessary to further understand how to enhance the performance of CCNs in Challenged Networks. The following proposals are provided as guidance for future research that can build on this existing work.
 
 \begin{itemize}
-\item The optimal number of relay nodes that enhance Interest response time should be investigated. This can be done by gradually increasing the number of nodes in the network and comparing Interest satisfaction times. It should also be noted that having too many nodes may overload the network and thus a balance must be found to make efficient use of the transmission medium.
+\item The optimal number of relay nodes that enhance Interest response times should be investigated. This can be done by gradually increasing the number of nodes in the network and comparing Interest satisfaction times. It should also be noted that having too many nodes may overload the network and thus a balance must be found to make efficient use of the transmission medium.
 
 \item The amount of caching by each of the nodes on the network should be studied. This study would find the most suitable cache size required on each node, keeping in mind that space is likely to be an expensive resource on nodes in this type of network.
 
 \item Further experimentation with internal CCNx re-transmission intervals is necessary to identify whether flooding the network with more requests will result in faster satisfaction times or not. While the tests in Chapter 4 attempt to test this by adding DTNx as an additional application on each node, modifying the interval on the CCNx is likely to present different results.
 
 \item It may be possible to introduce some adaptive (learning) transmission mechanism over time to avoid
-overly re-transmitting Interests when we have no connectivity. This may improve the Interest satisfaction ratio considerably. Even though it is unlikely that satisfaction time would decrease dramatically, the amount of outliers should be reduced.
+overly re-transmitting Interests when there is no connectivity. This may improve the Interest satisfaction ratio considerably. Even though it is unlikely that satisfaction time would decrease dramatically, the amount of outliers should be reduced.
 
 \end{itemize}
 

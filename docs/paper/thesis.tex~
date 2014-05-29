@@ -11,17 +11,16 @@
 \usepackage{atbegshi}  % to skip first page
 \usepackage{amsmath}   % for displaymath \text
 
-% The preamble begins here.
-
 % Custom macros
 
+% The preamble begins here.
 % Title
 \title{Master's Thesis:\endgraf An Investigation into the application of Content-Centric Networking within Challenged Network Environments using CCNx}
 \author{Tarek Elshaarani - tarek@tekbase.org } 
 \date{\parbox{\linewidth}{\centering
   \bigskip
   \today\endgraf
-  \vspace*{7cm}
+  \vspace*{4cm}
   Supervisors: \endgraf
   \hspace*{1cm} Frederik Hermans   - frederik.hermans@it.uu.se \endgraf
   \hspace*{1cm} Ferdrik Bjurefors  - fredrik.bjurefors@it.uu.se \endgraf
@@ -36,9 +35,12 @@
 \begin{document}             % End of preamble and beginning of text.
 \maketitle
 
-%% TODO: Fix formatting - numbers according to https://www.it.uu.se/edu/exjobb/master/rapporten
+%% Formatting according to https://www.it.uu.se/edu/exjobb/master/rapporten
 
 % Blank page to please the formatting gods.
+\pagebreak
+\chapter*{}
+\setcounter{page}{2}
 
 \pagebreak
 \chapter*{Abstract}
@@ -48,8 +50,9 @@ Information Centric Network (ICN) architectures offer a viable design to cope wi
 This thesis studies NDN behavior in a disruptive network environment. More specifically, we use CCNx as an implementation of a Content-Centric Networking protocol that inherits key characteristics from NDN. We study the behavior of of CCNx using the Haggle testbed to simulate a simple disruptive network environment. We develop a delay/disruption-tolerant framework based on CCNx and implment the game Tic-Tac-Toe using that framework. The framework design is presented with an analysis into various alternatives that were considered. A more complex five-node experiment with link disruption is performed using the framework to evaluate CCNx in a real world scenario. We conclude that CCNx is good at handling disruptions associated with Challenged Networks.
 
 
-
 % Another blank page because you can never waste enough paper.
+\pagebreak
+\chapter*{}
 
 \pagebreak
 \chapter*{Acknowledgements}
@@ -58,15 +61,20 @@ This thesis studies NDN behavior in a disruptive network environment. More speci
 % TODO: Remember to add Acknowledgements.
 % 
 %
-% In memory of 25 January 2011, 30 June 2012, and other victorious days to come.
-%\setcode{utf8}
-%\< عيش ؛ حرية ؛ عدالة اجتماعية >
-%
+I must thank my parents for their continous support through some challenging times. Special thanks go to Frederik Hermans and Fredrik Bjurefors for their help without this thesis would not be complete.
+
+\bigskip\bigskip
+
+\centering{In fond memory of 25 January 2011 and 30 June 2012.\endgraf
+\setcode{utf8}
+\< عيش ؛ حرية ؛ عدالة اجتماعية >}
+
 
 \tableofcontents
 
 % Another blank page to force text to start on an odd number (because even numbers are evil).
-
+\pagebreak
+\chapter*{}
 
 \pagebreak
 \chapter{Introduction}
@@ -327,13 +335,15 @@ verification, beyond the initial registration of the application with its CCND i
 involved in cryptographic activity is inherently absolved from the comparison by being included in all
 measurements.
 
-In certain situations, responses are delayed either due to network latency, hard drive response times,
-application response times, or other factors. In addition, because the CCND Interest lifetime timer is
-checked every 250 milliseconds, there maybe be multiples of 250 milliseconds gaps in the response time. This explains why
-in certain scenarios the response time could be much higher than in others testing the same case. While
-those can be ignored as outliers, they should have no real impact on the total time of Interest success,
+Due to the characteristics of the underlying testbed, the measured response times for the experiments 
+may deviate from the norm in certain situations. The discrepencies are mainly a result of synchronization
+issues between the nodes that are running as virtual machines on the same physical hardware. This makes it 
+difficult to control precise execution times and may introduce minor drifts with clocks that influence data
+collection, especially with the short time frames used within the experiments. The code running on the nodes has
+been tuned to better handle these synchronization issues, albeit not perfectly. Despite these imperfections, the 
+discrepencies are minor and can be treated as outliers as they no real impact on the total time of Interest success,
 especially when an Interest must be re-transmitted.
-
+ 
 \section{CCNx Interest Re-transmission Behaviour}
 
 \subsection{Experiment 1: Network with two nodes and one link}
@@ -374,7 +384,7 @@ Based on a number of 10 runs, the experiment runs yield the expected end result 
 based on the first Interest (\emph{i\textsubscript{1}}). The following information shows response times for the requested
 data being successfully received:
 
-\begin{center}\textsl{Minimum=522, Maximum=609, Average=538.1 (milliseconds)}\end{center}
+\begin{center}\textsl{Minimum=11, Maximum=19, Average=15.5 (milliseconds)}\end{center}
 
 \noindent\emph{Discussion:}
 
@@ -393,7 +403,7 @@ queries its PIT, which results in no matches. The FIB is then checked for the sa
 At this point, the file is cached as a Content Object in the Content Store on  \emph{N\textsubscript{1}}. A
 \verb!consume! event followed by a \verb!content_to! event results in the Content Object being sent over the network. The data packet is received on \emph{N\textsubscript{2}}'s daemon and processed through a \verb!content_from! event on the daemon. A look-up is performed in the PIT and a match is found because of the earlier Interest sent by \emph{N\textsubscript{2}}. A \verb!consume! event sends the matching Content Object to the application face interested in the prefix. Finally, a \verb!content_to! event signals that the application reads the data from the local CCN daemon Content Store into memory and writing it to disk to conclude the transfer.
 
-The experiment demonstrates the behaviour of two CCNx nodes in the absence of link disruptions. An average retrieval time of 538.1 ms was recorded.
+The experiment demonstrates the behaviour of two CCNx nodes in the absence of link disruptions. An average retrieval time of 15.5 milliseconds was recorded.
 
 \subsubsection{Scenario 1b: Link interruption before request is sent}
 
@@ -409,13 +419,13 @@ the first Interest being sent from \emph{N\textsubscript{2}} to be lost and forc
 Based on a number of 10 runs, the experiments yield the expected end result of the data being received
 based on the second Interest. The following information shows response times for the requested
 data being successfully received:
-\begin{center}\textsl{Minimum=7020, Maximum=7055, Average=7026.3 (milliseconds)}\end{center}
+\begin{center}\textsl{Minimum=8013, Maximum=8066, Average=8019.5 (milliseconds)}\end{center}
 
 These times are noticeably longer than the ones from experiment 1b. The result recorded is a combination of the timeout period for
 the first Interest, the retry interval, and the successful Interest response time.
 
 In addition, the following times identify the response time for the (second) successful Interest:
-\begin{center}\textsl{Minimum=19, Maximum=54, Average=25.2 (milliseconds)}\end{center}
+\begin{center}\textsl{Minimum=11, Maximum=65, Average=18.2 (milliseconds)}\end{center}
 These times are much lower than the time recorded in experiment 1a for an immediate (first) successful
 Interest.
 
@@ -434,7 +444,7 @@ between attempts. After it timeouts from the first Interest, it waits for the us
 interval and sends another request. The second time an Interest is sent, the link between the two
 nodes is up and the Interest reaches \emph{N\textsubscript{1}}. On \emph{N\textsubscript{1}}, the CCN daemon receives the Interest and follows the same steps outlined in scenario 1a until the data is received. 
 
-While the total retrieval time is higher to account for the first lost Interest, the response time for the second Interest is lower than in scenario 1a. This is because %% TODO: explain why this is the case!!
+While the total retrieval time is higher to account for the first lost Interest, the response time for the second Internest is similar to the one recorded in scenario 1a. In this case, we observe a higher maximum retrievel time for the successful Interest, but this is likely to be attributed to the node synchronization discrepencies discussed earlier and can be largely ignored.
 
 \subsubsection{Scenario 1c: Link interruption after request is sent}
 
@@ -449,16 +459,16 @@ Based on a number of 10 runs, the experiments yield the expected end result of t
 based on the second Interest. The following information shows response times for the requested
 data being successfully received:
 
-\begin{center}\textsl{Minimum=7005, Maximum=7007, Average=7006.33 (milliseconds)}\end{center}
+\begin{center}\textsl{Minimum=8006, Maximum=8012, Average=8007.7 (milliseconds)}\end{center}
 
-These times are similar to the ones observed in experiment 1b due to the Interest lifetime expiry,
+These times are similar to the ones observed in scenario 1b due to the Interest lifetime expiry,
 retry delay, and second Interest.
 
 In addition, the following times identify the response time for the (second) successful Interest:
 
-\begin{center}\textsl{Minimum=4, Maximum=6, Average=5.33333 (milliseconds)}\end{center}
+\begin{center}\textsl{Minimum=5, Maximum=11, Average=6.7 (milliseconds)}\end{center}
 
-These times are much faster than the ones recorded in 1a and 1b.
+These retrieval times are slightly shorter than the ones recorded in scenarios 1a and 1b.
 
 \vspace*{1\baselineskip}\noindent\emph{Analysis:}
 
@@ -477,7 +487,8 @@ to propagate successfully, and the Content Object to be sent back without interr
 It should be noted that in this case, the Content Object by the CCN daemon on \emph{N\textsubscript{1}}  making
 it unnecessary to propagate the Interest to the application running on that node. The prefix is matched
 directly to the Content Store and is sent back over the network without intervention from the
-application reducing the response time.
+application reducing the response time. This explains the faster retrieval time for the successful
+Interest than in the previous scenarios.
 
 %%\subsubsection{Experiment (1d): Link interruption during data transmission}
 %% TODO: REMOVE THIS and add in discussion?
@@ -534,7 +545,7 @@ Based on a number of 10 runs, the experiments yield the expected end result of t
 based on the first Interest. The following information shows response times for the requested
 data to be successfully received by (\emph{N\textsubscript{2}}):
 
-\begin{center}\textsl{Minimum=32, Maximum=532, Average=176.3 (milliseconds)}\end{center}
+\begin{center}\textsl{Minimum=19, Maximum=24, Average=21.6 (milliseconds)}\end{center}
 
 In this case,  \emph{N\textsubscript{2}} sends an Interest which must be propagated to  \emph{N\textsubscript{1}}. As an intermediate relay
 node,  \emph{R} relays the Interest to  \emph{N\textsubscript{1}}. \emph{N\textsubscript{1}} then sends data back to  \emph{R}, which relays it back to  \emph{N\textsubscript{2}}.
@@ -553,7 +564,8 @@ over the network. The data first arrives at \emph{R} where it is cached in its C
 The PIT entry for that Interest is removed as it has been satisfied and the data is relayed back to  \emph{N\textsubscript{2}}.
 
 This process is very similar to experiment 1a when there are no disconnections or interruptions
-between two nodes. The only exception is the additional relaying operation that is performed by \emph{R}. %%TODO: This needs an explanation as well .. no idea why some are in 250 multiples when the rest are sub 100ms
+between two nodes. The only exception is the additional relaying operation that is performed by \emph{R}. 
+The introduction of an additional node results in a slightly longer retrieval time than in scenario 1a which can be attributed to the additional network hop required through the relay node.
 
 \subsubsection{Scenario 2b: Link disruption before request is sent}
 
@@ -570,17 +582,17 @@ Based on a number of 10 runs, the experiments show that two interests are requir
 complete the request. The following information shows the total time for the requested data to be
 successfully received by  \emph{N\textsubscript{2}}:
 
-\begin{center}\textsl{Minimum=7026, Maximum=7105, Average=7036.9 (milliseconds)}\end{center}
+\begin{center}\textsl{Minimum=8018, Maximum=8021, Average=8019.8 (milliseconds)}\end{center}
 
 In addition, the following measurements identify the response time for the (second) successful Interest:
 
-\begin{center}\textsl{Minimum=25, Maximum=104, Average=35.9 (milliseconds)}\end{center}
+\begin{center}\textsl{Minimum=17, Maximum=20, Average=18.9 (milliseconds)}\end{center}
 
-The total time it takes for Interest to be fulfilled is much longer than experiment 2a. This is similar to what was observed in experiment 1b.
+The total time it takes for Interest to be fulfilled is much longer than scenario 2a due to the first Interest being lost. This is similar to what was observed in scenario 1b. On the other hand, the time it takes to satisfy the second Interest is largely unchanged from scenario 2a. 
 
 \vspace*{1\baselineskip}\noindent\emph{Analysis:}
 
-This is similar to the scenario described in experiment 2a with the exception of the connection between 
+This is similar to the scenario described in scenario 2a with the exception of the connection between 
  \emph{R} and \emph{N\textsubscript{1}} being unavailable at the start of the run. As shown in figure 4.7, the Interest sent from the application
 on \emph{N\textsubscript{2}} reaches \emph{R}, but cannot be relayed to \emph{N\textsubscript{1}} because the link is down. After
 the lifetime of the Interest expires, the PIT entries expire on both nodes and the Interest message is
@@ -591,14 +603,8 @@ which is then sent to \emph{R} and this time relayed to \emph{N\textsubscript{1}
 identifies the URI in the request and replies with the requested data. The data is first cached in the 
 Content Store on \emph{R}, then once it arrives at \emph{N\textsubscript{2}} is also cached and forwarded back to the application.
 
-The total time required to fulfill the request is noticeably longer than experiment 2a due to the need for
-the second Interest message to be sent. This involves the time required for the Interest message to
-expire, the application wait time, the time for the second Interest to be sent, and finally the time it takes
-the data to be relayed back.
-
-The time for the successful Interest to be fulfilled is similar to experiment 2a which is expected as after
-the first Interest message expires, the entire process must be repeated without knowledge of the prior
-attempt. %% TODO: Explain why this is faster
+The total time required to fulfill the request is noticeably longer than scenario 2a due to the need for
+the second Interest to be sent. This involves the time required for the Interest to expire, the application wait time, the time for the second Interest to be sent, and finally the time required for the response to be relayed back. The time for the successful Interest to be fulfilled is similar to scenario 2a. This is expected as after the first Interest message expires, the entire process must be repeated without knowledge of the prior attempt. 
 
 \subsubsection{Scenario 2c: Link disruption after request is sent}
 
@@ -615,21 +621,22 @@ Based on a number of five runs, the results show that two Interests are required
 satisfied. The following measurements show the total time for the request data to be successfully
 received by \emph{N\textsubscript{2}}:
 
-\begin{center}\textsl{Minimum=7006, Maximum=7008, Average=7007 (milliseconds)}\end{center}
+\begin{center}\textsl{Minimum=8007, Maximum=8010, Average=8008.5 (milliseconds)}\end{center}
 
 In addition, the following times identify the response time for the (second) successful Interest:
 
-\begin{center}\textsl{Minimum=5, Maximum=7, Average=6.2 (milliseconds)}\end{center}
+\begin{center}\textsl{Minimum=6, Maximum=9, Average=7.5 (milliseconds)}\end{center}
 
-The times for the successful (second) Interest to be fulfilled are noticeably lower than experiment 2a
-and 2b. In addition, while the total time required to fulfill the request is still higher than the one taken
-in experiment 2a, it is lower than experiment 2b.
+The results demonstrate that the total time required to fulfill the request is higher than the one observed in scenario 2a. 
+This is directly correlated to the fact that two Interests are required to satisfy the request. 
+On the other hand, the retrieval times for the successful Interest are noticeably lower than scenarios 2a
+and 2b. 
 
 \vspace*{1\baselineskip}\noindent\emph{Analysis:}
 
-This scenario is similar to experiment 2b, except that it forces Interest re-transmission at a different
+This scenario is similar to scenario 2b, except that it forces Interest re-transmission at a different
 point of time in the experiment. As opposed to \emph{N\textsubscript{1}} not receiving the first Interest message
-in experiment 2b, the first Interest reaches \emph{N\textsubscript{1}} through \emph{R}. However, immediately after the
+in scenario 2b, the first Interest reaches \emph{N\textsubscript{1}} through \emph{R}. However, immediately after the
 Interest leaves \emph{N\textsubscript{2}}, the connection between \emph{N\textsubscript{2}} and \emph{R} is lost.
 
 Because the Interest reaches \emph{R}, it is added to its PIT and based on the FIB forwarded to \emph{N\textsubscript{1}}.
@@ -642,26 +649,26 @@ message reaches \emph{R}, the URI is looked up in the Content Store. Since the c
 Object is still cached, a response is directly sent back to \emph{N\textsubscript{2}}. \emph{N\textsubscript{1}} plays no
  role in satisfying the second Interest message.
 
-The total time to satisfy the request is slightly shorter than experiment 2b due to the fact that the second
-Interest does not need to be sent all the way back to \emph{N\textsubscript{1}}. Additionally, the response time for
+The total time to satisfy the request is slightly shorter than scenario 2b due to the fact that the second
+Interest does not need to propagate to \emph{N\textsubscript{1}}. Additionally, the response time for
 the second successful Interest message is noticeably shorter as well confirming that data is being
-retrieved from the relay node's Content Store rather than being forwarded on the network.
+retrieved from the relay node's Content Store rather than being forwarded on the network, essentially requiring one
+less network hop to fulfill the request.
 
 \subsubsection{Conclusion}
 
-Similar to the conclusion from experiment 1, the application is responsible to ensure that Interests are
+Similar to the observations from experiment 1, we confirm that the application is responsible to ensure that Interests are
 re-transmitted as required to fulfill requests. The behaviour of the relay node confirms that CCNx does
 not interfere with Interest re-transmission. It also highlights the advantages of caching Content Objects
-in the local Content Store which would be an important feature in a Delay Tolerant environment.
-Additionally, the introduction of a relay node does not hugely impact performance when tested at
-similar connection speeds between the nodes.
+in the local Content Store which is an important advantage in a Delay/Disruption-Tolerant environment.
+Additionally, the experiments show that the introduction of a relay node did not negatively impact performance.
 
-It is expected that in a network with more relay nodes, the performance would be similar since re-
-transmitted Interests would be satisfied by the closest node on the network. In a Delay Tolerant setting,
+It should be noted that in a network with more relay nodes, we would expect the performance would be similar since re-
+transmitted Interests would be satisfied by the closest node on the network. In a Delay/Disruption-Tolerant setting,
 it would be beneficial to have Interests re-transmitted at shorter Intervals without explicit requests from
 the application. This would ensure that there is a larger window of opportunity around link outages for
 the data to be retrieved as well as a greater chance of requested data being cached on more nodes in the
-network resulting in faster overall retrieval times.
+network resulting in faster retrieval times overall.
 
 
 \pagebreak
@@ -1108,7 +1115,6 @@ by one or more \emph{Host} nodes. If this ratio is not maintained, there could b
 fulfilled for the entire experiment duration because of insufficient \emph{Host} nodes to fulfill them. 
 
 The haggle testbed trace file used is a one hour truncated version of a ten hour HCMM:SO trace file. It is generated using a simulation of three clusters with five nodes in each that use a Markov model to determine if a link should be up or down at each step in time, depending on the existing state of the link\cite{haggletrc}.
-%% TODO might need to fix this paragraph up
 
 \noindent For each experiment run, the CCNd log is analyzed for a number of metrics:
 
