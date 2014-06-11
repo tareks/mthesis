@@ -353,7 +353,6 @@ nodes. Figure 4.1 illustrates the topology of the network. The following scenari
 \item No interruptions or disconnections.
 \item Link is down from start of run. (Interest not transmitted)
 \item Link is down shortly after start of run. (Interest transmitted, response lost)
-%% \item Link is down while receiving data. (Interest sent, data interrupted) %% TODO: remove this?
 \end{enumerate}
 
 \noindent The following parameters are defined for the scenarios in the experiment:
@@ -418,7 +417,7 @@ the first Interest, the retry interval, and the successful Interest response tim
 
 In addition, the following times identify the response time for the (second) successful Interest:
 \begin{center}\textsl{Minimum=11, Maximum=65, Average=18.2 (milliseconds)}\end{center}
-These times are much lower than the time recorded in experiment 1a for an immediate (first) successful
+These times are very similar to the times recorded in scenario 1a for an immediate (first) successful
 Interest.
 
 \vspace*{1\baselineskip}\noindent\emph{Analysis:}
@@ -655,7 +654,10 @@ transmitted Interests would be satisfied by the closest node on the network. In 
 it would be beneficial to have Interests re-transmitted at shorter Intervals without explicit requests from
 the application. This would ensure that there is a larger window of opportunity around link outages for
 the data to be retrieved as well as a greater chance of requested data being cached on more nodes in the
-network resulting in faster retrieval times overall.
+network resulting in faster retrieval times overall. It should be noted that the re-transmission intervals
+will need to be tuned to suit the environment. If the links between the nodes are regularly down for long
+periods of time, it is more practical to prolong the interval as opposed to re-transmitting Interests that are
+guaranteed to be lost.
 
 
 \pagebreak
@@ -824,7 +826,7 @@ application. Tic-Tac-Toe is a two player turn-based game in which players place 
  on a 3x3 grid in an attempt to complete three of the same mark symbol in a row. 
 The main requirements for designing such a game was that it must conform with the
 CCNx Interest-driven model and satisfy both conditions of location independence and disruption
-tolerance. A framework, referred to as DTGP, was developed to take advantage of CCNx characteristics, 
+tolerance. A framework, referred to as Delay/Disruption-Tolerant Game Platform (DTGP), was developed to take advantage of CCNx characteristics, 
 particularly in relation to delay and disruption tolerance.
 
 In section 5.1, the design of the DTGP framework is introduced with an in-depth discussion of bootstrapping,
@@ -1096,7 +1098,7 @@ more \emph{Host} nodes than \emph{Initiator} nodes. This is ensure all requests 
 by one or more \emph{Host} nodes. If this ratio is not maintained, there could be a large number of Interests that are never
 fulfilled for the entire experiment duration because of insufficient \emph{Host} nodes to fulfill them. 
 
-The haggle testbed trace file used is a one hour truncated version of a ten hour HCMM:SO trace file. It is generated using a simulation of three clusters with five nodes in each that use a Markov model to determine if a link should be up or down at each step in time, depending on the existing state of the link\cite{haggletrc}.
+The haggle testbed trace file used is a one hour truncated version of a ten hour trace file\cite{haggletrc}. It is generated using a simulation of three clusters with five nodes in each that use a Markov model to determine if a link should be up or down at each step in time, depending on the existing state of the link.
 
 \noindent For each experiment run, the CCNd log is analyzed for a number of metrics:
 
@@ -1224,7 +1226,7 @@ triggered by relay nodes which would not necessarily have hindered game progress
 \section{Conclusion}
 
 The outcome of the experimentation meets expectations in terms of Interest re-transmission behavior and performance.
-Despite the number of moves required to reach a final state in optimal conditions are low, there is a high number of Interests observed for for each game.
+Despite the number of moves required to reach a final state in optimal conditions are low, there is a high number of Interests observed for each game.
 This correlates to a low Interest satisfaction ratio. Despite this, the Interest satisfaction time is low with each game completing within the experiment timeframe.
 This means that while the network might be slightly overloaded due to increased re-transmissions, the requests are promptly satisfied which is a good trade-off in a Challenged Network environment.
 
