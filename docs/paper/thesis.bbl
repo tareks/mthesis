@@ -59,12 +59,14 @@ Palo Alto Research~Center (PARC).
 \newblock
   http://www.ccnx.org/releases/latest/doc/technical/InterestMessage.html, July
   2013.
+\newblock Last visited: May 30, 2014.
 
 \bibitem{CCNxproto}
 Palo Alto Research~Center (PARC).
 \newblock {CCN}x {P}rotocol.
 \newblock http://www.ccnx.org/releases/latest/doc/technical/CCNxProtocol.html,
   July 2013.
+\newblock Last visited: May 30, 2014.
 
 \bibitem{haggletrc}
 C.~Rohner, F.~Bjurefors, P.~Gunningberg, and L.~McNamara.
@@ -79,6 +81,7 @@ L.~Zhang, D.~Estrin, J.~Burke, V.~Jacobson, J.~Thornton, D.~Smletters, Zhang.
   T.~Abdelzaher, L.~Wang, P.~Crowley, and E.~Yeh.
 \newblock Named data networking (ndn) project.
 \newblock NDN, Technical Report NDN-0001,
-  http://named-data.net/techreports.html, 10 2010.
+  http://named-data.net/techreports.html, October 2010.
+\newblock Last visited: May 30, 2014.
 
 \end{thebibliography}

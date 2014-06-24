@@ -11,6 +11,7 @@
 \usepackage{atbegshi}  % to skip first page
 \usepackage{amsmath}   % for displaymath \text
 \usepackage{pdfpages}  % to include the title and abstract pages
+\usepackage[nottoc,numbib]{tocbibind} % to add sections to TOC
 
 % Custom macros
 
@@ -1379,7 +1380,7 @@ In Chapter 5, Tic-Tac-Toe was implemented on top of a framework that was develop
 Overall, we believe that content-centric networking is a good contender for use within Challenged Network environments. While more experimentation is still required to fine-tune variables involved, its inherent properties overcome many of the shortcomings of traditional TCP/IP networks. 
 
 \pagebreak
-\chapter{Future Work}
+\section{Future Work}
 
 Additional experimentation and analysis is necessary to further understand how to enhance the performance of CCNs in Challenged Networks. The following proposals are provided as guidance for future research that can build on this existing work.
 
@@ -1395,12 +1396,14 @@ overly re-transmitting Interests when there is no connectivity. This may improve
 
 \end{itemize}
 
-\pagebreak
+%\pagebreak
+\clearpage
+%\addcontentsline{toc}{chapter}{References}
 \bibliography{mybib}{}
 \bibliographystyle{plain}
 
 \pagebreak
-\chapter*{Appendix A: Tic-Tac-Toe Haggle testbed Scenario}
+\chapter{Appendix A: Tic-Tac-Toe Haggle testbed Scenario}
 
 Haggle testbed trace file that specifies duration for link up-time between nodes for 5 nodes and
 duration of 1 minute.
