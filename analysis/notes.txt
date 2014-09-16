@@ -136,3 +136,10 @@ There are 2 ways to collect Interest information:
 - get satisfaction time for each interest and plot distribution
 -- for an 'interest_to', look for a 'content_from' on the same face on the same node and subtract timestamps.
 -- we match interests based on being on the same node and generated off the same face. the time difference is based on the last occurrence of the interest sent on the node?
+
+
+2013/12/20:
+- number of interests/retransmissions is directly proportional to the time it takes to satisfy.
+http://stackoverflow.com/questions/6855710/how-to-have-logarithmic-bins-in-a-python-histogram
+plot x axis logarithmically, outliers should all fit in a single bin
+- fix up paper and send for review

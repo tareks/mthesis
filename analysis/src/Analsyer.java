@@ -442,7 +442,6 @@ class CCNdAnalyser {
 	}
 	*/
 
-
 	/* Generate the satisfaction time for each Interest */
 	for (Experiment e: experiments) {
 	    for (Iteration  i: e.getIterations()) {
@@ -467,7 +466,11 @@ class CCNdAnalyser {
 			    if ( (r != null) && (! duplicates.contains(r)) ){
 				//				System.out.println("RESPONSE: " + r.getTimeStamp() + " " + r.getFace() + " " + r.getMessage());
 				//				System.out.println("TIME: " + ( (float) (r.getTimeStamp() - m.getTimeStamp()) / 1000 ));
-				float time = (float) (r.getTimeStamp() - m.getTimeStamp()) / 1000;
+
+				// timestamps from ccnd are in microseconds? (16 digits) - see /src/org/ccnx/ccn/impl/support/Log.java:655 %.6f
+				long diff1= r.getTimeStamp() -  m.getTimeStamp();              ;
+				double diff = diff1 / 1000.0;
+				String time = String.format("%.3f", diff);
 				System.out.print(time + ",");
 				duplicates.add(r);
 			    }
